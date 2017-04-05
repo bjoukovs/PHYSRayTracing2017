@@ -20,11 +20,13 @@ class rayon(object):
             pty= direction * mur.x1
             if (mur.get_ymin <= pty <= mur.get_ymax):
                 p = point (mur.x1,pty)
+                p.set_mur(mur)
                 ptintersects.append(p)
         if ( mur.y1==mur.y2):
             ptx = mur.y1/ direction 
             if (mur.get_xmin <= ptx <= mur.get_xmax):
                 p = point (ptx,mur.y1)
+                p.set_mur(mur)
                 ptintersects.append(p)        
     return ptintersects 
 
