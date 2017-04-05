@@ -8,8 +8,6 @@ Ajouter les modifications
 >>git commit -c "message"
 >>git push origin master
 
-Télécharger les modifications
+TÃ©lÃ©charger les modifications
 
 >>git pull
-
-caca ca cac
