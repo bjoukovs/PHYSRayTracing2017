@@ -17,3 +17,15 @@ class mur(object):
         self.sigma = sig
         self.epaisseur = e
     
+    def get_xmin(self)
+        return min(x1,x2)
+
+    def get_xmax(self)
+        return max(x1,x2)
+
+    def get_ymim(self)
+        return min(y1,y2)
+
+    def get_ymax(self)
+        return max(y1,y2)
+
