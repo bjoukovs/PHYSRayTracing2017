@@ -1,3 +1,10 @@
+from main import TXx, TXy
+
 class rayon(object):
     points=[]
-        def __init__(self, e, x1, y1, x2, y2, eps, sig): 
+
+    def __init__(self): 
+        points.append(point(TXx, TXy))
+
+    def add_point(point)
+        
