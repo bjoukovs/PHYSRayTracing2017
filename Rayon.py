@@ -9,10 +9,12 @@ class rayon(object):
     def add_point(point)
         points.append(point)
 
+    def add_points(point)
+        points.extend(point)
+
     def intersect (p1,p2,murs):
     direction = (p2.y-p1.y)/(p2.x-p1.x)
     ptintersects = []
-
     for mur in murs :
         if (mur.x1==mur.x2): 
             pty= direction * mur.x1
@@ -23,6 +25,6 @@ class rayon(object):
             ptx = mur.y1/ direction 
             if (mur.get_xmin <= ptx <= mur.get_xmax):
                 p = point (ptx,mur.y1)
-                ptintersects.append(p)
-                
+                ptintersects.append(p)        
     return ptintersects 
+
