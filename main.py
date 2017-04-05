@@ -1,5 +1,6 @@
 from const import *
 from mur import *
+from graphics import draw
 
 
 murs = []
@@ -44,3 +45,5 @@ for line in lines:
 
 
 input.close()
+
+draw(murs)
