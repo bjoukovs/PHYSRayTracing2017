@@ -1,6 +1,6 @@
-EPS_1 = 4.6
-EPS_2 = 5
-EPS_3 = 2.25
+EPS_1 = 4.6 #BRIQUE
+EPS_2 = 5 #BETON
+EPS_3 = 2.25 #CLOISON
 
 SIG_1 = 0.02
 SIG_2 = 0.014

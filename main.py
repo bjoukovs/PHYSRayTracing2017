@@ -3,27 +3,44 @@ from mur import *
 
 
 murs = []
+TXx = 0
+TXy = 0
+TXorientation = 0
+RXx = 0
+RXy = 0
 
 
 input = open("plan.txt",'r')
 lines = input.readlines()
 
+i=0
 for line in lines:
     content = line.split(" ")
 
-    eps = EPS_1
-    sig = SIG_1
+    if(i==0):
+        TXx = float(content[0])
+        TXy = float(content[1])
+        TXorientation = float(content[2])
+    elif(i==1):
+        RXx = float(content[0])
+        RXy = float(content[1])
 
-    materiau = content[0]
-    if materiau=="2":
-        eps = EPS_2
-        sig = SIG_2
-    elif materiau=="3":
-        eps = EPS_3
-        sig = SIG_3
+    else:
+        eps = EPS_1
+        sig = SIG_1
 
-    m = mur(float(content[1]),float(content[2]),float(content[3]),float(content[4]),float(content[5]),eps,sig)
-    murs.append(m)
+        materiau = content[0]
+        if materiau=="2":
+            eps = EPS_2
+            sig = SIG_2
+        elif materiau=="3":
+            eps = EPS_3
+            sig = SIG_3
+
+        m = mur(float(content[1]),float(content[2]),float(content[3]),float(content[4]),float(content[5]),eps,sig)
+        murs.append(m)
+
+    i+=1
 
 
 input.close()
