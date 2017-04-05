@@ -7,4 +7,5 @@ class rayon(object):
         points.append(point(TXx, TXy))
 
     def add_point(point)
-        
+        points.append(point)
+    
