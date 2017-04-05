@@ -10,4 +10,6 @@ Ajouter les modifications
 
 Télécharger les modifications
 
->>git pull origin master
+>>git pull
+
+caca ca cac
