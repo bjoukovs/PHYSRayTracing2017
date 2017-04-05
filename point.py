@@ -14,5 +14,5 @@ class point(object):
     
     def find_mur(self, murs)
         for mur in murs:
-            if((mur.x1 == x & mur.x2 ==x && ((y<=mur.get_y_max() && y>=mur.get_y_min()))) || (mur.y1 == y & mur.y2 ==y && ((x<=mur.get_x_max() && x>=mur.get_x_min())))):
+            if((mur.x1 == x & mur.x2 ==x && ((y<=mur.get_ymax() && y>=mur.get_ymin()))) || (mur.y1 == y & mur.y2 ==y && ((x<=mur.get_xmax() && x>=mur.get_xmin())))):
                 self.mur = mur
