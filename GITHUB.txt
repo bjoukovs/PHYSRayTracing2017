@@ -1,0 +1,13 @@
+Voir les status
+
+>>git status
+
+Ajouter les modifications
+
+>>git add -A
+>>git commit -c "message"
+>>git push origin master
+
+Télécharger les modifications
+
+>>git pull origin master
