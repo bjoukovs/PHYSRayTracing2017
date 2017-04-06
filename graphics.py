@@ -2,7 +2,7 @@ import matplotlib.pyplot as plot
 from matplotlib import collections  as coll
 import pylab as pl
 
-def draw(walls):
+def draw(walls,width,height):
     lines = []
     figure = plot.figure()
 
@@ -16,6 +16,7 @@ def draw(walls):
 
     ax = pl.axes()
     ax.add_collection(wallLines)
+    ax.set_title('Line collection')
+    ax.set_xlim(0, width)
+    ax.set_ylim(0, height)
     plot.show()
-    #ax.autoscale()
-    #ax.margins(0.1)

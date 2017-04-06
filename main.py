@@ -10,6 +10,9 @@ TXorientation = 0
 RXx = 0
 RXy = 0
 
+width = 0
+height = 0
+
 
 input = open("plan.txt",'r')
 lines = input.readlines()
@@ -19,10 +22,13 @@ for line in lines:
     content = line.split(" ")
 
     if(i==0):
+        width = float(content[0])
+        height = float(content[1])
+    elif(i==1):
         TXx = float(content[0])
         TXy = float(content[1])
         TXorientation = float(content[2])
-    elif(i==1):
+    elif(i==2):
         RXx = float(content[0])
         RXy = float(content[1])
 
@@ -46,4 +52,4 @@ for line in lines:
 
 input.close()
 
-draw(murs)
+draw(murs,width,height)
