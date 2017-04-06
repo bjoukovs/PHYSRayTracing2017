@@ -6,7 +6,7 @@ class Mur(object):
     _epsilon = 0
     _sigma = 0
 
-    def __init__(self, e, coin1, coin2, eps, sig):    #mur : type épaisseur coord x y  coord x y epsilon sigma
+    def __init__(self, e, coin1, coin2, eps, sig):    #mur : type epaisseur coord x y  coord x y epsilon sigma
         self._coin1 = coin1
         self._coin2 = coin2
         self._epsilon = eps 

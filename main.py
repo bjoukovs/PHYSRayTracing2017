@@ -1,7 +1,6 @@
 from const import *
 from IO import draw, decode_plan
 
-#Décodage du plan et enregistrement des coins et des murs
 data = decode_plan("plan.txt")
 MURS = data[7]
 COINS = data[8]

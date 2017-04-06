@@ -18,7 +18,7 @@ def decode_plan(filename):
     for line in lines:
         content = line.split(" ")
 
-        #Les trois premières lignes
+        #Les trois premieres lignes
         if(i==0):
             width = float(content[0])
             height = float(content[1])
