@@ -1,31 +1,44 @@
-class mur(object):
+class Mur(object):
     
-    epaisseur = 0
-    x1 = 0
-    x2 = 0
-    y1 = 0
-    y2 = 0
-    epsilon = 0
-    sigma = 0
+    _epaisseur = 0
+    _coin1 = None
+    _coin2 = None
+    _epsilon = 0
+    _sigma = 0
 
-    def __init__(self, e, x1, y1, x2, y2, eps, sig):    #mur : type épaisseur coord x y  coord x y epsilon sigma
-        self.x1 = x1
-        self.x2 = x2
-        self.y1 = y1
-        self.y2 = y2
-        self.epsilon = eps 
-        self.sigma = sig
-        self.epaisseur = e
+    def __init__(self, e, coin1, coin2, eps, sig):    #mur : type épaisseur coord x y  coord x y epsilon sigma
+        self._coin1 = coin1
+        self._coin2 = coin2
+        self._epsilon = eps 
+        self._sigma = sig
+        self._epaisseur = e
     
+    @property
+    def epaisseur(self):
+        return self._epaisseur
+    @property
+    def coin1(self):
+        return self._coin1
+    @property
+    def coin2(self):
+        return self._coin2
+    @property
+    def epsilon(self):
+        return self._epsilon
+    @property
+    def sigma(self):
+        return self._sigma
+
+
     def get_xmin(self):
-        return min(x1,x2)
+        return min(self.coin1.x, self.coin2.x)
 
     def get_xmax(self):
-        return max(x1,x2)
+        return max(self.coin1.x, self.coin2.x)
 
     def get_ymim(self):
-        return min(y1,y2)
+        return min(self.coin1.y, self.coin2.y)
 
     def get_ymax(self):
-        return max(y1,y2)
+        return max(self.coin1.y, self.coin2.y)
 
