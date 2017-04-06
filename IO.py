@@ -65,9 +65,9 @@ def decode_plan(filename):
 
 
 
-def draw(walls,width,height):
+def draw(walls, width, height, TXx, TXy, RXx, RXy):
     lines = []
-    figure = plot.figure()
+    fig, ax = plot.subplots()
 
     for wall in walls:
         p1=(wall.coin1.x,wall.coin1.y)
@@ -76,10 +76,17 @@ def draw(walls,width,height):
         lines.append(seg)
 
     wallLines = coll.LineCollection(lines)
-
-    ax = pl.axes()
+    wallLines.set_color("white")
+    wallLines.set_linewidth(2)    
     ax.add_collection(wallLines)
-    ax.set_title('Line collection')
-    ax.set_xlim(-1, width+2)
-    ax.set_ylim(-1, height+2)
+
+    ax.plot(TXx,TXy,"r+",markersize = 10)
+    ax.plot(RXx,RXy,"bo",markersize=10)
+
+    #ax.set_title('Ray Tracing')
+    fig.canvas.set_window_title("Ray Tracing Visualizer")
+    ax.set_xlim(-1, width+1)
+    ax.set_ylim(-1, height+1)
+
+    ax.set_axis_bgcolor('black')
     plot.show()
