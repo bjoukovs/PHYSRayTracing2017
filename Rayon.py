@@ -1,16 +1,15 @@
-from main import TXx, TXy
+class Rayon(object):
 
-class rayon(object):
-    points=[]
-
-    def __init__(self): 
-        points.append(point(TXx, TXy))
+    def __init__(self, TXx, TYy):
+        
+        self.points = []
+        self.points.append(point(TXx, TXy))
 
     def add_point(point):
-        points.append(point)
+        self.points.append(point)
 
     def add_points(point):
-        points.extend(point)
+        self.points.extend(point)
 
     def intersect (p1,p2,murs):
         direction = (p2.y-p1.y)/(p2.x-p1.x)
