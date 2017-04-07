@@ -36,7 +36,7 @@ class Mur(object):
     def get_xmax(self):
         return max(self.coin1.x, self.coin2.x)
 
-    def get_ymim(self):
+    def get_ymin(self):
         return min(self.coin1.y, self.coin2.y)
 
     def get_ymax(self):
