@@ -2,6 +2,7 @@ from point import *
 class Rayon(object):
     points=[]
     def __init__(self, start_point):
+        points = []
         self.points.append(start_point)
 
     def add_point(self, point):   #ajouter un point
