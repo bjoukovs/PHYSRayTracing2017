@@ -54,8 +54,7 @@ def rayons_reflexion(start_point,end_point, murs):
      print(len(list_rayons))
      listpoints = Rayon.get_points(list_rayons[1])
      print(len(listpoints))
-     for n in range(10):
-         p = listpoints[n]
+     for p in listpoints:
          print("x, y = ",p.x, p.y)
      return list_rayons
 
