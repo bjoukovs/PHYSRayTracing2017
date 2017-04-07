@@ -90,7 +90,7 @@ def draw(walls, rays_reflexion, width, height, TXx, TXy, RXx, RXy):
         points = ray.get_points()
         print("Points in ray: ", len(points))
         if(len(points)>=2):
-            for i in range(0,len(points)-2):
+            for i in range(0,len(points)-1):
                 p1 = (points[i].x, points[i].y)
                 p2 = (points[i+1].x, points[i+1].y)
                 seg = [p1,p2]
