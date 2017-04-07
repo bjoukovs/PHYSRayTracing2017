@@ -10,6 +10,9 @@ class Rayon(object):
 
     def add_points(point):
         self.points.extend(point)
+    
+    def get_points(self):
+        return self.points 
 
     def intersect (p1,p2,murs):
         direction = (p2.y-p1.y)/(p2.x-p1.x)
