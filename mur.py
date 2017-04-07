@@ -42,3 +42,8 @@ class Mur(object):
     def get_ymax(self):
         return max(self.coin1.y, self.coin2.y)
 
+    def is_horizontal(self):
+        res = False
+        if(self.coin1.x== self.coin2.x):
+            res = True
+        return res
