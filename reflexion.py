@@ -23,12 +23,14 @@ def rayons_reflexion(start_point,end_point, murs):
          intersect_point = Point.intersect(elem[0],end_point,murge)                     #attention  intersect_point est une liste de 1 element et murge utilise car la fonction necessite une liste
          if(len(intersect_point)):
             nouveau_rayon = Rayon(start_point)                        
-            Rayon.add_points(nouveau_rayon, Point.intersect(intersect_point[0],start_point,murs))    #intersection du rayon avec les murs avants reflexions
+            Rayon.add_points(nouveau_rayon, Point.intersect(start_point, intersect_point[0],murs))    #intersection du rayon avec les murs avants reflexions
             Rayon.add_point(nouveau_rayon, intersect_point[0])
             Rayon.add_points(nouveau_rayon, Point.intersect (intersect_point[0],end_point,murs))      #intersection du rayon avec les murs apres reflexions
             Rayon.add_point(nouveau_rayon, end_point)                                                  #point final du nouveau rayon
             print(elem[1].coin1.x, elem[1].coin1.y)
             print(elem[1].coin2.x, elem[1].coin2.y) 
+            print(elem[0].x, elem[0].y) 
+            print( intersect_point[0].x, intersect_point[0].y) 
             list_rayons.append(nouveau_rayon)                                                   #rayon en une reflexion
      """                               
      for elem in image_elems:
