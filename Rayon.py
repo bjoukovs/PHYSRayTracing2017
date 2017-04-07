@@ -1,9 +1,9 @@
 class Rayon(object):
 
-    def __init__(self, TXx, TYy):
+    def __init__(self, start_point):
         
         self.points = []
-        self.points.append(point(TXx, TXy))
+        self.points.append(start_point)
 
     def add_point(point):   #ajouter un point
         self.points.append(point)
