@@ -38,14 +38,17 @@ def rayons_reflexion(start_point,end_point, murs):
              if (Mur.is_different(wall,elem[1])):
                  mur_intermediaire_ls.append(wall)   
          image_elems2 = image_points(elem[0],start_point, mur_intermediaire_ls)                      #on cherche les points images des points images par les AUTRES murs
+         if(z==0):
+             save = elem[1]
+             im = image_elems2
+             z+=1
          for elem2 in image_elems2:
              murge2 =  [elem2[1]]                                                                   #une list de 1 elem avec le mur pour la deuxieme reflexion
              intersect_point2_2 = Point.intersect(elem2[0],end_point,murge2)                          #comme avant. ici point de deuxieme point de reflexion
              if(len(intersect_point2_2)):
                 nouveau_rayon2 = Rayon(start_point)         
-                intersect_point2_1 = Point.intersect(elem2[0],intersect_point2_2[0],[elem[1]])                       #premier point de reflexion
+                intersect_point2_1 = Point.intersect(elem[0],intersect_point2_2[0],[elem[1]])                       #premier point de reflexion
                 if(len(intersect_point2_1)):
-                    print('yoyoa')
                     Rayon.add_points(nouveau_rayon2, Point.intersect(intersect_point2_1[0],start_point,murs))             #point entre debut et reflexion 1
                     Rayon.add_point(nouveau_rayon2, intersect_point2_1[0])
                     Rayon.add_points(nouveau_rayon2, Point.intersect(intersect_point2_1[0],intersect_point2_2[0],murs))    #point entre reflexion 1 et 2
@@ -53,7 +56,5 @@ def rayons_reflexion(start_point,end_point, murs):
                     Rayon.add_points(nouveau_rayon2, Point.intersect(intersect_point2_2[0],end_point,murs))                #point entre reflexion 2 et fin
                     Rayon.add_point(nouveau_rayon2, end_point)                                                               #point final du nouveau rayon
                     list_rayons.append(nouveau_rayon2)
-                    print('yoyo')
-     print(len(list_rayons))
      return list_rayons
 
