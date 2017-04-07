@@ -44,6 +44,6 @@ class Mur(object):
 
     def is_horizontal(self):
         res = False
-        if(self.coin1.x== self.coin2.x):
+        if(self.coin1.y== self.coin2.y):
             res = True
         return res
