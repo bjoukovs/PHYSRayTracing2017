@@ -1,9 +1,18 @@
 class Point(object):
-
+    _x = 0
+    _y = 0
+    _mur = None
     def __init__(self, x, y):
-        self.x = x
-        self.y = y
+        self._x = x
+        self._y = y
         self.mur = None
+    
+    @property
+    def x(self):
+        return self._x
+    @property
+    def y(self):
+        return self._y
 
     def set_mur(self, mur):
         self.mur = mur
