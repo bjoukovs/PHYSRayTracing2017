@@ -12,7 +12,12 @@ class Mur(object):
         self._epsilon = eps 
         self._sigma = sig
         self._epaisseur = e
-    
+    def __str__(self):
+        return str(self.__dict__)
+
+    def __eq__(self, other):
+        return self.__dict__ == other.__dict__
+
     @property
     def epaisseur(self):
         return self._epaisseur
@@ -28,7 +33,6 @@ class Mur(object):
     @property
     def sigma(self):
         return self._sigma
-
 
     def get_xmin(self):
         return min(self.coin1.x, self.coin2.x)
@@ -46,4 +50,9 @@ class Mur(object):
         res = False
         if(self.coin1.y== self.coin2.y):
             res = True
+        return res
+    def is_different(self, other):
+        res = True
+        if((self.coin1.x ==other.coin1.x ) and (self.coin2.x ==other.coin2.x ) and (self.coin1.y ==other.coin1.y ) and (self.coin2.y ==other.coin2.y)):
+            res = False
         return res
