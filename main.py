@@ -14,7 +14,7 @@ RAYS_REFLEXION = rayons_reflexion(Point(TXx, TXy), Point(RXx, RXy), MURS)
 
 draw(MURS, RAYS_REFLEXION, width, height, TXx, TXy, RXx, RXy) 
 
-draw(MURS, width, height, TXx, TXy, RXx, RXy) 
+
 ls = Point.intersect(Point(1,1), Point(3,-3), [MURS[0]])
 print(MURS[0].coin1.x, MURS[0].coin1.y)
 print(MURS[0].coin2.x, MURS[0].coin2.y) 
