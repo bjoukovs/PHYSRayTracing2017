@@ -5,10 +5,10 @@ class Rayon(object):
         self.points = []
         self.points.append(point(TXx, TXy))
 
-    def add_point(point):
+    def add_point(point):   #ajouter un point
         self.points.append(point)
 
-    def add_points(point):
+    def add_points(point): #ajouter une liste de points
         self.points.extend(point)
     
     def get_points(self):
