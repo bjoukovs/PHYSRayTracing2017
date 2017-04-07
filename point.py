@@ -24,3 +24,35 @@ class Point(object):
             or (self.mur.y1 == self.y and self.mur.y2 ==self.y and ((self.x<=self.mur.get_xmax() and self.x>=self.mur.get_xmin()))):
                c = mur
         return c
+
+    def intersect (p1,p2,murs):
+        ptintersects = []
+        if((p2.x-p1.x !=0) and (p2.y-p1.y !=0)):
+            direction = (p2.y-p1.y)/(p2.x-p1.x)
+            for mur in murs :
+                if (mur.is_horizontal()): 
+                    ptx= (mur.coin1.y-p1.y)/direction + p1.x
+                    if (mur.get_xmin() <= ptx <= mur.get_xmax() and mur.coin1.y != p1.y and mur.coin1.y != p2.y):
+                        p = Point(ptx ,mur.coin1.y)
+                        Point.set_mur(p, mur)
+                        ptintersects.append(p)
+                else:
+                    pty =(mur.coin1.x-p1.x)*direction + p1.y
+                    if (mur.get_xmin() <= pty <= mur.get_xmax()and mur.coin1.x != p1.x and mur.coin1.y != p2.x):
+                        p = Point(mur.coin1.x, pty)
+                        Point.set_mur(p,mur)
+                        ptintersects.append(p) 
+        elif(p2.x== p1.x):
+            for mur in murs :
+                if (mur.is_horizontal()): 
+                    p = Point(p1.x ,mur.coin1.y)
+                    Point.set_mur(p,mur)
+                    ptintersects.append(p)
+        elif(p2.y==p1.y):
+            for mur in murs :
+                if (mur.is_horizontal()==False): 
+                    p = Point(mur.coin1.x,p1.y)
+                    Point.set_mur(p,mur)
+                    ptintersects.append(p)
+        return ptintersects 
+
