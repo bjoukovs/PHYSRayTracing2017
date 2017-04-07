@@ -31,12 +31,14 @@ class Point(object):
             direction = (p2.y-p1.y)/(p2.x-p1.x)
             for mur in murs :
                 if (mur.is_horizontal()): 
+                    print('hello')
                     ptx= (mur.coin1.y-p1.y)/direction + p1.x
                     if (mur.get_xmin() <= ptx <= mur.get_xmax() and mur.coin1.y != p1.y and mur.coin1.y != p2.y):
                         p = Point(ptx ,mur.coin1.y)
                         Point.set_mur(p, mur)
                         ptintersects.append(p)
                 else:
+                    print('hella')
                     pty =(mur.coin1.x-p1.x)*direction + p1.y
                     if (mur.get_xmin() <= pty <= mur.get_xmax()and mur.coin1.x != p1.x and mur.coin1.y != p2.x):
                         p = Point(mur.coin1.x, pty)

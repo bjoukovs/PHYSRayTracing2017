@@ -27,8 +27,10 @@ def rayons_reflexion(start_point,end_point, murs):
             Rayon.add_point(nouveau_rayon, intersect_point[0])
             Rayon.add_points(nouveau_rayon, Point.intersect (intersect_point[0],end_point,murs))      #intersection du rayon avec les murs apres reflexions
             Rayon.add_point(nouveau_rayon, end_point)                                                  #point final du nouveau rayon
+            print(elem[1].coin1.x, elem[1].coin1.y)
+            print(elem[1].coin2.x, elem[1].coin2.y) 
             list_rayons.append(nouveau_rayon)                                                   #rayon en une reflexion
-                                    
+     """                               
      for elem in image_elems:
          mur_intermediaire_ls = []                                                       #liste des AUTRES murs
          for wall in murs:
@@ -48,7 +50,12 @@ def rayons_reflexion(start_point,end_point, murs):
                     Rayon.add_point(nouveau_rayon2, intersect_point2_2[0])
                     Rayon.add_points(nouveau_rayon2, Point.intersect(intersect_point2_2[0],end_point,murs))                #point entre reflexion 2 et fin
                     Rayon.add_point(nouveau_rayon2, end_point)                                                               #point final du nouveau rayon
-                    list_rayons.append(nouveau_rayon2)
+                    list_rayons.append(nouveau_rayon2)"""
      print(len(list_rayons))
+     listpoints = Rayon.get_points(list_rayons[1])
+     print(len(listpoints))
+     for n in range(10):
+         p = listpoints[n]
+         print("x, y = ",p.x, p.y)
      return list_rayons
 
