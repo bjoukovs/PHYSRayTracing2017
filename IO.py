@@ -88,7 +88,7 @@ def draw(walls, rays_reflexion, width, height, TXx, TXy, RXx, RXy):
     #Dessin des rayons
     for ray in rays_reflexion:
         points = ray.get_points()
-        print("Points in ray: ", len(points))
+        #print("Points in ray: ", len(points))
         if(len(points)>=2):
             for i in range(0,len(points)-1):
                 p1 = (points[i].x, points[i].y)
