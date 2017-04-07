@@ -18,19 +18,19 @@ class Rayon(object):
         direction = (p2.y-p1.y)/(p2.x-p1.x)
         ptintersects = []
         for mur in murs :
-            if (mur.x1==mur.x2): 
-                pty= direction * mur.x1
+            if (mur.is_horizontal()): 
+                pty= direction * mur.coin1.x
                 if (mur.get_ymin() <= pty <= mur.get_ymax()):
-                    p = point (mur.x1,pty)
+                    p = point (mur.coin1.x,pty)
 <<<<<<< HEAD
 =======
                     p.set_mur(mur)
 >>>>>>> 31c9a5c54e6dfb0f766db1d2f96f068f7b602dc5
                     ptintersects.append(p)
-            if ( mur.y1==mur.y2):
-                ptx = mur.y1/ direction 
+            else:
+                ptx = mur.coin1.y/ direction 
                 if (mur.get_xmin() <= ptx <= mur.get_xmax()):
-                    p = point (ptx,mur.y1)
+                    p = point (ptx,mur.coin1.y)
 <<<<<<< HEAD
 =======
                     p.set_mur(mur)
