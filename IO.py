@@ -65,10 +65,12 @@ def decode_plan(filename):
 
 
 
-def draw(walls, width, height, TXx, TXy, RXx, RXy):
+def draw(walls, rays_reflexion, width, height, TXx, TXy, RXx, RXy):
     lines = []
+    ray_lines = []
     fig, ax = plot.subplots()
 
+    #Dessin des murs
     for wall in walls:
         p1=(wall.coin1.x,wall.coin1.y)
         p2=(wall.coin2.x,wall.coin2.y)
@@ -82,6 +84,22 @@ def draw(walls, width, height, TXx, TXy, RXx, RXy):
 
     ax.plot(TXx,TXy,"r+",markersize = 10)
     ax.plot(RXx,RXy,"bo",markersize=10)
+
+    #Dessin des rayons
+    for ray in rays_reflexion:
+        points = ray.get_points()
+        print("Points in ray: ", len(points))
+        if(len(points)>=2):
+            for i in range(0,len(points)-2):
+                p1 = (points[i].x, points[i].y)
+                p2 = (points[i+1].x, points[i+1].y)
+                seg = [p1,p2]
+                ray_lines.append(seg)
+
+    ray_lines_collection = coll.LineCollection(ray_lines)
+    ray_lines_collection.set_color("green")
+    ray_lines_collection.set_linewidth(1)    
+    ax.add_collection(ray_lines_collection)
 
     #ax.set_title('Ray Tracing')
     fig.canvas.set_window_title("Ray Tracing Visualizer")
