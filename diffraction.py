@@ -3,6 +3,7 @@ from point import *
 from mur import *
 from math import *
 
+#dada roro 
 #dada 
 def get_direction(p1,p2):
 
