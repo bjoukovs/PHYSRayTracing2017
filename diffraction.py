@@ -86,13 +86,14 @@ def diffraction_rays(p_start,p_finish,murs):
             if(i==0):
                 coins.append(p1)
                 coins.append(p2)
-                i=1
             else:
                 for coin in coins: 
                     if(p1.x != coin.x or p1.y != coin.y):
                         coins.append(p1)
                     if(p2.x != coin.x or p2.y != coin.y):
                         coins.append(p2)
+                    else:
+                        break 
         for coin in coins:
             p = Point(coin.x,coin.y)
 
@@ -113,7 +114,6 @@ def transmission_points(p_start,p_finish,murs):
         if(i==0):
             coins.append(p1)
             coins.append(p2)
-            i=1
         else:
             for coin in coins: 
                 if(p1.x != coin.x or p1.y != coin.y):
