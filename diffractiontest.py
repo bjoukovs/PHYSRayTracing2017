@@ -62,7 +62,7 @@ def get_phiprim(p1,p2):
                 phiprim = (math.pi)/2 - atan(direction)
         return phiprim
 
-        if(mur2.get_ymin >= p1.y):
+       if(mur2.get_ymin >= p1.y):
             if (p2.y == mur2.get_ymin):
                 phiprim = (math.pi)/2 + atan(direction)
             if(p2.y == mur2.get_ymax):
@@ -108,23 +108,23 @@ def diffraction_rays(p_start,p_finish,murs):
 def transmission_points(p_start,p_finish,murs):
     Transmission_point = []
     coins = []
-    i=0
-    for mur in murs:
-        p1 = mur.coin1
-        p2 = mur.coin2
-        if(i==0):
-            coins.append(p1)
-            coins.append(p2)
-        else:
-            for coin in coins: 
-                if(p1.x != coin.x or p1.y != coin.y):
-                    coins.append(p1)
-                if(p2.x != coin.x or p2.y != coin.y):
-                    coins.append(p2)
-    for coin in coins:
-        p = Point(coin.x,coin.y)
-        Transmission_point.extend(Point.intersect(p_start,p,murs))
-        Transmission_point.extend(Point.intersect(p1,p_finish,murs))
+        i=0
+        for mur in murs:
+            p1 = mur.coin1
+            p2 = mur.coin2
+            if(i==0):
+                coins.append(p1)
+                coins.append(p2)
+            else:
+                for coin in coins: 
+                    if(p1.x != coin.x or p1.y != coin.y):
+                        coins.append(p1)
+                    if(p2.x != coin.x or p2.y != coin.y):
+                        coins.append(p2)
+        for coin in coins:
+            p = Point(coin.x,coin.y)
+            Transmission_point.extend(Point.intersect(p_start,p,murs))
+            Transmission_point.extend(Point.intersect(p1,p_finish,murs))
 
         
-    return Transmission_point 
+        return Transmission_point 
