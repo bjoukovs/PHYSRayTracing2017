@@ -3,6 +3,7 @@ from point import *
 from mur import *
 from math import *
 
+#dada 
 def get_direction(p1,p2):
 
     if((p2.x-p1.x !=0) and (p2.y-p1.y !=0)):
