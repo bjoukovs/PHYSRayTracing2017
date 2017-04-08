@@ -86,6 +86,7 @@ def diffraction_rays(p_start,p_finish,murs):
             if(i==0):
                 coins.append(p1)
                 coins.append(p2)
+                i+=1
             else:
                 for coin in coins: 
                     if(p1.x != coin.x or p1.y != coin.y):
@@ -96,6 +97,7 @@ def diffraction_rays(p_start,p_finish,murs):
                         break 
         for coin in coins:
             p = Point(coin.x,coin.y)
+            print(p.x,p.y)
 
             rayon = Rayon(p_start)
             rayon.add_point(p)
