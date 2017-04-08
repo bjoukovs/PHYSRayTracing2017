@@ -1,6 +1,4 @@
-from point import *
 from Rayon import *
-from mur import *
 
 def rayon_direct(start_point,end_point, murs):
     list_rayon = []
