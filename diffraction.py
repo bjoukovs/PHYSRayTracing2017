@@ -97,7 +97,6 @@ def diffraction_rays(p_start,p_finish,murs):
                         break 
         for coin in coins:
             p = Point(coin.x,coin.y)
-            print(p.x,p.y)
 
             rayon = Rayon(p_start)
             rayon.add_point(p)
