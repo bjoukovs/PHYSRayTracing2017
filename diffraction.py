@@ -79,23 +79,29 @@ def get_phi(p1,p2):
 def diffraction_rays(p_start,p_finish,murs):
         Diffraction_rays = []
         coins = []
-        i=0
+        coins_remove = []
+        coins_unique = []
+        j=0
+
         for mur in murs:
             p1 = mur.coin1
             p2 = mur.coin2
-            if(i==0):
-                coins.append(p1)
-                coins.append(p2)
-                i+=1
-            else:
-                for coin in coins: 
-                    if(p1.x != coin.x or p1.y != coin.y):
-                        coins.append(p1)
-                    if(p2.x != coin.x or p2.y != coin.y):
-                        coins.append(p2)
-                    else:
-                        break 
-        for coin in coins:
+            coins.append(p1)
+            coins.append(p2)
+        
+       # while (j<= len(coins)-1):
+        #    coins_unique.append(coins[j])
+         #   if(j!= len(coins)-1):
+          #      for k in range(j+1,len(coins)-1,1): 
+           #         if (coins[k].x == coins[j].x and coins[k].y == coins[j].y):
+            #            coins_remove.append(coins[k])
+             #   for remove in coins_remove:
+              #      if(remove in coins):
+               #         coins.remove(remove)
+                #j+=1
+        #print(len(coins_unique))    
+
+        for coin in coins:           # coins_unique normalement
             p = Point(coin.x,coin.y)
 
             rayon = Rayon(p_start)
@@ -108,20 +114,28 @@ def diffraction_rays(p_start,p_finish,murs):
 def transmission_points(p_start,p_finish,murs):
     Transmission_point = []
     coins = []
-    i=0
+    coins_remove = []
+    coins_unique = []
+    j=0
+
     for mur in murs:
         p1 = mur.coin1
         p2 = mur.coin2
-        if(i==0):
-            coins.append(p1)
-            coins.append(p2)
-        else:
-            for coin in coins: 
-                if(p1.x != coin.x or p1.y != coin.y):
-                    coins.append(p1)
-                if(p2.x != coin.x or p2.y != coin.y):
-                    coins.append(p2)
-    for coin in coins:
+        coins.append(p1)
+        coins.append(p2)
+
+    while (j<= len(coins)-1):
+            coins_unique.append(coins[j])
+            if(j!= len(coins)-1):
+                for k in range(j+1,len(coins)-1,1): 
+                    if (coins[k].x == coins[j].x and coins[k].y == coins[j].y):
+                        coins_remove.append(coins[k])
+                for remove in coins_remove:
+                    if(remove in coins):
+                        coins.remove(remove)
+                j+=1
+
+    for coin in coins_unique:
         p = Point(coin.x,coin.y)
         Transmission_point.extend(Point.intersect(p_start,p,murs))
         Transmission_point.extend(Point.intersect(p1,p_finish,murs))
