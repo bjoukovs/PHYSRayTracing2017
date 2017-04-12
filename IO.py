@@ -82,7 +82,7 @@ def draw(walls, rays_reflexion, width, height, TXx, TXy, RXx, RXy):
     wallLines.set_linewidth(2)    
     ax.add_collection(wallLines)
 
-    ax.plot(TXx,TXy,"r+",markersize = 10)
+    ax.plot(TXx,TXy,"r+",markersize = 15)
     ax.plot(RXx,RXy,"bo",markersize=10)
 
     #Dessin des rayons
@@ -95,6 +95,8 @@ def draw(walls, rays_reflexion, width, height, TXx, TXy, RXx, RXy):
                 p2 = (points[i+1].x, points[i+1].y)
                 seg = [p1,p2]
                 ray_lines.append(seg)
+                if(i != 0):
+                    ax.plot(p1[0], p1[1],"y+",markersize=10)
 
     ray_lines_collection = coll.LineCollection(ray_lines)
     ray_lines_collection.set_color("green")
