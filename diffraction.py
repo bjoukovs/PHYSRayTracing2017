@@ -21,52 +21,52 @@ def get_phiprim(p1,p2):
     direction = get_direction(p1,p2)
 
     for mur2 in mur:
-        if(mur2.is_horizontal):
+        if(mur2.is_horizontal()):
 
-            if(mur2.get_xmax <= p1.x):
-                if(p2.x == mur2.get_xmax):
+            if(mur2.get_xmax() <= p1.x):
+                if(p2.x == mur2.get_xmax()):
                     if(direction == None):
                         phiprim.append(math.pi)
                     else:
                         phiprim.append(math.pi - atan(direction))
-                if(p2.x == mur2.get_xmin):
+                if(p2.x == mur2.get_xmin()):
                     if(direction == None):
                         phiprim.append(math.pi)
                     else:
                         phiprim.append(atan(direction))
 
-            if(mur2.get_xmin >= p1.x):
-                if(p2.x == mur2.get_xmin):
+            if(mur2.get_xmin() >= p1.x):
+                if(p2.x == mur2.get_xmin()):
                     if(direction == None):
                         phiprim.append(math.pi)
                     else:
                         phiprim.append(math.pi - atan(direction))
-                if(p2.x == mur2.get_xmax):
+                if(p2.x == mur2.get_xmax()):
                     if(direction == None):
                         phiprim.append(math.pi)
                     else:
                         phiprim.append(atan(direction))
 
-            if(mur2.get_xmax > p1.x and mur2.get_xmin < p1.x):
+            if(mur2.get_xmax() > p1.x and mur2.get_xmin() < p1.x):
                 if(direction == None):
                     phiprim.append(math.pi)
                 else:
                     phiprim.append(atan(direction))
 
         else:
-            if(mur2.get_ymax <= p1.y):
-                if (p2.y == mur2.get_ymax):
+            if(mur2.get_ymax() <= p1.y):
+                if (p2.y == mur2.get_ymax()):
                     phiprim.append((math.pi)/2 + atan(direction))
-                if(p2.y == mur2.get_ymin):
+                if(p2.y == mur2.get_ymin()):
                     phiprim.append((math.pi)/2 - atan(direction))
 
-            if(mur2.get_ymin >= p1.y):
-                if (p2.y == mur2.get_ymin):
+            if(mur2.get_ymin() >= p1.y):
+                if (p2.y == mur2.get_ymin()):
                     phiprim.append((math.pi)/2 + atan(direction))
-                if(p2.y == mur2.get_ymax):
+                if(p2.y == mur2.get_ymax()):
                     phiprim.append((math.pi)/2 - atan(direction)) 
 
-            if(mur2.get_ymin < p1.y < mur2.get_max):
+            if(mur2.get_ymin() < p1.y < mur2.get_max()):
                     phiprim.append((math.pi)/2 - atan(direction))
     return phiprim 
 
