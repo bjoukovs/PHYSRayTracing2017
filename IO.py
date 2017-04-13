@@ -87,16 +87,21 @@ def draw(walls, rays_reflexion, width, height, TXx, TXy, RXx, RXy):
 
     #Dessin des rayons
     for ray in rays_reflexion:
-        points = ray.get_points()
-        #print("Points in ray: ", len(points))
-        if(len(points)>=2):
-            for i in range(0,len(points)-1):
-                p1 = (points[i].x, points[i].y)
-                p2 = (points[i+1].x, points[i+1].y)
+        points_principaux = ray.get_points_principaux()
+        points_transmission = ray.get_points_transmission()
+        
+        if(len(points_principaux)>=2):
+            for i in range(0,len(points_principaux)-1):
+                p1 = (points_principaux[i].x, points_principaux[i].y)
+                p2 = (points_principaux[i+1].x, points_principaux[i+1].y)
                 seg = [p1,p2]
                 ray_lines.append(seg)
                 if(i != 0):
                     ax.plot(p1[0], p1[1],"y+",markersize=10)
+
+        if len(points_transmission)>0:
+            for pt in points_transmission:
+                ax.plot(pt.x, pt.y,"bo",markersize=4)
 
     ray_lines_collection = coll.LineCollection(ray_lines)
     ray_lines_collection.set_color("green")

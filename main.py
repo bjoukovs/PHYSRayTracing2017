@@ -14,7 +14,7 @@ width, height, TXx, TXy, TXorientation, RXx, RXy = data[0],data[1],data[2],data[
 
 RAYS_REFLEXION = rayons_reflexion(Point(TXx, TXy), Point(RXx, RXy), MURS)
 RAYS_DIRECT =  rayon_direct(Point(TXx, TXy), Point(RXx, RXy), MURS)
-RAYS_DIFFRACTION = diffraction_rays(Point(TXx,TXy),Point(RXx,RXy),COINS)
+RAYS_DIFFRACTION = diffraction_rays(Point(TXx,TXy),Point(RXx,RXy),MURS,COINS)
 RAYS_AFFICHAGE =[]
 RAYS_AFFICHAGE.extend(RAYS_REFLEXION)
 RAYS_AFFICHAGE.extend(RAYS_DIRECT)

@@ -1,9 +1,14 @@
 from Rayon import *
 from point import *
 from mur import *
-from math import *
+from math import pi as PI
+from math import atan
+from math import atan2
 
 def get_direction(p1,p2):
+
+    #direction = (p2.x-p1.x,p2.y-p1.y)
+    #return direction
 
     if((p2.x-p1.x !=0) and (p2.y-p1.y !=0)):
         direction = (p2.y-p1.y)/(p2.x-p1.x)
@@ -17,79 +22,79 @@ def get_direction(p1,p2):
 
 def get_phiprim(p1,p2):
     phiprim = []
-    mur = p2.murs_associes
+    murs = p2.murs_associes
     direction = get_direction(p1,p2)
 
-    for mur2 in mur:
-        if(mur2.is_horizontal()):
+    #angle = atan2(direction[1],direction[0])
 
-            if(mur2.get_xmax() <= p1.x):
-                if(p2.x == mur2.get_xmax()):
-                    if(direction == None):
-                        phiprim.append(math.pi)
-                    else:
-                        phiprim.append(math.pi - atan(direction))
-                if(p2.x == mur2.get_xmin()):
-                    if(direction == None):
-                        phiprim.append(math.pi)
-                    else:
-                        phiprim.append(atan(direction))
+    for mur in murs:
+        if mur.is_horizontal():
+            xmax = mur.get_xmax()
+            xmin = mur.get_xmin()
 
-            if(mur2.get_xmin() >= p1.x):
-                if(p2.x == mur2.get_xmin()):
-                    if(direction == None):
-                        phiprim.append(math.pi)
-                    else:
-                        phiprim.append(math.pi - atan(direction))
-                if(p2.x == mur2.get_xmax()):
-                    if(direction == None):
-                        phiprim.append(math.pi)
-                    else:
-                        phiprim.append(atan(direction))
-
-            if(mur2.get_xmax() > p1.x and mur2.get_xmin() < p1.x):
+            if(xmax <= p1.x):
                 if(direction == None):
-                    phiprim.append(math.pi)
+                    phiprim.append(PI)
+                elif(p2.x == xmax):
+                    phiprim.append(PI - atan(direction))
+                elif(p2.x == xmin):
+                    phiprim.append(atan(direction))
+
+            elif(xmin >= p1.x):
+                if(direction == None):
+                    phiprim.append(PI)
+                elif(p2.x == xmin):
+                    phiprim.append(PI - atan(direction))
+                elif(p2.x == xmax):
+                    phiprim.append(atan(direction))
+
+            elif(xmax > p1.x and xmin < p1.x):
+                if(direction == None):
+                    phiprim.append(PI)
                 else:
                     phiprim.append(atan(direction))
 
         else:
-            if(mur2.get_ymax() <= p1.y):
-                if (p2.y == mur2.get_ymax()):
-                    phiprim.append((math.pi)/2 + atan(direction))
-                if(p2.y == mur2.get_ymin()):
-                    phiprim.append((math.pi)/2 - atan(direction))
+            if(mur.get_ymax() <= p1.y):
+                if (p2.y == mur.get_ymax()):
+                    phiprim.append((PI)/2 + atan(direction))
+                if(p2.y == mur.get_ymin()):
+                    phiprim.append((PI)/2 - atan(direction))
 
-            if(mur2.get_ymin() >= p1.y):
-                if (p2.y == mur2.get_ymin()):
-                    phiprim.append((math.pi)/2 + atan(direction))
-                if(p2.y == mur2.get_ymax()):
-                    phiprim.append((math.pi)/2 - atan(direction)) 
+            if(mur.get_ymin() >= p1.y):
+                if (p2.y == mur.get_ymin()):
+                    phiprim.append((PI)/2 + atan(direction))
+                if(p2.y == mur.get_ymax()):
+                    phiprim.append((PI)/2 - atan(direction)) 
 
-            if(mur2.get_ymin() < p1.y < mur2.get_max()):
-                    phiprim.append((math.pi)/2 - atan(direction))
+            if(mur.get_ymin() < p1.y < mur.get_max()):
+                    phiprim.append((PI)/2 - atan(direction))
     return phiprim 
 
 def get_phi(p1,p2):
-    phi = 2*(math.pi) - get_phiprim(p1,p2)
+    phi = 2*(PI) - get_phiprim(p1,p2)
 
     return phi
 
 
-def diffraction_rays(p_start,p_finish,coins):
+def diffraction_rays(p_start,p_finish,murs,coins):
         Diffraction_rays = []
         
         for coin in coins:           # coins_unique normalement
             p = Point(coin.x,coin.y)
 
             rayon = Rayon(p_start)
-            rayon.add_point(p)
-            rayon.add_point(p_finish)
+            rayon.add_point_principal(p)
+            rayon.add_point_principal(p_finish)
+
+            rayon.find_all_intersections(murs,coin.murs_associes)
+
             Diffraction_rays.append(rayon)
+
         
         return Diffraction_rays 
     
-    
+
 def transmission_points(p_start,p_finish,coins):
     Transmission_point = []
     '''
