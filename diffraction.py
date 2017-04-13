@@ -76,31 +76,9 @@ def get_phi(p1,p2):
     return phi
 
 
-def diffraction_rays(p_start,p_finish,murs):
+def diffraction_rays(p_start,p_finish,coins):
         Diffraction_rays = []
-        coins = []
-        coins_remove = []
-        coins_unique = []
-        j=0
-
-        for mur in murs:
-            p1 = mur.coin1
-            p2 = mur.coin2
-            coins.append(p1)
-            coins.append(p2)
         
-       # while (j<= len(coins)-1):
-        #    coins_unique.append(coins[j])
-         #   if(j!= len(coins)-1):
-          #      for k in range(j+1,len(coins)-1,1): 
-           #         if (coins[k].x == coins[j].x and coins[k].y == coins[j].y):
-            #            coins_remove.append(coins[k])
-             #   for remove in coins_remove:
-              #      if(remove in coins):
-               #         coins.remove(remove)
-                #j+=1
-        #print(len(coins_unique))    
-
         for coin in coins:           # coins_unique normalement
             p = Point(coin.x,coin.y)
 
@@ -111,8 +89,10 @@ def diffraction_rays(p_start,p_finish,murs):
         
         return Diffraction_rays 
     
-def transmission_points(p_start,p_finish,murs):
+    
+def transmission_points(p_start,p_finish,coins):
     Transmission_point = []
+    '''
     coins = []
     coins_remove = []
     coins_unique = []
@@ -135,7 +115,9 @@ def transmission_points(p_start,p_finish,murs):
                         coins.remove(remove)
                 j+=1
 
-    for coin in coins_unique:
+    '''
+
+    for coin in coins:
         p = Point(coin.x,coin.y)
         Transmission_point.extend(Point.intersect(p_start,p,murs))
         Transmission_point.extend(Point.intersect(p1,p_finish,murs))
