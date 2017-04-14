@@ -27,7 +27,7 @@ class Rayon(object):
 
 
 
-    def find_all_intersections(self,murs,exception=None):
+    def find_all_intersections(self,murs,exception=[]):
         #Fonction établissant la liste de tous les points d'intersection (de transmission) d'un rayon, avec une liste de murs exceptions
 
         new_points = []

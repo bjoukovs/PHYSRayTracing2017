@@ -32,9 +32,9 @@ def rayons_reflexion(start_point,end_point, murs):
             new_ray = Rayon(start_point) 
             new_ray.add_point_principal(intersect_point[0])
             new_ray.add_point_principal(end_point)                                       #Les 3 points principaux définissant le rayon
+
+            new_ray.find_all_intersections(murs)                                         #Intersection du rayon avec les murs pour la transmission
                                     
-            new_ray.add_points_transmission(Point.intersect(start_point, intersect_point[0],murs))    #intersection du rayon avec les murs avants reflexions
-            new_ray.add_points_transmission(Point.intersect (intersect_point[0],end_point,murs))      #intersection du rayon avec les murs apres reflexions                                                 #point final du nouveau rayon
             list_rayons.append(new_ray)                                                   #rayon en une reflexion   
      
 
@@ -58,12 +58,11 @@ def rayons_reflexion(start_point,end_point, murs):
 
                 if(len(intersect_point2_1)):
 
-                    new_ray.add_points_transmission(Point.intersect(intersect_point2_1[0],start_point,murs))             #point entre debut et reflexion 1
-                    new_ray.add_point_principal(intersect_point2_1[0])
-                    new_ray.add_points_transmission(Point.intersect(intersect_point2_1[0],intersect_point2_2[0],murs))    #point entre reflexion 1 et 2
-                    new_ray.add_point_principal(intersect_point2_2[0])
-                    new_ray.add_points_transmission(Point.intersect(intersect_point2_2[0],end_point,murs))                #point entre reflexion 2 et fin
-                    new_ray.add_point_principal(end_point)                                                               #point final du nouveau rayon
+                    new_ray.add_point_principal(intersect_point2_1[0])                                          #1 ere reflexion
+                    new_ray.add_point_principal(intersect_point2_2[0])                                          #2 eme reflexion
+                    new_ray.add_point_principal(end_point)                                                       #point final du nouveau rayon
+
+                    new_ray.find_all_intersections(murs)                                                        #Points de transmission
 
                     list_rayons.append(new_ray)
 
