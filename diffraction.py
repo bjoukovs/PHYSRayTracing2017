@@ -22,7 +22,7 @@ def get_direction(p1,p2):
 
 def get_phiprim(p1,p2):
     phiprim = []
-    murs = p2.murs_associes
+    murs = p2.associated_diffraction_coin.murs_associes
     direction = get_direction(p1,p2)
 
     #angle = atan2(direction[1],direction[0])
@@ -82,7 +82,7 @@ def diffraction_rays(p_start,p_finish,murs,coins):
         
         for coin in coins:           # coins_unique normalement
             p = Point(coin.x,coin.y)
-            p.set_interaction_type("d")
+            p.set_interaction_type("d",coin)
 
             rayon = Rayon(p_start)
             rayon.add_point_principal(p)

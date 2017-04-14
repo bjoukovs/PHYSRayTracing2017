@@ -5,6 +5,7 @@ class Point(object):
         self._y = y
         self.mur = None
         self._interaction_type = "" # 't' 'r' 'd' pour transmission, reflexion ou diffraction, ou rien par défaut
+        self._associated_diffraction_coin = None
     
     @property
     def x(self):
@@ -18,8 +19,13 @@ class Point(object):
     def interaction_type(self):
         return self._interaction_type
 
-    def set_interaction_type(self,interaction_type):
+    @property
+    def associated_diffraction_coin(self):
+        return self._associated_diffraction_coin
+
+    def set_interaction_type(self, interaction_type, diffraction_coin = None):
         self._interaction_type = interaction_type
+        self._associated_diffraction_coin = diffraction_coin
 
     def set_mur(self, mur):
         self.mur = mur
