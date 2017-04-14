@@ -82,6 +82,7 @@ def diffraction_rays(p_start,p_finish,murs,coins):
         
         for coin in coins:           # coins_unique normalement
             p = Point(coin.x,coin.y)
+            p.set_interaction_type("d")
 
             rayon = Rayon(p_start)
             rayon.add_point_principal(p)

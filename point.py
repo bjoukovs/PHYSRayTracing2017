@@ -1,18 +1,25 @@
 class Point(object):
-    _x = 0
-    _y = 0
-    _mur = None
+
     def __init__(self, x, y):
         self._x = x
         self._y = y
         self.mur = None
+        self._interaction_type = "" # 't' 'r' 'd' pour transmission, reflexion ou diffraction, ou rien par défaut
     
     @property
     def x(self):
         return self._x
+
     @property
     def y(self):
         return self._y
+    
+    @property
+    def interaction_type(self):
+        return self._interaction_type
+
+    def set_interaction_type(self,interaction_type):
+        self._interaction_type = interaction_type
 
     def set_mur(self, mur):
         self.mur = mur

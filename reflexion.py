@@ -29,7 +29,8 @@ def rayons_reflexion(start_point,end_point, murs):
          intersect_point = Point.intersect(elem[0],end_point,murge)                     #attention  intersect_point est une liste de 1 element et murge utilise car la fonction necessite une liste
 
          if(len(intersect_point)):
-            new_ray = Rayon(start_point) 
+            new_ray = Rayon(start_point)
+            intersect_point[0].set_interaction_type("r") 
             new_ray.add_point_principal(intersect_point[0])
             new_ray.add_point_principal(end_point)                                       #Les 3 points principaux définissant le rayon
 
@@ -57,7 +58,9 @@ def rayons_reflexion(start_point,end_point, murs):
                 intersect_point2_1 = Point.intersect(elem[0],intersect_point2_2[0],[elem[1]]) #premier point de reflexion
 
                 if(len(intersect_point2_1)):
-
+                    
+                    intersect_point2_1[0].set_interaction_type("r")
+                    intersect_point2_2[0].set_interaction_type("r")
                     new_ray.add_point_principal(intersect_point2_1[0])                                          #1 ere reflexion
                     new_ray.add_point_principal(intersect_point2_2[0])                                          #2 eme reflexion
                     new_ray.add_point_principal(end_point)                                                       #point final du nouveau rayon

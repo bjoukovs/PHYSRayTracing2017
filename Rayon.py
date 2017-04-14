@@ -39,6 +39,7 @@ class Rayon(object):
             intersections = Point.intersect(p1,p2,murs)
             for inter in intersections:
                 if inter.mur not in exception:
+                    inter.set_interaction_type("t")
                     new_points.append(inter)
         
         self.add_points_transmission(new_points)
