@@ -38,9 +38,9 @@ class Point(object):
                             Point.set_mur(p, mur)
                             ptintersects.append(p)
                 else:
-                    if((mur.coin1.x>p2.x and mur.coin1.x<p1.x) or(mur.coin1.x<p2.x and mur.coin1.x>p1.x) ):
+                    if (mur.coin1.x>p2.x and mur.coin1.x<p1.x) or (mur.coin1.x<p2.x and mur.coin1.x>p1.x):
                         pty =(mur.coin1.x-p1.x)*direction + p1.y
-                        if (mur.get_ymin() <= pty <= mur.get_ymax()and mur.coin1.x != p1.x and mur.coin1.y != p2.x):
+                        if (mur.get_ymin() <= pty <= mur.get_ymax()):
                             p = Point(mur.coin1.x, pty)
                             Point.set_mur(p,mur)
                             ptintersects.append(p) 
