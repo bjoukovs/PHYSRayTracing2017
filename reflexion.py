@@ -32,7 +32,7 @@ def rayons_reflexion(start_point,end_point, murs):
             new_ray = Rayon(start_point)
             intersect_point[0].set_interaction_type("r") 
             new_ray.add_point_principal(intersect_point[0])
-            new_ray.add_point_principal(end_point)                                       #Les 3 points principaux définissant le rayon
+            new_ray.add_point_principal(end_point)                                     #Les 3 points principaux définissant le rayon
 
             new_ray.find_all_intersections(murs)                                         #Intersection du rayon avec les murs pour la transmission
                                     
