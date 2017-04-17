@@ -3,14 +3,14 @@ from point import Point
 class Rayon(object):
 
     def __init__(self, start_point):
-        self.points_principaux = [] #début, fin, réflexion, diffraction
+        self.points_principaux = [] #debut, fin, reflexion, diffraction
         self.points_transmission = [] #transmission
         self.points_principaux.append(start_point)
 
-    def add_point_principal(self, point):   #ajouter un point de réflexion ou de diffraction
+    def add_point_principal(self, point):   #ajouter un point de reflexion ou de diffraction
         self.points_principaux.append(point)
 
-    def add_points_principaux(self, point): #ajouter une liste de points de réflexion ou de diffraction
+    def add_points_principaux(self, point): #ajouter une liste de points de reflexion ou de diffraction
         self.points_principaux.extend(point)
     
     def get_points_principaux(self):
@@ -28,7 +28,7 @@ class Rayon(object):
 
 
     def find_all_intersections(self,murs,exception=[]):
-        #Fonction établissant la liste de tous les points d'intersection (de transmission) d'un rayon, avec une liste de murs exceptions
+        #Fonction etablissant la liste de tous les points d'intersection (de transmission) d'un rayon, avec une liste de murs exceptions
 
         new_points = []
         

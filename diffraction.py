@@ -116,41 +116,41 @@ def get_phiprim2(p1,p2):
     if (p2.x <= p1.x and p2.y >= p1.y):
         if(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymax):
             phiprim = abs(alpha-PI/4)
-        if(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymax):
+        elif(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymax):
             phiprim = PI/4 + alpha
-        if(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymin):
+        elif(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymin):
             phiprim = abs(alpha-PI/4)
-        if(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymin):
+        elif(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymin):
             phiprim = alpha + PI/4
 
-    if (p2.x >= p1.x and p2.y <= p1.y):
+    elif (p2.x >= p1.x and p2.y <= p1.y):
         if(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymin):
             phiprim = abs(alpha-PI/4)
-        if(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymin):
+        elif(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymin):
             phiprim = PI/4 + alpha
-        if(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymax):
+        elif(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymax):
             phiprim = abs(alpha-PI/4)
-        if(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymax):
+        elif(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymax):
             phiprim = alpha + PI/4
         
-    if (p2.x <= p1.x and p2.y <= p1.y):
+    elif (p2.x <= p1.x and p2.y <= p1.y):
         if(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymin):
             phiprim = abs(alpha-PI/4)
-        if(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymin):
+        elif(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymin):
             phiprim = PI/4 + alpha
-        if(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymax):
+        elif(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymax):
             phiprim = abs(alpha-PI/4)
-        if(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymax):
+        elif(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymax):
             phiprim = alpha + PI/4
         
-    if (p2.x >= p1.x and p2.y >= p1.y):
+    elif (p2.x >= p1.x and p2.y >= p1.y):
         if(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymax):
             phiprim = abs(alpha-PI/4)
-        if(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymax):
+        elif(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymax):
             phiprim = PI/4 + alpha
-        if(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymin):
+        elif(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymin):
             phiprim = abs(alpha-PI/4)
-        if(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymin):
+        elif(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymin):
             phiprim = alpha + PI/4
     
     return phiprim
