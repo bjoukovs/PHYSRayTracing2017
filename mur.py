@@ -51,6 +51,7 @@ class Mur(object):
         if(self.coin1.y== self.coin2.y):
             res = True
         return res
+    
     def is_different(self, other):
         res = True
         if((self.coin1.x ==other.coin1.x ) and (self.coin2.x ==other.coin2.x ) and (self.coin1.y ==other.coin1.y ) and (self.coin2.y ==other.coin2.y)):
