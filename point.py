@@ -4,7 +4,7 @@ class Point(object):
         self._x = x
         self._y = y
         self.mur = None
-        self._interaction_type = "" # 't' 'r' 'd' pour transmission, reflexion ou diffraction, ou rien par défaut
+        self._interaction_type = "" # t r d pour transmission, reflexion ou diffraction, ou rien par defaut
         self._associated_diffraction_coin = None
     
     @property
