@@ -50,14 +50,14 @@ def get_direction(p1,p2):
 
 def get_phiprim1(p1,p2,mur_cible):
     phiprim = []
-    murs = p2.associated_diffraction_coin.murs_associes
+    murs = p2.murs_associes
     direction = get_direction(p1,p2)
     phiprim = None
 
     #angle = atan2(direction[1],direction[0])
 
     for mur in murs:
-        if (mur == mur_cible):
+        if (mur is mur_cible):
 
             if mur.is_horizontal():
                 xmax = mur.get_xmax()
@@ -65,48 +65,51 @@ def get_phiprim1(p1,p2,mur_cible):
 
                 if(xmax <= p1.x):
                     if(direction == None):
-                        phiprim.append(PI)
+                        phiprim = PI
                     elif(p2.x == xmax):
-                        phiprim.append(PI - atan(direction))
+                        phiprim = PI - atan(direction)
                     elif(p2.x == xmin):
-                        phiprim.append(atan(direction))
+                        phiprim = atan(direction)
 
                 elif(xmin >= p1.x):
                     if(direction == None):
-                        phiprim.append(PI)
+                        phiprim = PI
                     elif(p2.x == xmin):
-                        phiprim.append(PI - atan(direction))
+                        phiprim = PI - atan(direction)
                     elif(p2.x == xmax):
-                        phiprim.append(atan(direction))
+                        phiprim = atan(direction)
 
                 elif(xmax > p1.x and xmin < p1.x):
                     if(direction == None):
-                        phiprim.append(PI)
+                        phiprim = PI
                     else:
-                        phiprim.append(atan(direction))
+                        phiprim = atan(direction)
 
             else:
-                if(mur.get_ymax() <= p1.y):
-                    if (p2.y == mur.get_ymax()):
-                        phiprim.append((PI)/2 + atan(direction))
-                    if(p2.y == mur.get_ymin()):
-                        phiprim.append((PI)/2 - atan(direction))
+                ymax = mur.get_ymax()
+                ymin = mur.get_ymin()
 
-                if(mur.get_ymin() >= p1.y):
-                    if (p2.y == mur.get_ymin()):
-                        phiprim.append((PI)/2 + atan(direction))
-                    if(p2.y == mur.get_ymax()):
-                        phiprim.append((PI)/2 - atan(direction)) 
+                if(ymax <= p1.y):
+                    if (p2.y == ymax):
+                        phiprim = PI/2 + atan(direction)
+                    elif(p2.y == ymin):
+                        phiprim = PI/2 - atan(direction)
 
-                if(mur.get_ymin() < p1.y < mur.get_max()):
-                    phiprim.append((PI)/2 - atan(direction))
+                elif(ymin >= p1.y):
+                    if (p2.y == ymin):
+                        phiprim = PI/2 + atan(direction)
+                    elif(p2.y == ymax):
+                        phiprim = PI/2 - atan(direction) 
+
+                elif(ymin < p1.y < ymax):
+                    phiprim = PI/2 - atan(direction)
         return phiprim 
 
 def get_phiprim2(p1,p2):
     murs = p2.murs_associes
 
     for mur in murs:
-        if (mur.is_horizontal):
+        if (mur.is_horizontal()):
             mur_horizontal = mur
         else:
             mur_vertical = mur
@@ -115,51 +118,51 @@ def get_phiprim2(p1,p2):
 
     if (p2.x <= p1.x and p2.y >= p1.y):
         if(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymax):
-            phiprim = abs(alpha-PI/4)
+            return abs(alpha-PI/4)
         elif(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymax):
-            phiprim = PI/4 + alpha
+            return PI/4 + alpha
         elif(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymin):
-            phiprim = abs(alpha-PI/4)
+            return abs(alpha-PI/4)
         elif(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymin):
-            phiprim = alpha + PI/4
+            return alpha + PI/4
 
     elif (p2.x >= p1.x and p2.y <= p1.y):
         if(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymin):
-            phiprim = abs(alpha-PI/4)
+            return abs(alpha-PI/4)
         elif(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymin):
-            phiprim = PI/4 + alpha
+            return PI/4 + alpha
         elif(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymax):
-            phiprim = abs(alpha-PI/4)
+            return abs(alpha-PI/4)
         elif(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymax):
-            phiprim = alpha + PI/4
+            return alpha + PI/4
         
     elif (p2.x <= p1.x and p2.y <= p1.y):
         if(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymin):
-            phiprim = abs(alpha-PI/4)
+            return abs(alpha-PI/4)
         elif(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymin):
-            phiprim = PI/4 + alpha
+            return PI/4 + alpha
         elif(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymax):
-            phiprim = abs(alpha-PI/4)
+            return abs(alpha-PI/4)
         elif(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymax):
-            phiprim = alpha + PI/4
+            return alpha + PI/4
         
     elif (p2.x >= p1.x and p2.y >= p1.y):
         if(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymax):
-            phiprim = abs(alpha-PI/4)
+            return abs(alpha-PI/4)
         elif(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymax):
-            phiprim = PI/4 + alpha
+            return PI/4 + alpha
         elif(p2.x == mur_horizontal.get_xmax and p2.y == mur_vertical.get_ymin):
-            phiprim = abs(alpha-PI/4)
+            return abs(alpha-PI/4)
         elif(p2.x == mur_horizontal.get_xmin and p2.y == mur_vertical.get_ymin):
-            phiprim = alpha + PI/4
+            return alpha + PI/4
     
-    return phiprim
+    
 
 
 def get_phiprim(p1,p2):
     murs = p2.murs_associes
 
-    if(len(murs)==1):
+    if(len(murs)>1):
         phiprim = get_phiprim1(p1,p2,murs[0])
     else:
         phiprim = get_phiprim2(p1,p2)
