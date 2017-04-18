@@ -6,6 +6,7 @@ class Point(object):
         self.mur = None
         self._interaction_type = "" # t r d pour transmission, reflexion ou diffraction, ou rien par defaut
         self._associated_diffraction_coin = None
+        self._coefficient_value = 0
     
     @property
     def x(self):
@@ -20,8 +21,15 @@ class Point(object):
         return self._interaction_type
 
     @property
-    def associated_diffraction_coin(self):
+    def associated_diffraction_corner(self):
         return self._associated_diffraction_coin
+
+    @property
+    def coefficient_value(self):
+        return self._coefficient_value
+
+    def set_coefficient_value(self,val):
+        self._coefficient_value = val
 
     def set_interaction_type(self, interaction_type, diffraction_coin = None):
         self._interaction_type = interaction_type

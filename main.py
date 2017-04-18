@@ -2,10 +2,9 @@ from const import *
 from IO import draw, decode_plan
 from reflexion import rayons_reflexion
 from direct import rayon_direct
-from diffraction import diffraction_rays
-from diffraction import *
-from point import *
-from Rayon import *
+from diffraction import diffraction_rays, get_diffraction_coefficient
+from point import Point
+from Rayon import Rayon
 
 
 data = decode_plan("plan.txt")
@@ -20,5 +19,14 @@ RAYS_AFFICHAGE =[]
 RAYS_AFFICHAGE.extend(RAYS_REFLEXION)
 RAYS_AFFICHAGE.extend(RAYS_DIRECT)
 RAYS_AFFICHAGE.extend(RAYS_DIFFRACTION)
+
+#Coefficient de diffraction
+for ray in RAYS_DIFFRACTION:
+    diffraction_point = ray.get_points_principaux()[1]
+    val = get_diffraction_coefficient(ray,diffraction_point,BETA)
+    diffraction_point.set_coefficient_value(val)
+    print(val)
+
+
 draw(MURS, RAYS_AFFICHAGE, width, height, TXx, TXy, RXx, RXy) 
 

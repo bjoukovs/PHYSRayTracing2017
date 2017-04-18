@@ -2,8 +2,8 @@ from Rayon import *
 from point import *
 from mur import *
 from math import pi as PI
-from math import atan
-from math import atan2
+from math import atan, atan2, sin, sqrt, pow
+from analysis import abs_fresnel
 
 def get_coins_solo(coins):
     coins_solo = []
@@ -180,6 +180,25 @@ def get_phi(p1,p2):
 
     return phi
 
+def get_diffraction_coefficient(rayon,point,beta):
+    s = sqrt(pow(rayon.end_point.x-point.x, 2) + pow(rayon.end_point.y-point.y, 2))       #distance point recepteur
+    sp = sqrt(pow(rayon.start_point.x-point.x, 2) + pow(rayon.start_point.y-point.y, 2))  #distance point emmeteur
+
+    L = s*sp/(s+sp)
+
+    #ligne sans doute à modifier
+    delta = PI - (get_phi(rayon.end_point,point.associated_diffraction_corner) - get_phiprim(rayon.end_point,point.associated_diffraction_corner))
+
+    if delta != 0:
+        #page 158 pour le calcul
+        argument = sqrt(2*beta*L * pow(sin(delta/2),2))
+        FT_abs = 2*argument*abs_fresnel(argument)
+        D_abs = 0.5/sqrt(2*PI*beta*L)/sin(delta/2)*FT_abs
+    else:
+        D_abs = 0
+
+    return D_abs
+
 
 def diffraction_rays(p_start,p_finish,murs,coins):
         Diffraction_rays = []
@@ -197,16 +216,4 @@ def diffraction_rays(p_start,p_finish,murs,coins):
             Diffraction_rays.append(rayon)
 
         
-        return Diffraction_rays 
-    
-
-def transmission_points(p_start,p_finish,coins):
-    Transmission_point = []
-    
-    for coin in coins:
-        p = Point(coin.x,coin.y)
-        Transmission_point.extend(Point.intersect(p_start,p,murs))
-        Transmission_point.extend(Point.intersect(p1,p_finish,murs))
-
-        
-    return Transmission_point 
+        return Diffraction_rays

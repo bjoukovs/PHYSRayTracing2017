@@ -7,6 +7,14 @@ class Rayon(object):
         self.points_transmission = [] #transmission
         self.points_principaux.append(start_point)
 
+    @property
+    def start_point(self):
+        return self.points_principaux[0]
+
+    @property
+    def end_point(self):
+        return self.points_principaux[-1]
+
     def add_point_principal(self, point):   #ajouter un point de reflexion ou de diffraction
         self.points_principaux.append(point)
 
