@@ -39,7 +39,7 @@ def get_direction(p1,p2):
     #return direction
 
     if((p2.x-p1.x !=0) and (p2.y-p1.y !=0)):
-        direction = (p2.y-p1.y)/(p2.x-p1.x)
+        direction = abs(p2.y-p1.y)/abs(p2.x-p1.x)
         return direction
     if (p2.x-p1.x == 0):
         direction = None
