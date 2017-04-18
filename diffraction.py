@@ -191,8 +191,8 @@ def get_diffraction_coefficient(rayon,point,beta):
 
     if delta != 0:
         #page 158 pour le calcul
-        argument = sqrt(2*beta*L * pow(sin(delta/2),2))
-        FT_abs = 2*argument*abs_fresnel(argument)
+        argument = 2*beta*L * pow(sin(delta/2),2)
+        FT_abs = abs_fresnel(argument)
         D_abs = 0.5/sqrt(2*PI*beta*L)/sin(delta/2)*FT_abs
     else:
         D_abs = 0
