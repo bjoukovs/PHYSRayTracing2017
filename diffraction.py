@@ -57,7 +57,7 @@ def get_phiprim1(p1,p2,mur_cible):
     #angle = atan2(direction[1],direction[0])
 
     for mur in murs:
-        if (mur is mur_cible):
+        if (mur == mur_cible):
 
             if mur.is_horizontal():
                 xmax = mur.get_xmax()
@@ -67,23 +67,23 @@ def get_phiprim1(p1,p2,mur_cible):
                     if(direction == None):
                         phiprim = PI
                     elif(p2.x == xmax):
-                        phiprim = PI - atan(direction)
+                        return PI - atan(direction)
                     elif(p2.x == xmin):
-                        phiprim = atan(direction)
+                        return atan(direction)
 
                 elif(xmin >= p1.x):
                     if(direction == None):
-                        phiprim = PI
+                        return PI
                     elif(p2.x == xmin):
-                        phiprim = PI - atan(direction)
+                        return PI - atan(direction)
                     elif(p2.x == xmax):
-                        phiprim = atan(direction)
+                        return atan(direction)
 
                 elif(xmax > p1.x and xmin < p1.x):
                     if(direction == None):
-                        phiprim = PI
+                        return PI
                     else:
-                        phiprim = atan(direction)
+                        return atan(direction)
 
             else:
                 ymax = mur.get_ymax()
@@ -91,19 +91,19 @@ def get_phiprim1(p1,p2,mur_cible):
 
                 if(ymax <= p1.y):
                     if (p2.y == ymax):
-                        phiprim = PI/2 + atan(direction)
+                        return PI/2 + atan(direction)
                     elif(p2.y == ymin):
-                        phiprim = PI/2 - atan(direction)
+                        return PI/2 - atan(direction)
 
                 elif(ymin >= p1.y):
                     if (p2.y == ymin):
-                        phiprim = PI/2 + atan(direction)
+                        return PI/2 + atan(direction)
                     elif(p2.y == ymax):
-                        phiprim = PI/2 - atan(direction) 
+                        return PI/2 - atan(direction) 
 
                 elif(ymin < p1.y < ymax):
-                    phiprim = PI/2 - atan(direction)
-        return phiprim 
+                    return PI/2 - atan(direction)
+        
 
 def get_phiprim2(p1,p2):
     murs = p2.murs_associes
@@ -167,7 +167,7 @@ def get_phiprim2(p1,p2):
 def get_phiprim(p1,p2):
     murs = p2.murs_associes
 
-    if(len(murs)>1):
+    if(len(murs) == 1):
         phiprim = get_phiprim1(p1,p2,murs[0])
     else:
         phiprim = get_phiprim2(p1,p2)
@@ -202,31 +202,7 @@ def diffraction_rays(p_start,p_finish,murs,coins):
 
 def transmission_points(p_start,p_finish,coins):
     Transmission_point = []
-    '''
-    coins = []
-    coins_remove = []
-    coins_unique = []
-    j=0
-
-    for mur in murs:
-        p1 = mur.coin1
-        p2 = mur.coin2
-        coins.append(p1)
-        coins.append(p2)
-
-    while (j<= len(coins)-1):
-            coins_unique.append(coins[j])
-            if(j!= len(coins)-1):
-                for k in range(j+1,len(coins)-1,1): 
-                    if (coins[k].x == coins[j].x and coins[k].y == coins[j].y):
-                        coins_remove.append(coins[k])
-                for remove in coins_remove:
-                    if(remove in coins):
-                        coins.remove(remove)
-                j+=1
-
-    '''
-
+    
     for coin in coins:
         p = Point(coin.x,coin.y)
         Transmission_point.extend(Point.intersect(p_start,p,murs))
