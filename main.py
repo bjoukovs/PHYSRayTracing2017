@@ -3,7 +3,7 @@ from IO import draw, decode_plan
 from reflexion import rayons_reflexion
 from direct import rayon_direct
 from diffraction import diffraction_rays
-from diffraction import get_phiprim
+from diffraction import *
 from point import *
 from Rayon import *
 
