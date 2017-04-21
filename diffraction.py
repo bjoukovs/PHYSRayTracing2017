@@ -186,16 +186,15 @@ def get_diffraction_coefficient(rayon,point,beta):
 
     L = s*sp/(s+sp)
 
-    #ligne sans doute à modifier
+    #ligne sans doute a modifier
     delta = PI - (get_phi(rayon.end_point,point.associated_diffraction_corner) - get_phiprim(rayon.end_point,point.associated_diffraction_corner))
-
-    if delta != 0:
-        #page 158 pour le calcul
-        argument = 2*beta*L * pow(sin(delta/2),2)
-        FT_abs = abs_fresnel(argument)
-        D_abs = 0.5/sqrt(2*PI*beta*L)/sin(delta/2)*FT_abs
-    else:
-        D_abs = 0
+    if delta==0:
+        delta=0.000001
+ 
+    #page 158 pour le calcul
+    argument = 2*beta*L * pow(sin(delta/2),2)
+    FT_abs = abs_fresnel(argument)
+    D_abs = 0.5/sqrt(2*PI*beta*L)/sin(delta/2)*FT_abs
 
     return D_abs
 

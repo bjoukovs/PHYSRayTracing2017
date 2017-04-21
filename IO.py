@@ -25,7 +25,6 @@ def decode_plan(filename):
         elif(i==1):
             TXx = float(content[0])
             TXy = float(content[1])
-            TXorientation = float(content[2])
         elif(i==2):
             RXx = float(content[0])
             RXy = float(content[1])
@@ -58,10 +57,20 @@ def decode_plan(filename):
             coin1.add_mur(m)
             coin2.add_mur(m)
             murs.append(m)
-
         i+=1
+        
+        #Coins eligibles pour la diffraction
+        coins_diffraction = []
+        for coin in coins:
+            walls = coin.murs_associes
+            if(len(walls)==1):
+                coins_diffraction.append(coin)
+            elif(len(walls)==2):
+                mur1, mur2 = walls[0], walls[1]
+                if (mur1.is_horizontal() and not mur2.is_horizontal()) or (mur2.is_horizontal() and not mur1.is_horizontal()):
+                    coins_diffraction.append(coin)
 
-    return [width,height,TXx,TXy,TXorientation,RXx,RXy,murs,coins]
+    return [width,height,TXx,TXy,RXx,RXy,murs,coins,coins_diffraction]
 
 
 
@@ -113,5 +122,6 @@ def draw(walls, rays_reflexion, width, height, TXx, TXy, RXx, RXy):
     ax.set_xlim(-1, width+1)
     ax.set_ylim(-1, height+1)
 
+  
     ax.set_axis_bgcolor('black')
     plot.show()
