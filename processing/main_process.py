@@ -8,14 +8,14 @@ from classes.rayon import Rayon
 
 
 
-def power_cartography(width,height,TXx,TXy,MURS,COINS,COINS_DIFFRACTION):
+def power_cartography(width,height,base,MURS,COINS,COINS_DIFFRACTION):
     
     for i in range(0,int(width)):
         for j in range(0,int(height)):
-            if(i != TXx and j != TXy):
+            if(i != base.x and j != base.y):
                 RXx = i+0.5
                 RXy = j+0.5
-                data = find_all_rays(TXx,TXy,RXx,RXy,MURS,COINS,COINS_DIFFRACTION)
+                data = find_all_rays(base.x,base.y,RXx,RXy,MURS,COINS,COINS_DIFFRACTION)
                 RAYS_DIRECT, RAYS_REFLEXION, RAYS_DIFFRACTION = data[0], data[1], data[2]
 
                 RAYS_AFFICHAGE =[]
@@ -25,7 +25,7 @@ def power_cartography(width,height,TXx,TXy,MURS,COINS,COINS_DIFFRACTION):
 
                 calculate_all_coefficients(RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION)
 
-                draw(MURS, RAYS_AFFICHAGE, width, height, TXx, TXy, RXx, RXy) 
+                draw(MURS, RAYS_AFFICHAGE, width, height, base.x, base.y, RXx, RXy) 
             break
         break
 

@@ -4,6 +4,7 @@ import pylab as pl
 from resources.const import *
 from classes.mur import Mur
 from classes.coin import Coin
+from classes.base import Base
 
 def decode_plan(filename):
     input = open(filename,'r')
@@ -69,8 +70,11 @@ def decode_plan(filename):
                 mur1, mur2 = walls[0], walls[1]
                 if (mur1.is_horizontal() and not mur2.is_horizontal()) or (mur2.is_horizontal() and not mur1.is_horizontal()):
                     coins_diffraction.append(coin)
+    
+    #station de base
+    base = Base(TXx,TXy)
 
-    return [width,height,TXx,TXy,RXx,RXy,murs,coins,coins_diffraction]
+    return [width,height,base,RXx,RXy,murs,coins,coins_diffraction]
 
 
 
