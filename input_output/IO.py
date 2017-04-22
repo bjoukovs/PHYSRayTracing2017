@@ -5,6 +5,9 @@ from resources.const import *
 from classes.mur import Mur
 from classes.coin import Coin
 from classes.base import Base
+from classes.receiver import Receiver
+
+fig, ax = plot.subplots()
 
 def decode_plan(filename):
     input = open(filename,'r')
@@ -73,15 +76,15 @@ def decode_plan(filename):
     
     #station de base
     base = Base(TXx,TXy)
+    #antenne receptrice
+    receiver = Receiver(RXx,RXy)
 
-    return [width,height,base,RXx,RXy,murs,coins,coins_diffraction]
+    return [width,height,base,receiver,murs,coins,coins_diffraction]
 
 
 
-def draw(walls, rays_reflexion, width, height, TXx, TXy, RXx, RXy):
+def draw_main_stage(walls,width,height,TXx,TXy):
     lines = []
-    ray_lines = []
-    fig, ax = plot.subplots()
 
     #Dessin des murs
     for wall in walls:
@@ -96,6 +99,20 @@ def draw(walls, rays_reflexion, width, height, TXx, TXy, RXx, RXy):
     ax.add_collection(wallLines)
 
     ax.plot(TXx,TXy,"r+",markersize = 15)
+
+    #ax.set_title('Ray Tracing')
+    fig.canvas.set_window_title("Ray Tracing Visualizer")
+    ax.set_xlim(-1, width+1)
+    ax.set_ylim(-1, height+1)
+    ax.set_axis_bgcolor('black')
+
+
+def draw_rays(walls, rays_reflexion, width, height, TXx, TXy, RXx, RXy):
+
+    draw_main_stage(walls,width,height,TXx,TXy)
+    
+    ray_lines = []
+
     ax.plot(RXx,RXy,"bo",markersize=10)
 
     #Dessin des rayons
@@ -121,11 +138,15 @@ def draw(walls, rays_reflexion, width, height, TXx, TXy, RXx, RXy):
     ray_lines_collection.set_linewidth(1)    
     ax.add_collection(ray_lines_collection)
 
-    #ax.set_title('Ray Tracing')
-    fig.canvas.set_window_title("Ray Tracing Visualizer")
-    ax.set_xlim(-1, width+1)
-    ax.set_ylim(-1, height+1)
+    plot.show()
 
-  
-    ax.set_axis_bgcolor('black')
+
+def draw_power_map(MURS,width,height,base,powers_dbm):
+    
+    draw_main_stage(MURS,width,height,base.x,base.y)
+
+    for i in range(len(powers_dbm)):
+        for j in range(len(powers_dbm[i])):
+            plot.text(i+0.5,j+0.5,str(round(powers_dbm[i][j])),horizontalalignment='center',verticalalignment='center',color='white')
+
     plot.show()
