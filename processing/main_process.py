@@ -22,12 +22,12 @@ def power_cartography(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
         powers_dbm.append([])
 
         for j in range(0,int(height)):
-            if(i != base.x or j != base.y):
+            receiver.set_x(i+0.5)
+            receiver.set_y(j+0.5)
+            if(base.x != receiver.x or base.y != receiver.y):
 
                 print(round(100/height/width*((i*height)+j)),"%")
 
-                receiver.set_x(i+0.5)
-                receiver.set_y(j+0.5)
                 data = find_all_rays(base.x,base.y,receiver.x,receiver.y,MURS,COINS,COINS_DIFFRACTION)
                 RAYS_DIRECT, RAYS_REFLEXION, RAYS_DIFFRACTION = data[0], data[1], data[2]
 

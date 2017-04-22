@@ -6,6 +6,7 @@ from classes.mur import Mur
 from classes.coin import Coin
 from classes.base import Base
 from classes.receiver import Receiver
+import numpy as np
 
 fig, ax = plot.subplots()
 
@@ -147,6 +148,9 @@ def draw_power_map(MURS,width,height,base,powers_dbm):
 
     for i in range(len(powers_dbm)):
         for j in range(len(powers_dbm[i])):
-            plot.text(i+0.5,j+0.5,str(round(powers_dbm[i][j])),horizontalalignment='center',verticalalignment='center',color='white')
-
+            plot.text(i+0.5,j+0.5,str(round(powers_dbm[i][j])),horizontalalignment='center',verticalalignment='center',color='green')
+    pwrs = np.array(powers_dbm)
+    #pwrs.transpose()
+    plot.imshow(pwrs, cmap='hot', interpolation='none',extent=[0,width,height,0])
+    plot.colorbar()
     plot.show()
