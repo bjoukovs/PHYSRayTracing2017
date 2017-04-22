@@ -1,9 +1,9 @@
-from Rayon import *
-from point import *
-from mur import *
+from classes.rayon import *
+from classes.point import *
+from classes.mur import *
 from math import pi as PI
 from math import atan, atan2, sin, sqrt, pow
-from analysis import abs_fresnel
+from processing.analysis import abs_fresnel
 
 def get_coins_solo(coins):
     coins_solo = []

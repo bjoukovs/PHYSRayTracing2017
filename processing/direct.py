@@ -1,4 +1,4 @@
-from Rayon import *
+from classes.rayon import *
 
 def rayon_direct(start_point,end_point, murs):
     list_rayon = []

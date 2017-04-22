@@ -1,6 +1,6 @@
-from const import *
-from IO import decode_plan
-from main_process import power_cartography
+from resources.const import *
+from input_output.IO import decode_plan
+from processing.main_process import power_cartography
 
 
 data = decode_plan("plan.txt")

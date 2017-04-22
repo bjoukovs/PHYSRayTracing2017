@@ -1,10 +1,10 @@
-from const import *
-from IO import draw
-from reflexion import rayons_reflexion
-from direct import rayon_direct
-from diffraction import diffraction_rays, get_diffraction_coefficient
-from point import Point
-from Rayon import Rayon
+from resources.const import *
+from input_output.IO import draw
+from processing.reflexion import rayons_reflexion
+from processing.direct import rayon_direct
+from processing.diffraction import diffraction_rays, get_diffraction_coefficient
+from classes.point import Point
+from classes.rayon import Rayon
 
 
 

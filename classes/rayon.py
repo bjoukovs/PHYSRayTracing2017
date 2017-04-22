@@ -1,4 +1,4 @@
-from point import Point
+from classes.point import Point
 
 class Rayon(object):
 

@@ -1,6 +1,6 @@
-from point import *
-from Rayon import *
-from mur import *
+from classes.point import *
+from classes.rayon import *
+from classes.mur import *
 #renvoie la list des rayons reflechis
 def image_points(start_point, origin_point, murs):        
     #renvoie une liste de liste avec les points images et les murs correspodant a chacun de ces points  (point image, mur pour la reflexion)

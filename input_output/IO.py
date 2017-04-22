@@ -1,9 +1,9 @@
 import matplotlib.pyplot as plot
 from matplotlib import collections  as coll
 import pylab as pl
-from const import *
-from mur import Mur
-from coin import Coin
+from resources.const import *
+from classes.mur import Mur
+from classes.coin import Coin
 
 def decode_plan(filename):
     input = open(filename,'r')
