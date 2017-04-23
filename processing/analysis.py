@@ -1,6 +1,7 @@
 from scipy.special import fresnel
 from math import sqrt, pi, pow
 from resources.const import *
+import numpy as np
 
 #integrale de fresnel de -inf a inf (voir page 150)
 fresnel_inf = (1,-1)

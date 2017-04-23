@@ -59,7 +59,7 @@ def set_transmission_coefficient(rayon):
         #den = (1-(pow(r,2)))
 
         coeff_abs = polar(num/den)[0]  #module
-        print(coeff_abs)
+        #print(coeff_abs)
 
         pt_trans.set_coefficient_value(coeff_abs)
 
