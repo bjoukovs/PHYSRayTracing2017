@@ -6,7 +6,8 @@ from resources.const import *
 from processing.reflexion import get_reflexion_perpendiculaire
 from math import pi as PI
 from math import atan, atan2, sin, sqrt, pow, asin,cos
-from cmath import exp
+from cmath import exp as cexp
+from cmath import polar
 
 def get_theta_i (direction,p2):
     mur = p2.mur 
@@ -52,14 +53,15 @@ def set_transmission_coefficient(rayon):
         Z2 = sqrt(UO/mur.epsilon)
         r = get_reflexion_perpendiculaire(Z1,Z2,theta_i,theta_t)
 
-        num = (1-pow(r,2))*exp(complex(0,-gamma*s))
-        den = 1-(pow(r,2)*exp(complex(0,(-2*gamma*s)+(gamma*2*s*sin(theta_t)*sin(theta_i)))))
+        num = (1-pow(r,2))*cexp(-gamma*s)
+        den = 1-(pow(r,2)*cexp((-2*gamma*s)+(gamma*2*s*sin(theta_t)*sin(theta_i))))
         #num = (1-pow(r,2))
         #den = (1-(pow(r,2)))
 
+        coeff_abs = polar(num/den)[0]  #module
+        print(coeff_abs)
 
-        pt_trans.coefficient_value = num/den
-        print(num/den)
+        pt_trans.set_coefficient_value(coeff_abs)
 
 
     

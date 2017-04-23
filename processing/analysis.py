@@ -1,5 +1,6 @@
 from scipy.special import fresnel
-from math import sqrt, pi
+from math import sqrt, pi, pow
+from resources.const import *
 
 #integrale de fresnel de -inf a inf (voir page 150)
 fresnel_inf = (1,-1)
@@ -22,3 +23,17 @@ def abs_fresnel(x):
     res = (fresnel_inf[0] - val_fresnel[0] + fresnel_asymptotic_neg[0], fresnel_inf[1] - val_fresnel[1] + fresnel_asymptotic_neg[1])
 
     return (2*sqrt(x)*sqrt(res[0]*res[0] + res[1]*res[1]))
+
+def get_alpha(eps,sig):
+       
+        e = eps*EPS_0
+        s = sig
+
+        return OMEGA * sqrt((UO*e)/2) * sqrt(sqrt(1+pow(s/(OMEGA*e),2))-1)    
+
+def get_beta(eps,sig):
+
+        e = eps*EPS_0
+        s = sig
+
+        return OMEGA * sqrt((UO*e)/2) * sqrt(sqrt(1+pow(s/(OMEGA*e),2))+1)
