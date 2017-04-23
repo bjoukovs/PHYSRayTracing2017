@@ -3,7 +3,7 @@ from classes.point import *
 from classes.mur import *
 from diffraction import get_direction
 from math import pi as PI
-from math import atan, atan2, sin, sqrt, pow, asin
+from math import atan, atan2, sin, sqrt, pow, asin,cos
 
 def get_theta_i (p1,p2):
     mur = p2.mur 
@@ -21,6 +21,9 @@ def get_theta_t (theta_i,eps):
 
     return asin((no/n)sin(theta_i))
 
+def get_s(theta_t,epaisseur):
+
+    return epaisseur/cos(theta_t)
 
 
 
