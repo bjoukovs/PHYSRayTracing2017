@@ -6,6 +6,7 @@ from processing.diffraction import diffraction_rays, get_diffraction_coefficient
 from classes.point import Point
 from classes.rayon import Rayon
 from math import sqrt, log10
+from processing.transmission import set_transmission_coefficient
 
 
 
@@ -72,6 +73,11 @@ def calculate_all_coefficients(RAYS_DIRECT, RAYS_REFLEXION, RAYS_DIFFRACTION):
         diffraction_point = ray.get_points_principaux()[1]
         val = get_diffraction_coefficient(ray,diffraction_point,BETA)
         diffraction_point.set_coefficient_value(val)
+
+    #Coefficient de transmission
+    for ray in RAYS_DIRECT + RAYS_DIFFRACTION + RAYS_REFLEXION:
+        set_transmission_coefficient(ray)
+
 
 
 
