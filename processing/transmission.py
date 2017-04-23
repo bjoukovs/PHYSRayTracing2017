@@ -42,7 +42,7 @@ def set_transmission_coefficient(rayon,beta):
     for pt_trans in points_transmissions:
         mur = pt_trans.mur
 
-        direction = pt_trans.rayon_direction
+        direction = abs(pt_trans.rayon_direction)
         theta_i = get_theta_i(direction,pt_trans)
         theta_t = get_theta_t(theta_i,mur.epsilon)
         s = get_s(theta_t,mur.epaisseur)
