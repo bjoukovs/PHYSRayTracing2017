@@ -1,6 +1,8 @@
 from classes.point import *
 from classes.rayon import *
 from classes.mur import *
+from math import atan, atan2, sin, sqrt, pow, asin,cos
+
 #renvoie la list des rayons reflechis
 def image_points(start_point, origin_point, murs):        
     #renvoie une liste de liste avec les points images et les murs correspodant a chacun de ces points  (point image, mur pour la reflexion)
@@ -70,4 +72,8 @@ def rayons_reflexion(start_point,end_point, murs):
                     list_rayons.append(new_ray)
 
      return list_rayons
+
+def get_reflexion_perpendiculaire(Z1,Z2,theta_i,theta_t):
+
+    return (Z2*cos(theta_i)-Z1*cos(theta_t))/(Z2*cos(theta_i)+Z1*cos(theta_t))
 
