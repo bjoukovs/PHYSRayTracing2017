@@ -75,5 +75,8 @@ def rayons_reflexion(start_point,end_point, murs):
 
 def get_reflexion_perpendiculaire(Z1,Z2,theta_i,theta_t):
 
-    return (Z2*cos(theta_i)-Z1*cos(theta_t))/(Z2*cos(theta_i)+Z1*cos(theta_t))
+    num = Z2*cos(theta_i)-Z1*cos(theta_t)
+    den = Z2*cos(theta_i)+Z1*cos(theta_t)
+
+    return num/den 
 
