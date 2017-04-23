@@ -12,3 +12,6 @@ SIG_3 = 0.04
 F = 2.45*pow(10,9) #frequence
 WAVELENGTH = 3*pow(10,8)/F
 BETA = 2*PI*F/3/pow(10,8)
+
+EPS_0 = 1/(36*PI)*pow(10,-9) 
+UO = 4*PI*pow(10,-7)
