@@ -7,6 +7,7 @@ class Point(object):
         self._interaction_type = "" # t r d pour transmission, reflexion ou diffraction, ou rien par defaut
         self._associated_diffraction_coin = None
         self._coefficient_value = 1
+        self._rayon_direction = 0 #Si c'est un point de transmission, on y stocke l'angle du rayon qui le traverse
     
     @property
     def x(self):
@@ -27,6 +28,13 @@ class Point(object):
     @property
     def coefficient_value(self):
         return self._coefficient_value
+
+    @property
+    def direction(self):
+        return self._rayon_direction
+
+    def set_direction(self,val):
+        self._rayon_direction = val
 
     def set_coefficient_value(self,val):
         self._coefficient_value = val

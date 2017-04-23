@@ -44,10 +44,16 @@ class Rayon(object):
             p1 = self.points_principaux[i]
             p2 = self.points_principaux[i+1]
 
+            if p1.x == p2.x: #pente infinie
+                direction = None
+            else:
+                direction = (p2.y-p1.y)/(p2.x-p1.x)
+
             intersections = Point.intersect(p1,p2,murs)
             for inter in intersections:
                 if inter.mur not in exception:
                     inter.set_interaction_type("t")
+                    inter.set_direction(direction)
                     new_points.append(inter)
         
         self.add_points_transmission(new_points)
