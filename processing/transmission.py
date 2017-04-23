@@ -38,6 +38,9 @@ def set_transmission_coefficient(rayon):
 
     for pt_trans in points_transmissions:
         mur = pt_trans.mur
+        alpha = mur.alpha
+        beta = mur.beta
+        gamma = complex(alpha,beta)
 
         direction = abs(pt_trans.direction)
         theta_i = get_theta_i(direction,pt_trans)
@@ -48,8 +51,8 @@ def set_transmission_coefficient(rayon):
         Z2 = sqrt(UO/mur.epsilon)
         r = get_reflexion_perpendiculaire(Z1,Z2,theta_i,theta_t)
 
-        num = (1-pow(r,2))*exp(complex(0,-BETA*s))
-        den = 1-(pow(r,2)*exp(complex(0,(-2*BETA*s)+(BETA*2*s*sin(theta_t)*sin(theta_i)))))
+        num = (1-pow(r,2))*exp(complex(0,-gamma*s))
+        den = 1-(pow(r,2)*exp(complex(0,(-2*gamma*s)+(gamma*2*s*sin(theta_t)*sin(theta_i)))))
         #num = (1-pow(r,2))
         #den = (1-(pow(r,2)))
 
