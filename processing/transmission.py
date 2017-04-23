@@ -13,7 +13,7 @@ def get_theta_i (p1,p2):
         return atan(direction)
 
     else:
-        return PI - atan(direction)
+        return PI/2 - atan(direction)
 
 def get_theta_t (theta_i,eps):
     n = sqrt(eps)
