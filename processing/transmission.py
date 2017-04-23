@@ -6,6 +6,7 @@ from resources.const import *
 from processing.reflexion import get_reflexion_perpendiculaire
 from math import pi as PI
 from math import atan, atan2, sin, sqrt, pow, asin,cos
+from cmath import exp
 
 def get_theta_i (direction,p2):
     mur = p2.mur 
