@@ -6,9 +6,7 @@ from processing.diffraction import diffraction_rays, get_diffraction_coefficient
 from classes.point import Point
 from classes.rayon import Rayon
 from math import sqrt, log10
-from processing.transmission import set_transmission_coefficient
-
-
+from processing.transmission import set_transmission_coefficient, set_reflexion_coefficient
 
 def power_cartography(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
     
@@ -44,8 +42,8 @@ def power_cartography(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
                 #draw_rays(MURS, RAYS_AFFICHAGE, width, height, base.x, base.y, receiver.x, receiver.y)
             else:
                 powers_dbm[i].append(0)
-            break
-        break
+            #break
+        #break
 
     draw_power_map(MURS,width,height,base,powers_dbm) 
 
@@ -77,10 +75,10 @@ def calculate_all_coefficients(RAYS_DIRECT, RAYS_REFLEXION, RAYS_DIFFRACTION):
     #Coefficient de transmission
     for ray in RAYS_DIRECT + RAYS_DIFFRACTION + RAYS_REFLEXION:
         set_transmission_coefficient(ray)
-
-
-
-
+    #Coefficient de reflexion
+    for ray in RAYS_REFLEXION:
+        set_reflexion_coefficient(ray)
+       
 def calculate_total_power(base,receiver,RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION):
 
     #cette fonction calcule la puissance totale recue en un point (somme des carres)

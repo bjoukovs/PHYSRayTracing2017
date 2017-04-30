@@ -15,6 +15,7 @@ def abs_fresnel(x):
 
     borne_inf = sqrt(2/pi)*sqrt(x)  #chgt de variable pour (voir remarque suivante)
     val = fresnel(borne_inf)
+    #val = (0,0)
     val_fresnel = (val[0], -val[1])
     #fresnel donne integrale de 0 a borne_inf de sin(pi/2 * t**2) et cos(pi/2 * t**2) , donne un tuple.
     #l'integrale dont on a besoin est integrale(sin t**2 - j cos t**2) voir page 149 et 159.

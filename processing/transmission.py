@@ -3,7 +3,6 @@ from classes.point import *
 from classes.mur import *
 from classes.base import *
 from resources.const import *
-from processing.reflexion import get_reflexion_perpendiculaire
 from math import pi as PI
 from math import atan, atan2, sin, sqrt, pow, asin,cos
 from cmath import exp as cexp
@@ -33,6 +32,13 @@ def get_s(theta_t,epaisseur):
 
     return epaisseur/cos(theta_t)
 
+def get_reflexion_perpendiculaire(Z1,Z2,theta_i,theta_t):
+
+    num = Z2*cos(theta_i)-Z1*cos(theta_t)
+    den = Z2*cos(theta_i)+Z1*cos(theta_t)
+
+    return num/den 
+
 def set_transmission_coefficient(rayon):
     points_transmissions = rayon.get_points_transmission()
     UO = 4*PI*pow(10,-7)
@@ -60,11 +66,42 @@ def set_transmission_coefficient(rayon):
 
         coeff_abs = polar(num/den)[0]  #module
         #print(coeff_abs)
-
         pt_trans.set_coefficient_value(coeff_abs)
 
 
     
+
+def set_reflexion_coefficient(rayon):
+    points_reflexion = rayon.get_points_reflexions()
+    UO = 4*PI*pow(10,-7)
+    EO = 1/(36*PI)*pow(10,-9)
+
+    for pt_reflexion in points_reflexion:
+        mur = pt_reflexion.mur
+        alpha = mur.alpha
+        beta = mur.beta
+        gamma = complex(alpha,beta)
+
+        direction = abs(pt_reflexion.direction)
+        theta_i = get_theta_i(direction,pt_reflexion)
+        theta_t = get_theta_t(theta_i,mur.epsilon)
+        s = get_s(theta_t,mur.epaisseur)
+
+        Z1 = sqrt(UO/EO)
+        Z2 = sqrt(UO/mur.epsilon)
+        r = get_reflexion_perpendiculaire(Z1,Z2,theta_i,theta_t)
+
+        num = (1-pow(r,2))* r *cexp(-2*gamma*s)*cexp(2*gamma*s*sin(theta_t)*sin(theta_i))
+        den = 1-(pow(r,2)*cexp((-2*gamma*s)+(gamma*2*s*sin(theta_t)*sin(theta_i))))
+        
+
+        coeff_abs = polar(r + num/den)[0]  #module
+        
+        pt_reflexion.set_coefficient_value(coeff_abs)
+
+
+    
+
 
 
 

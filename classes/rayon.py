@@ -3,7 +3,8 @@ from classes.point import Point
 class Rayon(object):
 
     def __init__(self, start_point):
-        self.points_principaux = [] #debut, fin, reflexion, diffraction
+        self.points_principaux = [] #debut, fin, diffraction
+        self.points_reflexions = []
         self.points_transmission = [] #transmission
         self.points_principaux.append(start_point)
 
@@ -15,14 +16,21 @@ class Rayon(object):
     def end_point(self):
         return self.points_principaux[-1]
 
-    def add_point_principal(self, point):   #ajouter un point de reflexion ou de diffraction
+    def add_point_principal(self, point):   #ajouter un point d'extremite ou de diffraction
         self.points_principaux.append(point)
 
-    def add_points_principaux(self, point): #ajouter une liste de points de reflexion ou de diffraction
+    def add_point_reflexion(self, point):       #ajouter un point de reflexion
+        self.points_reflexions.append(point)
+        self.add_point_principal(point)
+
+    def add_points_principaux(self, point):     #ajouter une liste de points de reflexion ou de diffraction
         self.points_principaux.extend(point)
     
     def get_points_principaux(self):
         return self.points_principaux
+
+    def get_points_reflexions(self):
+        return self.points_reflexions
 
     def add_point_transmission(self, point):   #ajouter un point de transmission
         self.points_transmission.append(point)

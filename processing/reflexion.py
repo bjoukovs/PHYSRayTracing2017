@@ -1,7 +1,8 @@
-from classes.point import *
 from classes.rayon import *
+from classes.point import *
 from classes.mur import *
-from math import atan, atan2, sin, sqrt, pow, asin,cos
+from classes.base import *
+from resources.const import *
 
 #renvoie la list des rayons reflechis
 def image_points(start_point, origin_point, murs):        
@@ -33,11 +34,10 @@ def rayons_reflexion(start_point,end_point, murs):
          if(len(intersect_point)):
             new_ray = Rayon(start_point)
             intersect_point[0].set_interaction_type("r") 
-            new_ray.add_point_principal(intersect_point[0])
+            new_ray.add_point_reflexion(intersect_point[0])
             new_ray.add_point_principal(end_point)                                     #Les 3 points principaux definissant le rayon
 
             new_ray.find_all_intersections(murs)                                         #Intersection du rayon avec les murs pour la transmission
-                                    
             list_rayons.append(new_ray)                                                   #rayon en une reflexion   
      
 
@@ -63,9 +63,9 @@ def rayons_reflexion(start_point,end_point, murs):
                     
                     intersect_point2_1[0].set_interaction_type("r")
                     intersect_point2_2[0].set_interaction_type("r")
-                    new_ray.add_point_principal(intersect_point2_1[0])                                          #1 ere reflexion
-                    new_ray.add_point_principal(intersect_point2_2[0])                                          #2 eme reflexion
-                    new_ray.add_point_principal(end_point)                                                       #point final du nouveau rayon
+                    new_ray.add_point_reflexion(intersect_point2_1[0])                                          #1 ere reflexion
+                    new_ray.add_point_reflexion(intersect_point2_2[0])                                          #2 eme reflexion
+                    new_ray.add_point_principal(end_point)                                                      #point final du nouveau rayon
 
                     new_ray.find_all_intersections(murs)                                                        #Points de transmission
 
