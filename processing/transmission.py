@@ -15,15 +15,14 @@ def get_theta_i (direction,p2):
         if direction == None:
             return PI/2
         else:
-            return atan(direction)
+            return PI/2 - atan(direction)
 
     else:
-        return PI/2 - atan(direction)
+        return atan(direction)
 
 def get_theta_t (theta_i,eps):
     n = sqrt(eps)
     no = sqrt(1/(36*PI)*pow(10,-9))
-
     #cdt angle critique ?
     return asin((no/n)*sin(theta_i))
 
@@ -54,7 +53,7 @@ def set_transmission_coefficient(rayon):
         theta_i = get_theta_i(direction,pt_trans)
         theta_t = get_theta_t(theta_i,mur.epsilon)
         s = get_s(theta_t,mur.epaisseur)
-
+        #print(theta_i, theta_t)
         Z1 = sqrt(UO/EO)
         Z2 = sqrt(UO/mur.epsilon)
         r = get_reflexion_perpendiculaire(Z1,Z2,theta_i,theta_t)
@@ -83,7 +82,7 @@ def set_reflexion_coefficient(rayon):
         theta_i = get_theta_i(direction,pt_reflexion)
         theta_t = get_theta_t(theta_i,mur.epsilon)
         s = get_s(theta_t,mur.epaisseur)
-
+        #print(theta_i, theta_t)
         Z1 = sqrt(UO/EO)
         Z2 = sqrt(UO/mur.epsilon)
         r = get_reflexion_perpendiculaire(Z1,Z2,theta_i,theta_t)
@@ -93,6 +92,7 @@ def set_reflexion_coefficient(rayon):
         
 
         coeff_abs = polar(r + num/den)[0]  #module
+        #print(coeff_abs)
         pt_reflexion.set_coefficient_value(coeff_abs)
 
 
