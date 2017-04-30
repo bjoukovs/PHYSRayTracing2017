@@ -65,10 +65,7 @@ def set_transmission_coefficient(rayon):
         #den = (1-(pow(r,2)))
 
         coeff_abs = polar(num/den)[0]  #module
-        #print(coeff_abs)
         pt_trans.set_coefficient_value(coeff_abs)
-
-
     
 
 def set_reflexion_coefficient(rayon):
@@ -96,7 +93,7 @@ def set_reflexion_coefficient(rayon):
         
 
         coeff_abs = polar(r + num/den)[0]  #module
-        
+        print(coeff_abs)
         pt_reflexion.set_coefficient_value(coeff_abs)
 
 
