@@ -1,12 +1,12 @@
 from resources.const import *
 from input_output.IO import draw_power_map, draw_rays
-from processing.reflexion import rayons_reflexion
+from processing.reflexion import rayons_reflexion, set_reflexion_coefficient
 from processing.direct import rayon_direct
 from processing.diffraction import diffraction_rays, get_diffraction_coefficient
 from classes.point import Point
 from classes.rayon import Rayon
 from math import sqrt, log10
-from processing.transmission import set_transmission_coefficient, set_reflexion_coefficient
+from processing.transmission import set_transmission_coefficient
 
 def power_cartography(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
     

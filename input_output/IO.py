@@ -152,6 +152,6 @@ def draw_power_map(MURS,width,height,base,powers_dbm):
             plot.text(i+0.5,j+0.5,str(round(powers_dbm[i][j])),horizontalalignment='center',verticalalignment='center',color='green')
     pwrs = matrix(powers_dbm)
     pwrs = pwrs.transpose()
-    plot.imshow(pwrs, cmap='hot', interpolation='none',extent=[0,height,width,0])
+    plot.imshow(pwrs, cmap='hot', interpolation='bicubic',extent=[0,height,width,0])
     plot.colorbar()
     plot.show()

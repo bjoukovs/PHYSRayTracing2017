@@ -37,10 +37,10 @@ def get_direction(p1,p2):
     if((p2.x-p1.x !=0) and (p2.y-p1.y !=0)):
         direction = abs(p2.y-p1.y)/abs(p2.x-p1.x)
         return direction
-    if (p2.x-p1.x == 0):
+    elif (p2.x-p1.x == 0):
         direction = None
         return direction
-    if(p2.y-p1.y == 0):
+    elif (p2.y-p1.y == 0):
         direction = 0
         return direction
 
@@ -182,7 +182,6 @@ def get_diffraction_coefficient(rayon,point,beta):
 
     L = s*sp/(s+sp)
 
-    #ligne sans doute a modifier
     delta = PI - (get_phi(rayon.end_point,point.associated_diffraction_corner) - get_phiprim(rayon.end_point,point.associated_diffraction_corner))
     if delta==0:
         delta=0.000001

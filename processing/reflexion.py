@@ -4,6 +4,11 @@ from classes.mur import *
 from classes.base import *
 from resources.const import *
 from processing.diffraction import get_direction
+from processing.transmission import get_theta_i, get_theta_t, get_s, get_reflexion_perpendiculaire
+from math import pi as PI
+from math import atan, atan2, sin, sqrt, pow, asin,cos
+from cmath import exp as cexp
+from cmath import polar
 
 #renvoie la list des rayons reflechis
 def image_points(start_point, origin_point, murs):        
@@ -76,3 +81,30 @@ def rayons_reflexion(start_point,end_point, murs):
                     list_rayons.append(new_ray)
 
      return list_rayons
+
+def set_reflexion_coefficient(rayon):
+    points_reflexion = rayon.get_points_reflexions()
+    
+
+    for pt_reflexion in points_reflexion:
+        mur = pt_reflexion.mur
+        alpha = mur.alpha
+        beta = mur.beta
+        gamma = complex(alpha,beta)
+
+        direction = abs(pt_reflexion.direction)
+        theta_i = get_theta_i(direction,pt_reflexion)
+        theta_t = get_theta_t(theta_i,mur.epsilon)
+        s = get_s(theta_t,mur.epaisseur)
+        #print(theta_i, theta_t)
+        Z1 = sqrt(UO/EPS_0)
+        Z2 = sqrt(UO/mur.epsilon)
+        r = get_reflexion_perpendiculaire(Z1,Z2,theta_i,theta_t)
+
+        num = (1-pow(r,2))* r *cexp(-2*gamma*s)*cexp(2*gamma*s*sin(theta_t)*sin(theta_i))
+        den = 1-(pow(r,2)*cexp((-2*gamma*s)+(gamma*2*s*sin(theta_t)*sin(theta_i))))
+        
+
+        coeff_abs = polar(r + num/den)[0]  #module
+        #print(coeff_abs)
+        pt_reflexion.set_coefficient_value(coeff_abs)
