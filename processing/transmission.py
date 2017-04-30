@@ -80,7 +80,6 @@ def set_reflexion_coefficient(rayon):
         gamma = complex(alpha,beta)
 
         direction = abs(pt_reflexion.direction)
-        print(direction)
         theta_i = get_theta_i(direction,pt_reflexion)
         theta_t = get_theta_t(theta_i,mur.epsilon)
         s = get_s(theta_t,mur.epaisseur)
