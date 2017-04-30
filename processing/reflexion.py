@@ -3,6 +3,7 @@ from classes.point import *
 from classes.mur import *
 from classes.base import *
 from resources.const import *
+from processing.diffraction import get_direction
 
 #renvoie la list des rayons reflechis
 def image_points(start_point, origin_point, murs):        
@@ -33,7 +34,8 @@ def rayons_reflexion(start_point,end_point, murs):
 
          if(len(intersect_point)):
             new_ray = Rayon(start_point)
-            intersect_point[0].set_interaction_type("r") 
+            intersect_point[0].set_interaction_type("r")
+            intersect_point[0].set_direction(get_direction(intersect_point[0],start_point))     #donne la direction
             new_ray.add_point_reflexion(intersect_point[0])
             new_ray.add_point_principal(end_point)                                     #Les 3 points principaux definissant le rayon
 
@@ -62,7 +64,9 @@ def rayons_reflexion(start_point,end_point, murs):
                 if(len(intersect_point2_1)):
                     
                     intersect_point2_1[0].set_interaction_type("r")
+                    intersect_point2_1[0].set_direction(get_direction( intersect_point2_1[0],start_point)) 
                     intersect_point2_2[0].set_interaction_type("r")
+                    intersect_point2_2[0].set_direction(get_direction( intersect_point2_1[0],intersect_point2_2[0])) 
                     new_ray.add_point_reflexion(intersect_point2_1[0])                                          #1 ere reflexion
                     new_ray.add_point_reflexion(intersect_point2_2[0])                                          #2 eme reflexion
                     new_ray.add_point_principal(end_point)                                                      #point final du nouveau rayon

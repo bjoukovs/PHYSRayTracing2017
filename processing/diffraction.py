@@ -34,10 +34,6 @@ def get_vertical_walls(coins_double):
     return vertical_walls
 
 def get_direction(p1,p2):
-
-    #direction = (p2.x-p1.x,p2.y-p1.y)
-    #return direction
-
     if((p2.x-p1.x !=0) and (p2.y-p1.y !=0)):
         direction = abs(p2.y-p1.y)/abs(p2.x-p1.x)
         return direction
