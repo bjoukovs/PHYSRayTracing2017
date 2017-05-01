@@ -1,6 +1,7 @@
 from math import pi as PI
 from math import pow
 
+
 SIG_1 = 0.02
 SIG_2 = 0.014
 SIG_3 = 0.04
