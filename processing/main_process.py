@@ -1,5 +1,5 @@
 from resources.const import *
-from input_output.IO import draw_power_map, draw_rays
+from input_output.IO import draw_power_map, draw_rays, draw_bitrate_map, show_maps
 from processing.reflexion import rayons_reflexion, set_reflexion_coefficient
 from processing.direct import rayon_direct
 from processing.diffraction import diffraction_rays, get_diffraction_coefficient
@@ -45,7 +45,12 @@ def power_cartography(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
             #break
         #break
 
-    draw_power_map(MURS,width,height,base,powers_dbm) 
+    draw_power_map(MURS,width,height,base,powers_dbm)
+
+    bitrate = compute_bitrate(powers_dbm)
+    draw_bitrate_map(MURS,width,height,base,bitrate)
+
+    show_maps()
 
         
 
@@ -105,10 +110,30 @@ def calculate_total_power(base,receiver,RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACT
 
         En = En/d
 
-        #Eq 8.83 attention a modifier car il faut prendre en compte la hauteur equivalente de l'antenne pas encore definie
         power_total = power_total + (receiver.get_hauteur_equivalente()*En)**2
 
     power_total = power_total/8/receiver.resistance
     return(power_total)
                    
+
+def compute_bitrate(powers):
+    pmin = -93
+    pmax = -73 #atention le debit vaut dmax au dela de cette valeur
+    dmin = 6
+    dmax = 54
+    increment = (dmax-dmin)/(pmax-pmin)
+
+    bitrate = []
+    for idx, lines in enumerate(powers):
+        bitrate.append([])
+        for power in lines:
+            
+            if power<pmin:
+                bitrate[idx].append(0)
+            elif power>pmax:
+                bitrate[idx].append(dmax)
+            else:
+                bitrate[idx].append(dmin + (power-pmin)*increment)
+    
+    return bitrate
 
