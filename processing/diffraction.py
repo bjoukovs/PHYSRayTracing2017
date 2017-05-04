@@ -8,7 +8,7 @@ from processing.analysis import abs_fresnel
 def get_coins_solo(coins):          
     coins_solo = []
 
-    for coin in coins:                          ## est inutile finalement je le laisse au cas ou dici la fin du projet
+    for coin in coins:                          
         if(len(coin.murs_associes)==1):
             coins_solo.append(coin)
         
@@ -18,7 +18,7 @@ def get_coins_double(coins):
     coins_double =[]
 
     for coin in coins:
-        if(len(coin.murs_associes)==2):      ## est inutile finalement je le laisse au cas ou dici la fin du projet
+        if(len(coin.murs_associes)==2):     
             coins_double.append(coin)
 
     return coins_double
@@ -28,7 +28,7 @@ def get_vertical_walls(coins_double):
 
     for coin in coins_double:
         for wall in coin.murs_associes:
-            if (wall.is_horizontal == False):        ## est inutile finalement je le laisse au cas ou dici la fin du projet
+            if (wall.is_horizontal == False):        
                 vertical_walls.append(wall)
 
     return vertical_walls
