@@ -9,6 +9,7 @@ from cmath import exp as cexp
 from cmath import polar
 
 def get_theta_i (direction,p2):
+    # return la valeur de l angle incident au point p2 pour une certaine direction
     mur = p2.mur 
     
     if mur.is_horizontal():
@@ -25,13 +26,15 @@ def get_theta_i (direction,p2):
 
 
 def get_theta_t (theta_i,eps):
+    # return la valeur de l angle transmis par la loi de snell-descartes et l angle incident
     n = sqrt(eps)
     no = sqrt(EPS_0)
-    #cdt angle critique ?
+   
     return asin((no/n)*sin(theta_i))
 
 
 def get_s(theta_t,epaisseur):
+    # return la distance parcourue dans le mur
 
     if theta_t != PI/2:
         return epaisseur/cos(theta_t)
@@ -40,6 +43,7 @@ def get_s(theta_t,epaisseur):
 
     
 def get_reflexion_perpendiculaire(Z1,Z2,theta_i,theta_t):
+    # return de coefficent de reflexion perpendiculaire 
 
     num = Z2*cos(theta_i)-Z1*cos(theta_t)
     den = Z2*cos(theta_i)+Z1*cos(theta_t)
@@ -48,6 +52,7 @@ def get_reflexion_perpendiculaire(Z1,Z2,theta_i,theta_t):
 
 
 def set_transmission_coefficient(rayon):
+    # change le coefficient de transmission des points de transmissions du rayon
     points_transmissions = rayon.get_points_transmission()
 
     for pt_trans in points_transmissions:
@@ -60,15 +65,12 @@ def set_transmission_coefficient(rayon):
         theta_i = get_theta_i(direction,pt_trans)
         theta_t = get_theta_t(theta_i,mur.epsilon)
         s = get_s(theta_t,mur.epaisseur)
-        #print(theta_i, theta_t)
         Z1 = sqrt(UO/EPS_0)
         Z2 = sqrt(UO/mur.epsilon)
         r = get_reflexion_perpendiculaire(Z1,Z2,theta_i,theta_t)
 
         num = (1-pow(r,2))*cexp(-gamma*s)
         den = 1-(pow(r,2)*cexp((-2*gamma*s)+(gamma*2*s*sin(theta_t)*sin(theta_i))))
-        #num = (1-pow(r,2))
-        #den = (1-(pow(r,2)))
 
         coeff_abs = polar(num/den)[0]  #module
         pt_trans.set_coefficient_value(coeff_abs)
