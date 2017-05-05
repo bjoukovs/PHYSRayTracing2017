@@ -174,15 +174,16 @@ def power_optimization(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
             if(i==0):
                 receiver_average = power
                 pos_base_x = base.x
-                pos_base_y = base.y
+                pos_base_y = base.y
                 i+=1
-            elif( receiver_average > power):
+            elif( receiver_average < power):
                 receiver_average = power
                 pos_base_x = base.x
                 pos_base_y = base.y
             print(round(100/height/width*((i*height)+j)),"%")
+    receiver_average = receiver_average/len(receiver)
     print('la puissance moyenne, en log, est de ', receiver_average)
-    print(" l'antenne doit être posée en :", pos_base_x, pos_base_y )
+    print("l'antenne doit être posée en :", pos_base_x, pos_base_y )
     print('affichage de la carte : evolution')
     base = Base(pos_base_x, pos_base_y)
     recepteur = Receiver(19,19)
