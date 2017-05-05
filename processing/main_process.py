@@ -7,7 +7,8 @@ from classes.point import Point
 from classes.rayon import Rayon
 from math import sqrt, log10
 from processing.transmission import set_transmission_coefficient
-
+from classes.receiver import Receiver
+from classes.base import Base
 def power_cartography(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
     
     #Cette fonction permet de donner la cartographie complete de l'etage, pour chaque metre carre
@@ -137,3 +138,57 @@ def compute_bitrate(powers):
     
     return bitrate
 
+def power_optimization(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
+    #Cette fonction renvoie la position préférable de l'antenne pour avoir une bonne connexion
+    # en plusieurs endroits (receveir = list)
+    # et donne, pour la situation préférable, la cartographie complete de l'etage, pour chaque metre carre
+    #en termes de puissance recue (en dBm)
+    #le resultat est stocke dans la matrice 'powers_dbm'
+
+    pos_base_x = 0
+    pos_base_y = 0
+    receiver_average = 1
+    i=0
+    for i in range(0,int(width)):
+        for j in range(0,int(height)):
+            base.set_x(i+0.5)
+            base.set_y(j+0.5)
+
+            n=1
+            for elem in receiver:
+                if(base.x == elem.x or base.y == elem.y):
+                    n=0
+                    break
+
+            sqrt_power = 1
+            for elem in receiver:
+                if(n==1):
+                    data = find_all_rays(base.x,base.y,elem.x,elem.y,MURS,COINS,COINS_DIFFRACTION)
+                    RAYS_DIRECT, RAYS_REFLEXION, RAYS_DIFFRACTION = data[0], data[1], data[2]
+
+                    RAYS_AFFICHAGE =[]
+                    RAYS_AFFICHAGE.extend(RAYS_REFLEXION)
+                    RAYS_AFFICHAGE.extend(RAYS_DIRECT)
+                    RAYS_AFFICHAGE.extend(RAYS_DIFFRACTION)
+
+                    calculate_all_coefficients(RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION)
+
+                    sqrt_power *= sqrt(calculate_total_power(base,elem,RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION))
+                    if(i==0):
+                        receiver_average = sqrt_power
+                        pos_base_x = base.x
+                        pos_base_y = base.y
+                        i+=1
+                    elif( receiver_average > sqrt_power):
+                        receiver_average =sqrt_power
+                        pos_base_x = base.x
+                        pos_base_y = base.y
+            print(round(100/height/width*((i*height)+j)),"%")
+    receiver_average = 10*log10(receiver_average*1000)
+    print('la puissance moyenne, en log, est de ', receiver_average)
+    print(" l'antenne doit être posée en :", pos_base_x, pos_base_y )
+    print('affichage de la carte : evolution')
+    base = Base(pos_base_x, pos_base_y)
+    recepteur = Receiver(19,19)
+    power_cartography(width,height,base,recepteur,MURS,COINS,COINS_DIFFRACTION)
+    print('la puissance moyenne, en log, est de ', receiver_average)

@@ -27,5 +27,10 @@ class Base(object):
         #4 dBi
         return 2.5119
         #on peut changer cette ligne de code
+        
+    def set_x(self,x):
+        self._x = x
 
+    def set_y(self,y):
+        self._y = y
     
