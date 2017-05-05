@@ -9,6 +9,7 @@ COINS = data[5]
 COINS_DIFFRACTION = data[6]
 width, height, base, receiver = data[0],data[1],data[2],data[3]
 
-#power_cartography(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION)
-receiver_liste = [Receiver(19,19), Receiver (18,4), Receiver(13,6)]
-power_optimization(width,height,base,receiver_liste,MURS,COINS,COINS_DIFFRACTION)
+power_cartography(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION)
+
+#optimize_position = [Receiver(19,19), Receiver (1,1), Receiver(19,1), Receiver(1,19)]
+#power_optimization(width,height,base,optimize_position,MURS,COINS,COINS_DIFFRACTION)
