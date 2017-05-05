@@ -160,31 +160,27 @@ def power_optimization(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
                     n=0
                     break
 
-            sqrt_power = 1
+            power = 0
             for elem in receiver:
                 if(n==1):
                     data = find_all_rays(base.x,base.y,elem.x,elem.y,MURS,COINS,COINS_DIFFRACTION)
                     RAYS_DIRECT, RAYS_REFLEXION, RAYS_DIFFRACTION = data[0], data[1], data[2]
-
                     RAYS_AFFICHAGE =[]
                     RAYS_AFFICHAGE.extend(RAYS_REFLEXION)
                     RAYS_AFFICHAGE.extend(RAYS_DIRECT)
                     RAYS_AFFICHAGE.extend(RAYS_DIFFRACTION)
-
                     calculate_all_coefficients(RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION)
-
-                    sqrt_power *= sqrt(calculate_total_power(base,elem,RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION))
-                    if(i==0):
-                        receiver_average = sqrt_power
-                        pos_base_x = base.x
-                        pos_base_y = base.y
-                        i+=1
-                    elif( receiver_average > sqrt_power):
-                        receiver_average =sqrt_power
-                        pos_base_x = base.x
-                        pos_base_y = base.y
+                    power += 10*log10((calculate_total_power(base,elem,RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION))*1000)
+            if(i==0):
+                receiver_average = power
+                pos_base_x = base.x
+                pos_base_y = base.y
+                i+=1
+            elif( receiver_average > power):
+                receiver_average = power
+                pos_base_x = base.x
+                pos_base_y = base.y
             print(round(100/height/width*((i*height)+j)),"%")
-    receiver_average = 10*log10(receiver_average*1000)
     print('la puissance moyenne, en log, est de ', receiver_average)
     print(" l'antenne doit être posée en :", pos_base_x, pos_base_y )
     print('affichage de la carte : evolution')
