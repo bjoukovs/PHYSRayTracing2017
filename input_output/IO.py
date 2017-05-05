@@ -9,8 +9,6 @@ from classes.receiver import Receiver
 import numpy as np
 from numpy.matrixlib import matrix
 
-fig, ax = plot.subplots()
-
 def decode_plan(filename):
     input = open(filename,'r')
     lines = input.readlines()
@@ -85,7 +83,8 @@ def decode_plan(filename):
 
 
 
-def draw_main_stage(walls,width,height,TXx,TXy):
+def draw_main_stage(walls,width,height,TXx,TXy,fig,ax):
+
     lines = []
 
     #Dessin des murs
@@ -102,7 +101,6 @@ def draw_main_stage(walls,width,height,TXx,TXy):
 
     ax.plot(TXx,TXy,"r+",markersize = 15)
 
-    #ax.set_title('Ray Tracing')
     fig.canvas.set_window_title("Ray Tracing Visualizer")
     ax.set_xlim(-1, width+1)
     ax.set_ylim(-1, height+1)
@@ -111,7 +109,9 @@ def draw_main_stage(walls,width,height,TXx,TXy):
 
 def draw_rays(walls, rays_reflexion, width, height, TXx, TXy, RXx, RXy):
 
-    draw_main_stage(walls,width,height,TXx,TXy)
+    fig, ax = plot.subplots()
+
+    draw_main_stage(walls,width,height,TXx,TXy,fig,ax)
     
     ray_lines = []
 
@@ -140,18 +140,38 @@ def draw_rays(walls, rays_reflexion, width, height, TXx, TXy, RXx, RXy):
     ray_lines_collection.set_linewidth(1)    
     ax.add_collection(ray_lines_collection)
 
-    plot.show()
-
 
 def draw_power_map(MURS,width,height,base,powers_dbm):
+
+    fig, ax = plot.subplots()
     
-    draw_main_stage(MURS,width,height,base.x,base.y)
+    draw_main_stage(MURS,width,height,base.x,base.y,fig,ax)
 
     for i in range(len(powers_dbm)):
         for j in range(len(powers_dbm[i])):
-            plot.text(i+0.5,j+0.5,str(round(powers_dbm[i][j])),horizontalalignment='center',verticalalignment='center',color='green')
+            ax.text(i+0.5,j+0.5,str(round(powers_dbm[i][j])),horizontalalignment='center',verticalalignment='center',color='green')
     pwrs = matrix(powers_dbm)
     pwrs = pwrs.transpose()
-    plot.imshow(pwrs, cmap='hot', interpolation='none',extent=[0,height,width,0])
-    plot.colorbar()
+    image = ax.imshow(pwrs, cmap='hot', interpolation='bicubic',extent=[0,height,width,0])
+    fig.colorbar(image)
+    
+    ax.set_xlabel("Power map [dBm]")
+
+def draw_bitrate_map(MURS,width,height,base,bitrate):
+
+    fig, ax = plot.subplots()
+
+    draw_main_stage(MURS,width,height,base.x,base.y,fig,ax)
+
+    for i in range(len(bitrate)):
+        for j in range(len(bitrate)):
+            ax.text(i+0.5,j+0.5,str(round(bitrate[i][j])),horizontalalignment='center',verticalalignment='center',color='green')
+    bitrates = matrix(bitrate)
+    bitrates = bitrates.transpose()
+    image = ax.imshow(bitrates, cmap='bone', interpolation='bicubic',extent=[0,height,width,0])
+    fig.colorbar(image)
+
+    ax.set_xlabel("Bitrate map [Mbps]")
+
+def show_maps():
     plot.show()
