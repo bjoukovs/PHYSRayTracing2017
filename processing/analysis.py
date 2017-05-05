@@ -28,14 +28,14 @@ def abs_fresnel(x):
 
 def get_alpha(eps,sig):
        
-        e = eps*EPS_0
+        e = eps
         s = sig
 
         return OMEGA * sqrt((UO*e)/2) * sqrt(sqrt(1+pow(s/(OMEGA*e),2))-1)    
 
 def get_beta(eps,sig):
 
-        e = eps*EPS_0
+        e = eps
         s = sig
 
         return OMEGA * sqrt((UO*e)/2) * sqrt(sqrt(1+pow(s/(OMEGA*e),2))+1)

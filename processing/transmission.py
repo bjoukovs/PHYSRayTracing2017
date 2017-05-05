@@ -1,7 +1,7 @@
-from classes.rayon import *
-from classes.point import *
-from classes.mur import *
-from classes.base import *
+from classes.rayon import Rayon
+from classes.point import Point
+from classes.mur import Mur
+from classes.base import Base
 from resources.const import *
 from math import pi as PI
 from math import atan, atan2, sin, sqrt, pow, asin,cos
@@ -9,6 +9,7 @@ from cmath import exp as cexp
 from cmath import polar
 
 def get_theta_i (direction,p2):
+    # return la valeur de l angle incident au point p2 pour une certaine direction
     mur = p2.mur 
     
     if mur.is_horizontal():
@@ -18,30 +19,41 @@ def get_theta_i (direction,p2):
             return PI/2 - atan(direction)
 
     else:
-        return atan(direction)
+        if direction == None:
+            return 0
+        else:
+            return atan(direction)
+
 
 def get_theta_t (theta_i,eps):
+    # return la valeur de l angle transmis par la loi de snell-descartes et l angle incident
     n = sqrt(eps)
-    no = sqrt(1/(36*PI)*pow(10,-9))
-    #cdt angle critique ?
+    no = sqrt(EPS_0)
+   
     return asin((no/n)*sin(theta_i))
 
 
 def get_s(theta_t,epaisseur):
+    # return la distance parcourue dans le mur
 
-    return epaisseur/cos(theta_t)
+    if theta_t != PI/2:
+        return epaisseur/cos(theta_t)
+    else:
+        return 0
 
+    
 def get_reflexion_perpendiculaire(Z1,Z2,theta_i,theta_t):
+    # return de coefficent de reflexion perpendiculaire 
 
     num = Z2*cos(theta_i)-Z1*cos(theta_t)
     den = Z2*cos(theta_i)+Z1*cos(theta_t)
 
     return num/den 
 
+
 def set_transmission_coefficient(rayon):
+    # change le coefficient de transmission des points de transmissions du rayon
     points_transmissions = rayon.get_points_transmission()
-    UO = 4*PI*pow(10,-7)
-    EO = 1/(36*PI)*pow(10,-9)
 
     for pt_trans in points_transmissions:
         mur = pt_trans.mur
@@ -53,47 +65,18 @@ def set_transmission_coefficient(rayon):
         theta_i = get_theta_i(direction,pt_trans)
         theta_t = get_theta_t(theta_i,mur.epsilon)
         s = get_s(theta_t,mur.epaisseur)
-        #print(theta_i, theta_t)
-        Z1 = sqrt(UO/EO)
+        Z1 = sqrt(UO/EPS_0)
         Z2 = sqrt(UO/mur.epsilon)
         r = get_reflexion_perpendiculaire(Z1,Z2,theta_i,theta_t)
 
         num = (1-pow(r,2))*cexp(-gamma*s)
         den = 1-(pow(r,2)*cexp((-2*gamma*s)+(gamma*2*s*sin(theta_t)*sin(theta_i))))
-        #num = (1-pow(r,2))
-        #den = (1-(pow(r,2)))
 
         coeff_abs = polar(num/den)[0]  #module
         pt_trans.set_coefficient_value(coeff_abs)
     
 
-def set_reflexion_coefficient(rayon):
-    points_reflexion = rayon.get_points_reflexions()
-    UO = 4*PI*pow(10,-7)
-    EO = 1/(36*PI)*pow(10,-9)
 
-    for pt_reflexion in points_reflexion:
-        mur = pt_reflexion.mur
-        alpha = mur.alpha
-        beta = mur.beta
-        gamma = complex(alpha,beta)
-
-        direction = abs(pt_reflexion.direction)
-        theta_i = get_theta_i(direction,pt_reflexion)
-        theta_t = get_theta_t(theta_i,mur.epsilon)
-        s = get_s(theta_t,mur.epaisseur)
-        #print(theta_i, theta_t)
-        Z1 = sqrt(UO/EO)
-        Z2 = sqrt(UO/mur.epsilon)
-        r = get_reflexion_perpendiculaire(Z1,Z2,theta_i,theta_t)
-
-        num = (1-pow(r,2))* r *cexp(-2*gamma*s)*cexp(2*gamma*s*sin(theta_t)*sin(theta_i))
-        den = 1-(pow(r,2)*cexp((-2*gamma*s)+(gamma*2*s*sin(theta_t)*sin(theta_i))))
-        
-
-        coeff_abs = polar(r + num/den)[0]  #module
-        #print(coeff_abs)
-        pt_reflexion.set_coefficient_value(coeff_abs)
 
 
     
