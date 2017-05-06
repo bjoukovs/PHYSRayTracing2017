@@ -103,7 +103,7 @@ def draw_main_stage(walls,width,height,TXx,TXy,fig,ax):
     fig.canvas.set_window_title("Ray Tracing Visualizer")
     ax.set_xlim(-1, width+1)
     ax.set_ylim(-1, height+1)
-    ax.set_axis_bgcolor('black')
+    ax.set_facecolor('black')
 
 
 def draw_rays(walls, rays_reflexion, width, height, TXx, TXy, RXx, RXy):
