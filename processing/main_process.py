@@ -46,7 +46,7 @@ def power_cartography(width,height,base,MURS,COINS,COINS_DIFFRACTION,receivers=N
                 #draw_rays(MURS, RAYS_AFFICHAGE, width, height, base.x, base.y, receiver.x, receiver.y)
             else:
                 powers_dbm[i].append(0)
-            print_progress(i*width+j, width*height)
+            print_progress(i*height+j, width*height)
             #break
         #break
 
@@ -187,7 +187,7 @@ def power_optimization(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
                 receiver_average = power
                 pos_base_x = base.x
                 pos_base_y = base.y
-            print_progress(i*width+j,width*height)
+            print_progress(i*height+j,width*height)
 
 
     receiver_average = receiver_average/len(receiver)

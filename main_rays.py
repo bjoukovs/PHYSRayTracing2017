@@ -3,7 +3,7 @@ from processing.main_process import calculate_all_coefficients, find_all_rays
 
 print("--- PROGRAMME : Affichage de rayons ---")
 
-data = decode_plan("plan.txt")
+data = decode_plan("plan_boris.txt")
 MURS = data[4]
 COINS = data[5]
 COINS_DIFFRACTION = data[6]

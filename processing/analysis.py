@@ -27,15 +27,22 @@ def abs_fresnel(x):
     return (2*sqrt(x)*sqrt(res[0]*res[0] + res[1]*res[1]))
 
 def get_alpha(eps,sig):
-       
-        e = eps
-        s = sig
-
-        return OMEGA * sqrt((UO*e)/2) * sqrt(sqrt(1+pow(s/(OMEGA*e),2))-1)    
+    e = eps
+    s = sig
+    return OMEGA * sqrt((UO*e)/2) * sqrt(sqrt(1+pow(s/(OMEGA*e),2))-1)    
 
 def get_beta(eps,sig):
 
-        e = eps
-        s = sig
+    e = eps
+    s = sig
+    return OMEGA * sqrt((UO*e)/2) * sqrt(sqrt(1+pow(s/(OMEGA*e),2))+1)
 
-        return OMEGA * sqrt((UO*e)/2) * sqrt(sqrt(1+pow(s/(OMEGA*e),2))+1)
+def full_transpose(m):
+    res = []
+    for i in range(0,len(m[0])):
+        res.append([])
+        for j in range(0,len(m)):
+            res[i].append(m[j][i])
+
+    return res
+        

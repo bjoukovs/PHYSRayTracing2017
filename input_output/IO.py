@@ -8,6 +8,7 @@ from classes.base import Base
 from classes.receiver import Receiver
 import numpy as np
 from numpy.matrixlib import matrix
+from processing.analysis import full_transpose
 
 def decode_plan(filename):
     print("Decodage du plan en cours...",end=" ")
@@ -154,11 +155,10 @@ def draw_power_map(MURS,width,height,base,powers_dbm,receivers=None):
     draw_main_stage(MURS,width,height,base.x,base.y,fig,ax,receivers)
 
     #for i in range(len(powers_dbm)):
-        #for j in range(len(powers_dbm[i])):
-            #ax.text(i+0.5,j+0.5,str(round(powers_dbm[i][j])),horizontalalignment='center',verticalalignment='center',color='green')
-    pwrs = matrix(powers_dbm)
-    pwrs = pwrs.transpose()
-    image = ax.imshow(pwrs, cmap='hot', interpolation='bicubic',extent=[0,height,width,0])
+    #    for j in range(len(powers_dbm[i])):
+    #        ax.text(i+0.5,j+0.5,str(round(powers_dbm[i][j])),horizontalalignment='center',verticalalignment='center',color='green')
+    pwrs = full_transpose(powers_dbm)
+    image = ax.imshow(pwrs, cmap='hot', interpolation='bicubic',extent=[0,width,height,0])
     fig.colorbar(image)
     
     ax.set_xlabel("Power map [dBm]")
@@ -174,9 +174,8 @@ def draw_bitrate_map(MURS,width,height,base,bitrate,receivers=None):
     #for i in range(len(bitrate)):
     #    for j in range(len(bitrate)):
     #        ax.text(i+0.5,j+0.5,str(round(bitrate[i][j])),horizontalalignment='center',verticalalignment='center',color='green')
-    bitrates = matrix(bitrate)
-    bitrates = bitrates.transpose()
-    image = ax.imshow(bitrates, cmap='bone', interpolation='bicubic',extent=[0,height,width,0])
+    bitrates = full_transpose(bitrate)
+    image = ax.imshow(bitrates, cmap='bone', interpolation='bicubic',extent=[0,width,height,0])
     fig.colorbar(image)
 
     ax.set_xlabel("Bitrate map [Mbps]")
