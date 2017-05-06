@@ -17,21 +17,24 @@ def decode_plan(filename):
     murs = []
     tempcoins = {}
     coins = []
+    receivers = []
 
-    i=0
+    wallMode = False
     for line in lines:
         content = line.split(" ")
 
-        #Les trois premieres lignes
-        if(i==0):
-            width = float(content[0])
-            height = float(content[1])
-        elif(i==1):
-            TXx = float(content[0])
-            TXy = float(content[1])
-        elif(i==2):
-            RXx = float(content[0])
-            RXy = float(content[1])
+        #Les premieres lignes (dimensions, base, recepteurs)
+        if not wallMode:
+            keyword = content[0]
+            if keyword=="DIMENSIONS":
+                width = float(content[1])
+                height = float(content[2])
+            elif keyword=="BASE":
+                base = Base(float(content[1]),float(content[2]))
+            elif keyword=="RECEIVER":
+                receivers.append(Receiver(float(content[1]),float(content[2])))
+            elif keyword=="WALLS":
+                wallMode = True
 
         #Les murs et les coins
         else:
@@ -74,12 +77,8 @@ def decode_plan(filename):
                 if (mur1.is_horizontal() and not mur2.is_horizontal()) or (mur2.is_horizontal() and not mur1.is_horizontal()):
                     coins_diffraction.append(coin)
     
-    #station de base
-    base = Base(TXx,TXy)
-    #antenne receptrice
-    receiver = Receiver(RXx,RXy)
 
-    return [width,height,base,receiver,murs,coins,coins_diffraction]
+    return [width,height,base,receivers,murs,coins,coins_diffraction]
 
 
 

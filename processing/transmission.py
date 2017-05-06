@@ -61,6 +61,8 @@ def set_transmission_coefficient(rayon):
         beta = mur.beta
         gamma = complex(alpha,beta)
 
+        if pt_trans.direction== None:
+            print("NONE")
         direction = abs(pt_trans.direction)
         theta_i = get_theta_i(direction,pt_trans)
         theta_t = get_theta_t(theta_i,mur.epsilon)

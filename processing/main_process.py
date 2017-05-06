@@ -171,7 +171,7 @@ def power_optimization(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
                     RAYS_AFFICHAGE.extend(RAYS_DIFFRACTION)
                     calculate_all_coefficients(RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION)
                     power += 10*log10((calculate_total_power(base,elem,RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION))*1000)
-            if(i==0):
+            if i==0:
                 receiver_average = power
                 pos_base_x = base.x
                 pos_base_y = base.y
