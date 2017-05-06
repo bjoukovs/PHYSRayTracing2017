@@ -9,13 +9,18 @@ from math import sqrt, log10
 from processing.transmission import set_transmission_coefficient
 from classes.receiver import Receiver
 from classes.base import Base
-def power_cartography(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
+
+
+def power_cartography(width,height,base,MURS,COINS,COINS_DIFFRACTION,receivers=None):
     
     #Cette fonction permet de donner la cartographie complete de l'etage, pour chaque metre carre
     #en termes de puissance recue (en dBm)
     #le resultat est stocke dans la matrice 'powers_dbm'
 
+    print("\nCartographie de la puissance et du debit pour la base en",base.x,base.y)
+
     powers_dbm = []
+    receiver = Receiver(0,0)
 
     for i in range(0,int(width)):
 
@@ -25,8 +30,6 @@ def power_cartography(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
             receiver.set_x(i+0.5)
             receiver.set_y(j+0.5)
             if(base.x != receiver.x or base.y != receiver.y):
-
-                print(round(100/height/width*((i*height)+j)),"%")
 
                 data = find_all_rays(base.x,base.y,receiver.x,receiver.y,MURS,COINS,COINS_DIFFRACTION)
                 RAYS_DIRECT, RAYS_REFLEXION, RAYS_DIFFRACTION = data[0], data[1], data[2]
@@ -43,13 +46,16 @@ def power_cartography(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
                 #draw_rays(MURS, RAYS_AFFICHAGE, width, height, base.x, base.y, receiver.x, receiver.y)
             else:
                 powers_dbm[i].append(0)
+            print_progress(i*width+j, width*height)
             #break
         #break
 
-    draw_power_map(MURS,width,height,base,powers_dbm)
+    print("")
+
+    draw_power_map(MURS,width,height,base,powers_dbm,receivers)
 
     bitrate = compute_bitrate(powers_dbm)
-    draw_bitrate_map(MURS,width,height,base,bitrate)
+    draw_bitrate_map(MURS,width,height,base,bitrate,receivers)
 
     show_maps()
 
@@ -139,11 +145,13 @@ def compute_bitrate(powers):
     return bitrate
 
 def power_optimization(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
-    #Cette fonction renvoie la position préférable de l'antenne pour avoir une bonne connexion
+    #Cette fonction renvoie la position preferable de l'antenne pour avoir une bonne connexion
     # en plusieurs endroits (receveir = list)
-    # et donne, pour la situation préférable, la cartographie complete de l'etage, pour chaque metre carre
+    # et donne, pour la situation preferable, la cartographie complete de l'etage, pour chaque metre carre
     #en termes de puissance recue (en dBm)
     #le resultat est stocke dans la matrice 'powers_dbm'
+
+    print("\nOptimisation de la position de la base pour "+str(int(len(receiver)))+" recepteurs")
 
     pos_base_x = 0
     pos_base_y = 0
@@ -171,21 +179,25 @@ def power_optimization(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
                     RAYS_AFFICHAGE.extend(RAYS_DIFFRACTION)
                     calculate_all_coefficients(RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION)
                     power += 10*log10((calculate_total_power(base,elem,RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION))*1000)
-            if i==0:
+            if i==0 and j==0:
                 receiver_average = power
                 pos_base_x = base.x
                 pos_base_y = base.y
-                i+=1
             elif( receiver_average < power):
                 receiver_average = power
                 pos_base_x = base.x
                 pos_base_y = base.y
-            print(round(100/height/width*((i*height)+j)),"%")
+            print_progress(i*width+j,width*height)
+
+
     receiver_average = receiver_average/len(receiver)
-    print('la puissance moyenne, en log, est de ', receiver_average)
-    print("l'antenne doit être posée en :", pos_base_x, pos_base_y )
-    print('affichage de la carte : evolution')
+    print('\n\nPuissance en moyenne geometrique :', receiver_average,'dBm')
+    print("Position optimale :", pos_base_x, pos_base_y )
     base = Base(pos_base_x, pos_base_y)
-    recepteur = Receiver(19,19)
-    power_cartography(width,height,base,recepteur,MURS,COINS,COINS_DIFFRACTION)
-    print('la puissance moyenne, en log, est de ', receiver_average)
+    power_cartography(width,height,base,MURS,COINS,COINS_DIFFRACTION,receiver)
+
+
+def print_progress(current,max):
+    percent = round(100/max*current)
+    print('Progression : {0}%\r'.format(percent),end="")
+

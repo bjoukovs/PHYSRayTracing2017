@@ -109,6 +109,8 @@ def get_phiprim1(p1,p2,mur_cible):
                 # cas mur au niveau du point
                 elif(ymin < p1.y < ymax):
                     return PI/2 - atan(direction)
+
+    return phiprim
         
 
 def get_phiprim2(p1,p2):

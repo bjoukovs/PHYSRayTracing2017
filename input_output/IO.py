@@ -10,6 +10,8 @@ import numpy as np
 from numpy.matrixlib import matrix
 
 def decode_plan(filename):
+    print("Decodage du plan en cours...",end=" ")
+
     input = open(filename,'r')
     lines = input.readlines()
     input.close()
@@ -19,26 +21,23 @@ def decode_plan(filename):
     coins = []
     receivers = []
 
-    wallMode = False
     for line in lines:
         content = line.split(" ")
 
         #Les premieres lignes (dimensions, base, recepteurs)
-        if not wallMode:
-            keyword = content[0]
-            if keyword=="DIMENSIONS":
-                width = float(content[1])
-                height = float(content[2])
-            elif keyword=="BASE":
-                base = Base(float(content[1]),float(content[2]))
-            elif keyword=="RECEIVER":
-                receivers.append(Receiver(float(content[1]),float(content[2])))
-            elif keyword=="WALLS":
-                wallMode = True
+
+        keyword = content[0]
+        if keyword=="DIMENSIONS":
+            width = float(content[1])
+            height = float(content[2])
+        elif keyword=="BASE":
+            base = Base(float(content[1]),float(content[2]))
+        elif keyword=="RECEIVER":
+            receivers.append(Receiver(float(content[1]),float(content[2])))
 
         #Les murs et les coins
-        else:
-            x1,y1,x2,y2 = float(content[2]),float(content[3]),float(content[4]),float(content[5])
+        elif keyword == "W":
+            x1,y1,x2,y2 = float(content[3]),float(content[4]),float(content[5]),float(content[6])
             coin1 = tempcoins.get((x1,y1),None)
             coin2 = tempcoins.get((x2,y2),None)
             if(coin1==None):
@@ -52,7 +51,7 @@ def decode_plan(filename):
 
             eps = EPS_1
             sig = SIG_1
-            materiau = content[0]
+            materiau = content[1]
             if materiau=="2":
                 eps = EPS_2
                 sig = SIG_2
@@ -60,29 +59,29 @@ def decode_plan(filename):
                 eps = EPS_3
                 sig = SIG_3
 
-            m = Mur(float(content[1]),coin1,coin2,eps,sig)
+            m = Mur(float(content[2]),coin1,coin2,eps,sig)
             coin1.add_mur(m)
             coin2.add_mur(m)
             murs.append(m)
-        i+=1
         
-        #Coins eligibles pour la diffraction
-        coins_diffraction = []
-        for coin in coins:
-            walls = coin.murs_associes
-            if(len(walls)==1):
+    #Coins eligibles pour la diffraction
+    coins_diffraction = []
+    for coin in coins:
+        walls = coin.murs_associes
+        if(len(walls)==1):
+            coins_diffraction.append(coin)
+        elif(len(walls)==2):
+            mur1, mur2 = walls[0], walls[1]
+            if (mur1.is_horizontal() and not mur2.is_horizontal()) or (mur2.is_horizontal() and not mur1.is_horizontal()):
                 coins_diffraction.append(coin)
-            elif(len(walls)==2):
-                mur1, mur2 = walls[0], walls[1]
-                if (mur1.is_horizontal() and not mur2.is_horizontal()) or (mur2.is_horizontal() and not mur1.is_horizontal()):
-                    coins_diffraction.append(coin)
     
+    print("OK")
 
     return [width,height,base,receivers,murs,coins,coins_diffraction]
 
 
 
-def draw_main_stage(walls,width,height,TXx,TXy,fig,ax):
+def draw_main_stage(walls,width,height,TXx,TXy,fig,ax,receivers=None):
 
     lines = []
 
@@ -98,7 +97,11 @@ def draw_main_stage(walls,width,height,TXx,TXy,fig,ax):
     wallLines.set_linewidth(2)    
     ax.add_collection(wallLines)
 
-    ax.plot(TXx,TXy,"r+",markersize = 15)
+    ax.plot(TXx,TXy,"r1",markersize = 12)
+
+    if receivers != None:
+        for rec in receivers:
+            ax.plot(rec.x, rec.y, "g1",markersize=12)
 
     fig.canvas.set_window_title("Ray Tracing Visualizer")
     ax.set_xlim(-1, width+1)
@@ -107,6 +110,8 @@ def draw_main_stage(walls,width,height,TXx,TXy,fig,ax):
 
 
 def draw_rays(walls, rays_reflexion, width, height, TXx, TXy, RXx, RXy):
+
+    print("\nGeneration de l'affichage graphique des rayons...")
 
     fig, ax = plot.subplots()
 
@@ -140,15 +145,17 @@ def draw_rays(walls, rays_reflexion, width, height, TXx, TXy, RXx, RXy):
     ax.add_collection(ray_lines_collection)
 
 
-def draw_power_map(MURS,width,height,base,powers_dbm):
+def draw_power_map(MURS,width,height,base,powers_dbm,receivers=None):
+
+    print("\nGeneration de l'affichage graphique de la puissance...")
 
     fig, ax = plot.subplots()
     
-    draw_main_stage(MURS,width,height,base.x,base.y,fig,ax)
+    draw_main_stage(MURS,width,height,base.x,base.y,fig,ax,receivers)
 
-    for i in range(len(powers_dbm)):
-        for j in range(len(powers_dbm[i])):
-            ax.text(i+0.5,j+0.5,str(round(powers_dbm[i][j])),horizontalalignment='center',verticalalignment='center',color='green')
+    #for i in range(len(powers_dbm)):
+        #for j in range(len(powers_dbm[i])):
+            #ax.text(i+0.5,j+0.5,str(round(powers_dbm[i][j])),horizontalalignment='center',verticalalignment='center',color='green')
     pwrs = matrix(powers_dbm)
     pwrs = pwrs.transpose()
     image = ax.imshow(pwrs, cmap='hot', interpolation='bicubic',extent=[0,height,width,0])
@@ -156,15 +163,17 @@ def draw_power_map(MURS,width,height,base,powers_dbm):
     
     ax.set_xlabel("Power map [dBm]")
 
-def draw_bitrate_map(MURS,width,height,base,bitrate):
+def draw_bitrate_map(MURS,width,height,base,bitrate,receivers=None):
+
+    print("\nGeneration de l'affichage graphique du debit...")
 
     fig, ax = plot.subplots()
 
-    draw_main_stage(MURS,width,height,base.x,base.y,fig,ax)
+    draw_main_stage(MURS,width,height,base.x,base.y,fig,ax,receivers)
 
-    for i in range(len(bitrate)):
-        for j in range(len(bitrate)):
-            ax.text(i+0.5,j+0.5,str(round(bitrate[i][j])),horizontalalignment='center',verticalalignment='center',color='green')
+    #for i in range(len(bitrate)):
+    #    for j in range(len(bitrate)):
+    #        ax.text(i+0.5,j+0.5,str(round(bitrate[i][j])),horizontalalignment='center',verticalalignment='center',color='green')
     bitrates = matrix(bitrate)
     bitrates = bitrates.transpose()
     image = ax.imshow(bitrates, cmap='bone', interpolation='bicubic',extent=[0,height,width,0])
