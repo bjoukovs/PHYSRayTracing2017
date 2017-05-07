@@ -59,7 +59,51 @@ def power_cartography(width,height,base,MURS,COINS,COINS_DIFFRACTION,receivers=N
 
     show_maps()
 
-        
+def power_verif(width,height,base,MURS,COINS,COINS_DIFFRACTION,receivers=None):
+    #Cette fonction permet de vérifier les résultats pour un cas particulier
+
+    print("\nCartographie de la puissance et du debit pour la base en",base.x,base.y)
+
+    powers_dbm = []
+    receiver = Receiver(0,0)
+
+    for i in range(0,int(width)):
+
+        powers_dbm.append([])
+
+        for j in range(0,int(height)):
+            receiver.set_x(i+0.5)
+            receiver.set_y(j+0.5)
+            if(base.x != receiver.x or base.y != receiver.y):
+
+                data = find_all_rays(base.x,base.y,receiver.x,receiver.y,MURS,COINS,COINS_DIFFRACTION)
+                RAYS_DIRECT, RAYS_REFLEXION, RAYS_DIFFRACTION = data[0], data[1], data[2]
+
+                RAYS_AFFICHAGE =[]
+                RAYS_AFFICHAGE.extend(RAYS_REFLEXION)
+                RAYS_AFFICHAGE.extend(RAYS_DIRECT)
+                RAYS_AFFICHAGE.extend(RAYS_DIFFRACTION)
+
+                calculate_all_coefficients(RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION)
+
+                power = calculate_total_power(base,receiver,RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION)
+                powers_dbm[i].append(10*log10(power*1000)) #definition de dBm
+                #draw_rays(MURS, RAYS_AFFICHAGE, width, height, base.x, base.y, receiver.x, receiver.y)
+            else:
+                powers_dbm[i].append(0)
+            print_progress(i*height+j, width*height)
+            #break
+        #break
+
+    print("")
+
+    draw_power_map(MURS,width,height,base,powers_dbm,receivers)
+
+    bitrate = compute_bitrate(powers_dbm)
+    draw_bitrate_map(MURS,width,height,base,bitrate,receivers)
+
+    show_maps()
+
 
 def find_all_rays(TXx,TXy,RXx,RXy,MURS,COINS,COINS_DIFFRACTION):
 
