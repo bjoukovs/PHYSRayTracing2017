@@ -63,7 +63,7 @@ def set_transmission_coefficient(rayon):
 
         if(pt_trans.direction != None):
             direction = abs(pt_trans.direction)
-            print(direction)
+            #print(direction)
         else:
             direction = None
         theta_i = get_theta_i(direction,pt_trans)

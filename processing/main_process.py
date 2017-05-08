@@ -102,7 +102,7 @@ def power_verif(width,height,base,MURS,COINS,COINS_DIFFRACTION,receivers=None):
     bitrate = compute_bitrate(powers_dbm)
     draw_bitrate_map(MURS,width,height,base,bitrate,receivers)
 
-    #show_maps()
+    show_maps()
 
 
 def find_all_rays(TXx,TXy,RXx,RXy,MURS,COINS,COINS_DIFFRACTION):

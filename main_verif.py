@@ -12,11 +12,11 @@ COINS = data[5]
 COINS_DIFFRACTION = data[6]
 width, height, base, receivers = data[0],data[1],data[2],data[3]
 
-RAYS_DIRECT = []
-RAYS_DIRECT.extend(rayon_direct(Point(1, 10), Point(11, 10), MURS))
+#RAYS_DIRECT = []
+#RAYS_DIRECT.extend(rayon_direct(Point(1, 10), Point(11, 10), MURS))
 #RAYS_DIRECT.extend(rayon_direct(Point(1, 10), Point(11, 12), MURS))
-RAYS_REFLEXION = rayons_reflexion(Point(0, 10), Point(9, 10), MURS)
-calculate_all_coefficients(RAYS_DIRECT, [], [])
-draw_rays(MURS,RAYS_DIRECT,width,height,1,10,11,20)
-show_maps()
-#power_verif(width,height,base,MURS,COINS,COINS_DIFFRACTION)
+#RAYS_REFLEXION = rayons_reflexion(Point(0, 10), Point(9, 10), MURS)
+#calculate_all_coefficients(RAYS_DIRECT, [], [])
+#draw_rays(MURS,RAYS_DIRECT,width,height,1,10,11,20)
+#show_maps()
+power_verif(width,height,base,MURS,COINS,COINS_DIFFRACTION)

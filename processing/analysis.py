@@ -52,7 +52,7 @@ def intersect(p1,p2,murs):
     ptintersects = []
     if((p2.x-p1.x !=0) and (p2.y-p1.y !=0)):
         direction = (p2.y-p1.y)/(p2.x-p1.x)
-        print(direction)
+        #print(direction)
         for mur in murs :
             if (mur.is_horizontal()): 
                 if((mur.coin1.y>p2.y and mur.coin1.y<p1.y) or(mur.coin1.y<p2.y and mur.coin1.y>p1.y) ):
