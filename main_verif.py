@@ -2,13 +2,16 @@ from resources.const import *
 from input_output.IO import decode_plan, draw_rays, show_maps
 from processing.main_process import power_verif, calculate_all_coefficients
 from classes.receiver import Receiver
+from classes.coin import Coin
 from processing.direct import rayon_direct
 from classes.point import Point
 from processing.reflexion import rayons_reflexion
+from processing.diffraction import diffraction_rays
 from math import pi as PI
 from math import atan, atan2, sin, sqrt, pow, asin,cos
 from cmath import exp as cexp
 from cmath import polar
+
 
 data = decode_plan("plan_verif.txt")
 MURS = data[4]
@@ -28,7 +31,7 @@ pt_trans = RAYS_DIRECT[0].get_points_transmission()[0]
 coef = pt_trans.coefficient_value
 print("le coefficient de transmission au carré attendu est près de 0.54, ici on obtient :", coef*coef)
 
-#verification de reflexion orthogonal : on attent t^2 = 0,54
+#verification de reflexion orthogonal : 
 r = complex(0.42, -0.0025)
 s=0.3
 num = (1-r*r)* r *cexp(-2*gamma*s)

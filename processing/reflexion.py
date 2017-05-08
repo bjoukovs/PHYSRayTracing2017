@@ -92,7 +92,6 @@ def set_reflexion_coefficient(rayon):
         mur = pt_reflexion.mur
         alpha = mur.alpha
         beta = mur.beta
-        print("les coefficients sont les suivants :",alpha, beta)
         gamma = complex(alpha,beta)
         if(pt_reflexion.direction != None):
             direction = abs(pt_reflexion.direction)
