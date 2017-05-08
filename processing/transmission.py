@@ -69,7 +69,7 @@ def set_transmission_coefficient(rayon):
         theta_i = get_theta_i(direction,pt_trans)
         #print("i", theta_i)
         theta_t = get_theta_t(theta_i,mur.epsilon)
-        print("t", theta_t)
+        #print("t", theta_t)
         s = get_s(theta_t,mur.epaisseur)
         Z1 = sqrt(UO/EPS_0)
         Z2 = sqrt(UO/mur.epsilon)

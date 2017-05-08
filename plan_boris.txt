@@ -1,4 +1,4 @@
-DIMENSIONS 15 8
+DIMENSIONS 30 8
 BASE 6 4.5
 RECEIVER 1 1
 #Murs exterieurs epaisseur 29, brique

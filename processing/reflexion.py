@@ -30,6 +30,7 @@ def image_points(start_point, origin_point, murs):
 
 def rayons_reflexion(start_point,end_point, murs):
      list_rayons = []
+     print("dada")
      image_elems = image_points(start_point, start_point, murs)
      z = 0
      
@@ -91,6 +92,7 @@ def set_reflexion_coefficient(rayon):
         mur = pt_reflexion.mur
         alpha = mur.alpha
         beta = mur.beta
+        print("les coefficients sont les suivants :",alpha, beta)
         gamma = complex(alpha,beta)
         if(pt_reflexion.direction != None):
             direction = abs(pt_reflexion.direction)
@@ -109,5 +111,4 @@ def set_reflexion_coefficient(rayon):
         
 
         coeff_abs = polar(r + num/den)[0]  #module
-        #print("reflexion",coeff_abs*coeff_abs)
         pt_reflexion.set_coefficient_value(coeff_abs)
