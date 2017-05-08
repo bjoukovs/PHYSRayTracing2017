@@ -60,7 +60,7 @@ def power_cartography(width,height,base,MURS,COINS,COINS_DIFFRACTION,receivers=N
     show_maps()
 
 def power_verif(width,height,base,MURS,COINS,COINS_DIFFRACTION,receivers=None):
-    #Cette fonction permet de vérifier les résultats pour un cas particulier
+    #Cette fonction permet de verifier les resultats pour un cas particulier
 
     print("\nCartographie de la puissance et du debit pour la base en",base.x,base.y)
 
@@ -243,5 +243,5 @@ def power_optimization(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
 
 def print_progress(current,max):
     percent = round(100/max*current)
-    print('Progression : {0}%\r'.format(percent),end="")
+    #print('Progression : {0}%\r'.format(percent),end="")
 

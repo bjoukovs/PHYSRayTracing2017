@@ -11,7 +11,7 @@ from numpy.matrixlib import matrix
 from processing.analysis import full_transpose
 
 def decode_plan(filename):
-    print("Decodage du plan en cours...",end=" ")
+    #print("Decodage du plan en cours...",end='') 
 
     input = open(filename,'r')
     lines = input.readlines()

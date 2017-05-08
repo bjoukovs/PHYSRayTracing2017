@@ -1,7 +1,7 @@
 #################
 # UTILISEZ LES FICHIERS MAIN_CARTOGRAPHY ET MAIN_OPTIMIZATION
 #################
-#J'ai separe le programme en deux afin qu'on puisse plus facilement utiliser l'un ou l'autre programme
+#J ai separe le programme en deux afin qu on puisse plus facilement utiliser l un ou l autre programme
 
 from resources.const import *
 from input_output.IO import decode_plan
