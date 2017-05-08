@@ -1,4 +1,5 @@
 from classes.point import Point
+from processing.analysis import intersect
 
 class Rayon(object):
 
@@ -45,7 +46,6 @@ class Rayon(object):
 
     def find_all_intersections(self,murs,exception=[]):
         #Fonction etablissant la liste de tous les points d'intersection (de transmission) d'un rayon, avec une liste de murs exceptions
-
         new_points = []
         
         for i in range(0,len(self.points_principaux)-1):
@@ -57,11 +57,13 @@ class Rayon(object):
             else:
                 direction = (p2.y-p1.y)/(p2.x-p1.x)
 
-            intersections = Point.intersect(p1,p2,murs)
+            intersections = intersect(p1,p2,murs).copy()
+            print(len(intersections))
             for inter in intersections:
                 if inter.mur not in exception:
                     inter.set_interaction_type("t")
                     inter.set_direction(direction)
                     new_points.append(inter)
+
         
         self.add_points_transmission(new_points)

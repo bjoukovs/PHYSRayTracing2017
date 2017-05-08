@@ -35,6 +35,7 @@ class Point(object):
 
     def set_direction(self,val):
         self._rayon_direction = val
+        #print("direction changee")
 
     def set_coefficient_value(self,val):
         self._coefficient_value = val
@@ -53,39 +54,3 @@ class Point(object):
             or (self.mur.y1 == self.y and self.mur.y2 ==self.y and ((self.x<=self.mur.get_xmax() and self.x>=self.mur.get_xmin()))):
                c = mur
         return c
-
-    def intersect(p1,p2,murs):
-        ptintersects = []
-        if((p2.x-p1.x !=0) and (p2.y-p1.y !=0)):
-            direction = (p2.y-p1.y)/(p2.x-p1.x)
-            for mur in murs :
-                if (mur.is_horizontal()): 
-                    if((mur.coin1.y>p2.y and mur.coin1.y<p1.y) or(mur.coin1.y<p2.y and mur.coin1.y>p1.y) ):
-                        ptx= (mur.coin1.y-p1.y)/direction + p1.x
-                        if (mur.get_xmin() <= ptx <= mur.get_xmax()):
-                            p = Point(ptx ,mur.coin1.y)
-                            Point.set_mur(p, mur)
-                            ptintersects.append(p)
-                else:
-                    if (mur.coin1.x>p2.x and mur.coin1.x<p1.x) or (mur.coin1.x<p2.x and mur.coin1.x>p1.x):
-                        pty =(mur.coin1.x-p1.x)*direction + p1.y
-                        if (mur.get_ymin() <= pty <= mur.get_ymax()):
-                            p = Point(mur.coin1.x, pty)
-                            Point.set_mur(p,mur)
-                            ptintersects.append(p) 
-        elif(p2.x== p1.x):
-            for mur in murs :
-                if (mur.is_horizontal()): 
-                    if((mur.coin1.y>p2.y and mur.coin1.y<p1.y) or(mur.coin1.y<p2.y and mur.coin1.y>p1.y) ):
-                        p = Point(p1.x ,mur.coin1.y)
-                        Point.set_mur(p,mur)
-                        ptintersects.append(p)
-        elif(p2.y==p1.y):
-            for mur in murs :
-                if (mur.is_horizontal()==False):
-                    if((mur.coin1.x>p2.x and mur.coin1.x<p1.x) or(mur.coin1.x<p2.x and mur.coin1.x>p1.x) ): 
-                        p = Point(mur.coin1.x,p1.y)
-                        Point.set_mur(p,mur)
-                        ptintersects.append(p)
-        return ptintersects 
-

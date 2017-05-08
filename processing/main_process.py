@@ -84,14 +84,14 @@ def power_verif(width,height,base,MURS,COINS,COINS_DIFFRACTION,receivers=None):
                 RAYS_AFFICHAGE.extend(RAYS_DIRECT)
                 RAYS_AFFICHAGE.extend(RAYS_DIFFRACTION)
 
-                calculate_all_coefficients(RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION)
+                calculate_all_coefficients(RAYS_DIRECT,[],RAYS_DIFFRACTION)
 
                 power = calculate_total_power(base,receiver,RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION)
                 powers_dbm[i].append(10*log10(power*1000)) #definition de dBm
                 #draw_rays(MURS, RAYS_AFFICHAGE, width, height, base.x, base.y, receiver.x, receiver.y)
             else:
                 powers_dbm[i].append(0)
-            print_progress(i*height+j, width*height)
+            #print_progress(i*height+j, width*height)
             #break
         #break
 
@@ -102,7 +102,7 @@ def power_verif(width,height,base,MURS,COINS,COINS_DIFFRACTION,receivers=None):
     bitrate = compute_bitrate(powers_dbm)
     draw_bitrate_map(MURS,width,height,base,bitrate,receivers)
 
-    show_maps()
+    #show_maps()
 
 
 def find_all_rays(TXx,TXy,RXx,RXy,MURS,COINS,COINS_DIFFRACTION):

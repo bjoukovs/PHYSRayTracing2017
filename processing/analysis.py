@@ -2,6 +2,8 @@ from scipy.special import fresnel
 from math import sqrt, pi, pow
 from resources.const import *
 import numpy as np
+from classes.point import Point
+
 
 #integrale de fresnel de -inf a inf (voir page 150)
 fresnel_inf = (1,-1)
@@ -45,4 +47,43 @@ def full_transpose(m):
             res[i].append(m[j][i])
 
     return res
-        
+
+def intersect(p1,p2,murs):
+    ptintersects = []
+    if((p2.x-p1.x !=0) and (p2.y-p1.y !=0)):
+        direction = (p2.y-p1.y)/(p2.x-p1.x)
+        print(direction)
+        for mur in murs :
+            if (mur.is_horizontal()): 
+                if((mur.coin1.y>p2.y and mur.coin1.y<p1.y) or(mur.coin1.y<p2.y and mur.coin1.y>p1.y) ):
+                    ptx= (mur.coin1.y-p1.y)/direction + p1.x
+                    if (mur.get_xmin() <= ptx <= mur.get_xmax()):
+                        p = Point(ptx ,mur.coin1.y)
+                        Point.set_mur(p, mur)
+                        p.set_direction(direction)
+                        ptintersects.append(p)
+            else:
+                if (mur.coin1.x>p2.x and mur.coin1.x<p1.x) or (mur.coin1.x<p2.x and mur.coin1.x>p1.x):
+                    pty =(mur.coin1.x-p1.x)*direction + p1.y
+                    if (mur.get_ymin() <= pty <= mur.get_ymax()):
+                        p = Point(mur.coin1.x, pty)
+                        p.set_mur(mur)
+                        ptintersects.append(p)  
+
+    elif(p2.x== p1.x):
+        for mur in murs :
+            if (mur.is_horizontal()): 
+                if((mur.coin1.y>p2.y and mur.coin1.y<p1.y) or(mur.coin1.y<p2.y and mur.coin1.y>p1.y) ):
+                    p = Point(p1.x ,mur.coin1.y)
+                    Point.set_mur(p,mur)
+                    ptintersects.append(p)
+    elif(p2.y==p1.y):
+        for mur in murs :
+            if (mur.is_horizontal()==False):
+                if((mur.coin1.x>p2.x and mur.coin1.x<p1.x) or(mur.coin1.x<p2.x and mur.coin1.x>p1.x) ): 
+                    p = Point(mur.coin1.x,p1.y)
+                    Point.set_mur(p,mur)
+                    ptintersects.append(p)
+    
+    #print("LENGTH ",len(ptintersects))
+    return(ptintersects)

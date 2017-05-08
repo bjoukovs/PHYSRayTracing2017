@@ -9,6 +9,7 @@ from math import pi as PI
 from math import atan, atan2, sin, sqrt, pow, asin,cos
 from cmath import exp as cexp
 from cmath import polar
+from processing.analysis import intersect
 
 #renvoie la list des rayons reflechis
 def image_points(start_point, origin_point, murs):        
@@ -35,7 +36,7 @@ def rayons_reflexion(start_point,end_point, murs):
      for elem in image_elems:                                                           #1 reflexion
 
          murge =  [elem[1]]                                                             #list du mur ou reflexion pour utiliser dans intersect()
-         intersect_point = Point.intersect(elem[0],end_point,murge)                     #attention  intersect_point est une liste de 1 element et murge utilise car la fonction necessite une liste
+         intersect_point =intersect(elem[0],end_point,murge)                     #attention  intersect_point est une liste de 1 element et murge utilise car la fonction necessite une liste
 
          if(len(intersect_point)):
             new_ray = Rayon(start_point)
@@ -60,11 +61,11 @@ def rayons_reflexion(start_point,end_point, murs):
              z+=1
          for elem2 in image_elems2:
              murge2 =  [elem2[1]]                                                                   #une list de 1 elem avec le mur pour la deuxieme reflexion
-             intersect_point2_2 = Point.intersect(elem2[0],end_point,murge2)                          #comme avant. ici point de deuxieme point de reflexion
+             intersect_point2_2 = intersect(elem2[0],end_point,murge2)                          #comme avant. ici point de deuxieme point de reflexion
              if(len(intersect_point2_2)):
 
                 new_ray = Rayon(start_point)         
-                intersect_point2_1 = Point.intersect(elem[0],intersect_point2_2[0],[elem[1]]) #premier point de reflexion
+                intersect_point2_1 = intersect(elem[0],intersect_point2_2[0],[elem[1]]) #premier point de reflexion
 
                 if(len(intersect_point2_1)):
                     
@@ -108,5 +109,5 @@ def set_reflexion_coefficient(rayon):
         
 
         coeff_abs = polar(r + num/den)[0]  #module
-        print(coeff_abs)
+        #print("reflexion",coeff_abs*coeff_abs)
         pt_reflexion.set_coefficient_value(coeff_abs)
