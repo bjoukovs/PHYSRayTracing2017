@@ -243,5 +243,5 @@ def power_optimization(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
 
 def print_progress(current,max):
     percent = round(100/max*current)
-    #print('Progression : {0}%\r'.format(percent),end="")
+    print('Progression : {0}%\r'.format(percent),end="")
 

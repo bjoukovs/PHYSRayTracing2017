@@ -57,7 +57,7 @@ class Rayon(object):
             else:
                 direction = (p2.y-p1.y)/(p2.x-p1.x)
 
-            intersections = intersect(p1,p2,murs).copy()
+            intersections = intersect(p1,p2,murs)
             #print(len(intersections))
             for inter in intersections:
                 if inter.mur not in exception:
