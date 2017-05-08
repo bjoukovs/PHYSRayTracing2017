@@ -5,7 +5,7 @@ EPS_0 = 1/(36*PI)*pow(10,-9)
 UO = 4*PI*pow(10,-7)
 
 EPS_1 = 4.6*EPS_0 #BRIQUE
-EPS_2 = 6*EPS_0 #BETON          !!! différent
+EPS_2 = 5*EPS_0 #BETON          !!! différent
 EPS_3 = 2.25*EPS_0 #CLOISON
 
 SIG_1 = 0.02

@@ -108,5 +108,5 @@ def set_reflexion_coefficient(rayon):
         
 
         coeff_abs = polar(r + num/den)[0]  #module
-        #print(coeff_abs)
+        print(coeff_abs)
         pt_reflexion.set_coefficient_value(coeff_abs)

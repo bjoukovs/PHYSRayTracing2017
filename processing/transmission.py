@@ -76,6 +76,7 @@ def set_transmission_coefficient(rayon):
         den = 1-(pow(r,2)*cexp((-2*gamma*s)+(gamma*2*s*sin(theta_t)*sin(theta_i))))
 
         coeff_abs = polar(num/den)[0]  #module
+        print(coeff_abs)
         pt_trans.set_coefficient_value(coeff_abs)
     
 
