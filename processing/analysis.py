@@ -26,13 +26,13 @@ def abs_fresnel(x):
     #int(x a inf) = int(-inf a inf) - int(0 a x) -(-int(-inf a 0))
     res = (fresnel_inf[0] - val_fresnel[0] + fresnel_asymptotic_neg[0], fresnel_inf[1] - val_fresnel[1] + fresnel_asymptotic_neg[1])
 
-    return (2*sqrt(x)*sqrt(res[0]*res[0] + res[1]*res[1]))   #Pas mettre au carré le 2 et racine de x ? 
+    return (2*sqrt(x)*sqrt(PI/2)*sqrt(res[0]*res[0] + res[1]*res[1]))   # j'ai déjà ajouté sqrt(PI/2) du au changement de variables
 
 def abs_fresnel_verif(x):
 
     #renvoie la fonction 8.81
 
-    borne_inf = sqrt(2/pi)*sqrt(x)  #chgt de variable pour (voir remarque suivante)
+    borne_inf =x #chgt de variable pour (voir remarque suivante)
     val = fresnel(borne_inf)
     #val = (0,0)
     val_fresnel = (val[0], -val[1])
