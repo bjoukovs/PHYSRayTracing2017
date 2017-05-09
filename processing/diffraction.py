@@ -212,7 +212,7 @@ def get_diffraction_coefficient(rayon,point,beta):
     argument = 2*beta*L * pow(sin(delta/2),2)
     FT_abs = abs_fresnel(argument)
     D_abs = 0.5/sqrt(2*PI*beta*L)/sin(delta/2)*FT_abs
-
+    print("dada", D_abs*D_abs )
     return D_abs
 
 

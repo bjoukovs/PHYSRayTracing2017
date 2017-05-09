@@ -30,7 +30,6 @@ def image_points(start_point, origin_point, murs):
 
 def rayons_reflexion(start_point,end_point, murs):
      list_rayons = []
-     print("dada")
      image_elems = image_points(start_point, start_point, murs)
      z = 0
      
