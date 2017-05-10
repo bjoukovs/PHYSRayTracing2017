@@ -99,14 +99,11 @@ def set_reflexion_coefficient(rayon):
         theta_i = get_theta_i(direction,pt_reflexion)
         theta_t = get_theta_t(theta_i,mur.epsilon)
         s = get_s(theta_t,mur.epaisseur)
-        #print(theta_i, theta_t)
         Z1 = sqrt(UO/EPS_0)
         Z2 = sqrt(UO/mur.epsilon)
         r = get_reflexion_perpendiculaire(Z1,Z2,theta_i,theta_t)
-
         num = (1-pow(r,2))* r *cexp(-2*gamma*s)*cexp(2*gamma*s*sin(theta_t)*sin(theta_i))
         den = 1-(pow(r,2)*cexp((-2*gamma*s)+(gamma*2*s*sin(theta_t)*sin(theta_i))))
-        
-
         coeff_abs = polar(r + num/den)[0]  #module
+        print("dadadadadadadada", polar(r))
         pt_reflexion.set_coefficient_value(coeff_abs)

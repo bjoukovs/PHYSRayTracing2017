@@ -30,14 +30,14 @@ alpha = 0.77
 beta = 125.69
 gamma = complex(alpha,beta)
 
-#Verification de transmission orthogonal : on attent t^2 = 0,54
+#Verification de transmission orthogonal : on attent t^2 = 0,541
 RAYS_DIRECT = []
 RAYS_DIRECT.extend(rayon_direct(Point(1, 10), Point(11, 10), MURS))
 calculate_all_coefficients(RAYS_DIRECT, [], [])
 pt_trans = RAYS_DIRECT[0].get_points_transmission()[0]
 coef = pt_trans.coefficient_value
-print("le coefficient de transmission au carré attendu est près de 0.54, ici on obtient :", coef*coef)
-
+print("le coefficient de transmission au carré attendu est près de 0.541, ici on obtient :", coef*coef)
+#draw_rays(MURS,RAYS_DIRECT,width,height,1,10,11,20)
 #Verification de reflexion orthogonal : 
 r = complex(0.42, -0.0025)
 s=0.3
@@ -49,9 +49,28 @@ RAYS_REFLEXION = rayons_reflexion(Point(0, 10), Point(9, 10), MURS)
 calculate_all_coefficients([], RAYS_REFLEXION, [])
 pt_ref = RAYS_REFLEXION[0].get_points_reflexions()[0]
 coef = pt_ref.coefficient_value
-print("le coefficient de reflexion au carré attendu est :", coeffth*coeffth)
-print("le coefficient de reflexion au carré ici est :", coef*coef)
+print("\nle coefficient de reflexion normale au carré attendu est :", coeffth*coeffth)
+print("\nle coefficient de reflexion normale au carré ici est :", coef*coef)
+#draw_rays(MURS,RAYS_REFLEXION,width,height,1,10,11,20)
+#Verification de reflexion avec un angle : départ (0,10), arrivé (0,12)
+theta_i = 0.09967
+theta_t = 0.04063
+Z_1 = 120*PI
+Z_2 = complex(153, 0.94)
+r = (Z_2*cos(theta_i)-Z_1*cos(theta_t))/(Z_2*cos(theta_i)+Z_1*cos(theta_t))
+print("blabla le mod de r sont cccccccc", polar(r))
+s=0.3
+num = (1-r*r)* r *cexp(-2*gamma*s)*cexp(2*gamma*s*sin(theta_t)*sin(theta_i))
+den = 1-(r*r*cexp(-2*gamma*s)*cexp(2*gamma*s*sin(theta_t)*sin(theta_i)))
+coeffth = polar(r + num/den)[0] 
 
+RAYS_REFLEXION2 = rayons_reflexion(Point(0, 10), Point(0, 12), MURS)
+calculate_all_coefficients([], RAYS_REFLEXION2, [])
+pt_ref = RAYS_REFLEXION2[0].get_points_reflexions()[0]
+coef = pt_ref.coefficient_value
+print("\nle coefficient de reflexion au carré attendu est :", coeffth*coeffth)
+print("\nle coefficient de reflexion au carré ici est :", coef*coef)
+#draw_rays(MURS,RAYS_REFLEXION,width,height,1,10,11,20)
 #Verification de diffraction : 
 d1=9
 d2 = 1
