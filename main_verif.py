@@ -58,7 +58,6 @@ theta_t = 0.04063
 Z_1 = 120*PI
 Z_2 = complex(153, 0.94)
 r = (Z_2*cos(theta_i)-Z_1*cos(theta_t))/(Z_2*cos(theta_i)+Z_1*cos(theta_t))
-print("blabla le mod de r sont cccccccc", polar(r))
 s=0.3
 num = (1-r*r)* r *cexp(-2*gamma*s)*cexp(2*gamma*s*sin(theta_t)*sin(theta_i))
 den = 1-(r*r*cexp(-2*gamma*s)*cexp(2*gamma*s*sin(theta_t)*sin(theta_i)))
@@ -70,7 +69,8 @@ pt_ref = RAYS_REFLEXION2[0].get_points_reflexions()[0]
 coef = pt_ref.coefficient_value
 print("\nle coefficient de reflexion au carré attendu est :", coeffth*coeffth)
 print("\nle coefficient de reflexion au carré ici est :", coef*coef)
-#draw_rays(MURS,RAYS_REFLEXION,width,height,1,10,11,20)
+#draw_rays(MURS,RAYS_REFLEXION2,width,height,1,10,11,20)
+
 #Verification de diffraction : 
 d1=9
 d2 = 1

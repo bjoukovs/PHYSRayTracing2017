@@ -105,5 +105,4 @@ def set_reflexion_coefficient(rayon):
         num = (1-pow(r,2))* r *cexp(-2*gamma*s)*cexp(2*gamma*s*sin(theta_t)*sin(theta_i))
         den = 1-(pow(r,2)*cexp((-2*gamma*s)+(gamma*2*s*sin(theta_t)*sin(theta_i))))
         coeff_abs = polar(r + num/den)[0]  #module
-        print("dadadadadadadada", polar(r))
         pt_reflexion.set_coefficient_value(coeff_abs)
