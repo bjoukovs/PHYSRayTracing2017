@@ -34,83 +34,46 @@ def get_vertical_walls(coins_double):
     return vertical_walls
 
 def get_direction(p1,p2):
-    ## return la valeur absolue de ma direction, si vertical return "None" si horizontal return 0
+    ## return la direction, si vertical return "None" si horizontal return 0
     
-    if((p2.x-p1.x !=0) and (p2.y-p1.y !=0)):
-        direction = abs(p2.y-p1.y)/abs(p2.x-p1.x)
-        return direction
+    if((p2.x != p1.x) and (p2.y != p1.y)):
+        direction = (p2.y-p1.y)/(p2.x-p1.x)
     elif (p2.x-p1.x == 0):
-        direction = None
-        return direction
+        direction = None    
     elif (p2.y-p1.y == 0):
         direction = 0
-        return direction
 
-def get_phiprim1(p1,p2,mur_cible):
+    return direction
+
+def get_direction_angle(p1,p2):
+    #retourne l'angle du segment allant de p1 a p2
+    print(p2.y-p1.y, p2.x-p1.x)
+    return atan2(p2.y-p1.y, p2.x-p1.x)
+
+def get_phiprim1(p,coin,mur_cible):
     # return la valeur de phiprim entre le point1 et le point2 par rapport a un mur choisi, mur_cible
     
-    phiprim = []
-    murs = p2.murs_associes
-    direction = get_direction(p1,p2)
+    murs = coin.murs_associes
+    direction = get_direction_angle(coin,p) #angle du segment coin-rayon
     phiprim = None
 
     for mur in murs:
         if (mur == mur_cible):
-            
-            # cas mur horizontal
-            if mur.is_horizontal():
-                xmax = mur.get_xmax()
-                xmin = mur.get_xmin()
-                
-                #cas mur a gauche
-                if(xmax <= p1.x):
-                    if(direction == None):
-                        phiprim = PI
-                    elif(p2.x == xmax):
-                        return PI - atan(direction)
-                    elif(p2.x == xmin):
-                        return atan(direction)
-                
-                #cas mur a droite
-                elif(xmin >= p1.x):
-                    if(direction == None):
-                        return PI
-                    elif(p2.x == xmin):
-                        return PI - atan(direction)
-                    elif(p2.x == xmax):
-                        return atan(direction)
-                
-                #cas mur au niveau du point 
-                elif(xmax > p1.x and xmin < p1.x):
-                    if(direction == None):
-                        return PI
-                    else:
-                        return atan(direction)
-            
-            #cas mur vertical
-            else:
-                ymax = mur.get_ymax()
-                ymin = mur.get_ymin()
-                
-                # cas mur en dessous 
-                if(ymax <= p1.y):
-                    if (p2.y == ymax):
-                        return PI/2 + atan(direction)
-                    elif(p2.y == ymin):
-                        return PI/2 - atan(direction)
-                
-                # cas mur au dessus
-                elif(ymin >= p1.y):
-                    if (p2.y == ymin):
-                        return PI/2 + atan(direction)
-                    elif(p2.y == ymax):
-                        return PI/2 - atan(direction) 
-                
-                # cas mur au niveau du point
-                elif(ymin < p1.y < ymax):
-                    return PI/2 - atan(direction)
 
-    return phiprim
+            #determination de l'angle du mur
+            mur_angle = 0
+            if mur.is_horizontal():
+                if coin.x==mur.get_xmax():
+                    mur_angle = PI
+            else:
+                mur_angle=PI/2
+                if coin.y==mur.get_ymax():
+                    mur_angle = -PI/2
+
+            #phiprim est l'angle allant du mur vers le rayon = angle mur - angle rayon
+            phiprim = abs(mur_angle - direction)
+            print(direction,phiprim)
+            return phiprim
         
 
 def get_phiprim2(p1,p2):
@@ -179,21 +142,21 @@ def get_phiprim2(p1,p2):
     
 
 
-def get_phiprim(p1,p2):
+def get_phiprim(p,coin):
     # return phiprim entre deux points pour les deux situations possibles: 1 mur et 2 murs
-    murs = p2.murs_associes
+    murs = coin.murs_associes
 
     if(len(murs) == 1):
-        phiprim = get_phiprim1(p1,p2,murs[0])
+        phiprim = get_phiprim1(p,coin,murs[0])
     else:
-        phiprim = get_phiprim2(p1,p2)
+        phiprim = get_phiprim2(p,coin)
     
     return phiprim 
 
 
-def get_phi(p1,p2):
+def get_phi(p,coin):
     # return la valeur de phi 
-    phi = 2*(PI) - get_phiprim(p1,p2)
+    phi = 2*(PI) - get_phiprim(p,coin)
 
     return phi
 
@@ -204,7 +167,7 @@ def get_diffraction_coefficient(rayon,point,beta):
 
     L = s*sp/(s+sp)
 
-    delta = PI - (get_phi(rayon.end_point,point.associated_diffraction_corner) - get_phiprim(rayon.end_point,point.associated_diffraction_corner))
+    delta = PI - (get_phi(rayon.end_point,point.associated_diffraction_corner) - get_phiprim(rayon.start_point,point.associated_diffraction_corner))
     if delta==0:
         delta=0.000001
  
@@ -212,6 +175,7 @@ def get_diffraction_coefficient(rayon,point,beta):
     argument = 2*beta*L * pow(sin(delta/2),2)
     FT_abs = abs_fresnel(argument)
     D_abs = 0.5/sqrt(2*PI*beta*L)/sin(delta/2)*FT_abs
+    print(L,delta)
     return D_abs
 
 

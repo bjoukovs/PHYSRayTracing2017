@@ -11,7 +11,7 @@ from math import pi as PI
 from math import atan, atan2, sin, sqrt, pow, asin,cos
 from cmath import exp as cexp
 from cmath import polar
-from processing.analysis import abs_fresnel_verif
+from processing.analysis import abs_fresnel_verif, abs_fresnel
 
 data = decode_plan("plan_verif.txt")
 MURS = data[4]
@@ -83,10 +83,22 @@ coins = []
 coins.append(COINS_DIFFRACTION [1])
 RAYS_DIFFRACTION = diffraction_rays(Point(1, 10), Point(11, 10),MURS,coins)
 calculate_all_coefficients([], [], RAYS_DIFFRACTION)
-pt_dif = RAYS_DIFFRACTION[0].get_points_principaux()[1]
-coef = pt_dif.coefficient_value
-print("le coefficient de diffraction au carré attendu est :",coefth2*coefth2)
-print("le coefficient de diffraction au carré ici est :", coef*coef)
-#draw_rays(MURS,RAYS_DIFFRACTION,width,height,1,10,11,20)
+for ray in RAYS_DIFFRACTION:
+    print("COEFFICIENT CALCULE",ray.get_points_principaux()[1].coefficient_value)
+#coef = pt_dif.coefficient_value
+print("le coefficient de diffraction attendu est :",coefth2)
+#print("le coefficient de diffraction au carré ici est :", coef*coef)
+draw_rays(MURS,RAYS_DIFFRACTION,width,height,1,10,11,20)
 #power_verif(width,height,base,MURS,COINS,COINS_DIFFRACTION)
 show_maps()
+#2eme verif diffraction
+s = sqrt(5)
+sp = sqrt(85)
+tp = atan(9/2)
+t = 2*PI-atan(0.5)
+L = s*sp/(s+sp)
+delta = PI - (t-tp)
+print(tp,L,delta)
+
+D = 0.5/sqrt(2*PI*BETA*L)*abs_fresnel(2*BETA*L*(sin(delta/2)**2))/sin(delta/2)
+print(D)
