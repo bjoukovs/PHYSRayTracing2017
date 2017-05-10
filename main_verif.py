@@ -105,4 +105,4 @@ D = 0.5/sqrt(2*PI*BETA*L)*abs_fresnel(2*BETA*L*(sin(delta/2)**2))/sin(delta/2)
 FT = 0.99987 #Resultat de wolfram
 D = 0.5/sqrt(2*PI*BETA*L)*FT/sin(delta/2)
 
-print("Resultat attendu avec wolfram: "D)
+print("Resultat attendu avec wolfram: ",D)
