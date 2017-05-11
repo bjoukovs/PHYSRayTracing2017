@@ -47,7 +47,7 @@ def get_direction(p1,p2):
 
 def get_direction_angle(p1,p2):
     #retourne l'angle du segment allant de p1 a p2
-    print(p2.y-p1.y, p2.x-p1.x)
+    #print(p2.y-p1.y, p2.x-p1.x)
     return atan2(p2.y-p1.y, p2.x-p1.x)
 
 def get_phiprim1(p,coin,mur_cible):
@@ -72,7 +72,7 @@ def get_phiprim1(p,coin,mur_cible):
 
             #phiprim est l'angle allant du mur vers le rayon = angle mur - angle rayon
             phiprim = abs(mur_angle - direction)
-            print(direction,phiprim)
+            #print(direction,phiprim)
             return phiprim
         
 
@@ -175,7 +175,7 @@ def get_diffraction_coefficient(rayon,point,beta):
     argument = 2*beta*L * pow(sin(delta/2),2)
     FT_abs = abs_fresnel(argument)
     D_abs = 0.5/sqrt(2*PI*beta*L)/sin(delta/2)*FT_abs
-    print(L,delta)
+    #print(L,delta)
     return D_abs
 
 
