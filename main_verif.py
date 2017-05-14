@@ -37,7 +37,8 @@ calculate_all_coefficients(RAYS_DIRECT, [], [])
 pt_trans = RAYS_DIRECT[0].get_points_transmission()[0]
 coef = pt_trans.coefficient_value
 print("le coefficient de transmission au carré attendu est près de 0.541, ici on obtient :", coef*coef)
-#draw_rays(MURS,RAYS_DIRECT,width,height,1,10,11,20)
+#draw_rays(MURS,RAYS_DIRECT,width,height,1,10,11,10)
+
 #Verification de reflexion orthogonal : 
 r = complex(0.42, -0.0025)
 s=0.3
@@ -51,7 +52,8 @@ pt_ref = RAYS_REFLEXION[0].get_points_reflexions()[0]
 coef = pt_ref.coefficient_value
 print("\nle coefficient de reflexion normale au carré attendu est :", coeffth*coeffth)
 print("\nle coefficient de reflexion normale au carré ici est :", coef*coef)
-#draw_rays(MURS,RAYS_REFLEXION,width,height,1,10,11,20)
+#draw_rays(MURS,RAYS_REFLEXION,width,height,1,10,9,10)
+
 #Verification de reflexion avec un angle : départ (0,10), arrivé (0,12)
 theta_i = 0.09967
 theta_t = 0.04063
@@ -69,7 +71,7 @@ pt_ref = RAYS_REFLEXION2[0].get_points_reflexions()[0]
 coef = pt_ref.coefficient_value
 print("\nle coefficient de reflexion au carré attendu est :", coeffth*coeffth)
 print("\nle coefficient de reflexion au carré ici est :", coef*coef)
-#draw_rays(MURS,RAYS_REFLEXION2,width,height,1,10,11,20)
+#draw_rays(MURS,RAYS_REFLEXION2,width,height,0,10,0,12)
 
 #Verification de diffraction : 
 d1=9
@@ -88,9 +90,9 @@ for ray in RAYS_DIFFRACTION:
 #coef = pt_dif.coefficient_value
 print("le coefficient de diffraction attendu est :",coefth2)
 #print("le coefficient de diffraction au carré ici est :", coef*coef)
-draw_rays(MURS,RAYS_DIFFRACTION,width,height,1,10,11,20)
+#draw_rays(MURS,RAYS_DIFFRACTION,width,height,1,10,11,10)
 #power_verif(width,height,base,MURS,COINS,COINS_DIFFRACTION)
-show_maps()
+
 #2eme verif diffraction
 s = sqrt(5)
 sp = sqrt(85)
