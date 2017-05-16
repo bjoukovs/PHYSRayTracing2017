@@ -5,33 +5,6 @@ from math import pi as PI
 from math import atan, atan2, sin, sqrt, pow
 from processing.analysis import abs_fresnel
 
-def get_coins_solo(coins):          
-    coins_solo = []
-
-    for coin in coins:                          
-        if(len(coin.murs_associes)==1):
-            coins_solo.append(coin)
-        
-    return coins_solo
-
-def get_coins_double(coins):
-    coins_double =[]
-
-    for coin in coins:
-        if(len(coin.murs_associes)==2):     
-            coins_double.append(coin)
-
-    return coins_double
-
-def get_vertical_walls(coins_double):
-    vertical_walls = []
-
-    for coin in coins_double:
-        for wall in coin.murs_associes:
-            if (wall.is_horizontal == False):        
-                vertical_walls.append(wall)
-
-    return vertical_walls
 
 def get_direction(p1,p2):
     ## return la direction, si vertical return "None" si horizontal return 0
@@ -72,15 +45,14 @@ def get_phiprim1(p,coin,mur_cible):
 
             #phiprim est l'angle allant du mur vers le rayon = angle mur - angle rayon
             phiprim = abs(mur_angle - direction)
-            #print(direction,phiprim)
             return phiprim
         
 
-def get_phiprim2(p1,p2):
+def get_phiprim2(p,coin):
     # return la valeur de phiprim lorsque c est au niveau d'un coin entre deux murs
     # phiprim est calcule par rapport a un mur bissecteur aux deux autres
     
-    murs = p2.murs_associes
+    murs = coin.murs_associes
 
     for mur in murs:
         if (mur.is_horizontal()):
@@ -88,55 +60,55 @@ def get_phiprim2(p1,p2):
         else:
             mur_vertical = Mur(mur.epaisseur, mur.coin1, mur.coin2, mur.epsilon, mur.sigma)
 
-    alpha = get_phiprim1(p1,p2,mur_vertical)
+    alpha = get_phiprim1(p,coin,mur_vertical)
 
     xmin_hor =  mur_horizontal.get_xmin()
     xmax_hor = mur_horizontal.get_xmax()
     ymin_ver = mur_vertical.get_ymin()
     ymax_ver = mur_vertical.get_ymax()
     
-    # reprends tous les cas possibles si p2 se trouve en haut a gauche par rapport au p1
-    if (p2.x <= p1.x and p2.y >= p1.y):
-        if(p2.x == xmin_hor and p2.y == ymax_ver):
+    # reprends tous les cas possibles si coin se trouve en haut a gauche par rapport au p
+    if (coin.x <= p.x and coin.y >= p.y):
+        if(coin.x == xmin_hor and coin.y == ymax_ver):
             return abs(alpha-PI/4)
-        elif(p2.x == xmax_hor and p2.y == ymax_ver):
+        elif(coin.x == xmax_hor and coin.y == ymax_ver):
             return PI/4 + alpha
-        elif(p2.x == xmin_hor and p2.y == ymin_ver):
+        elif(coin.x == xmin_hor and coin.y == ymin_ver):
             return abs(alpha-PI/4)
-        elif(p2.x == xmax_hor and p2.y == ymin_ver):
+        elif(coin.x == xmax_hor and coin.y == ymin_ver):
             return alpha + PI/4
     
-    # reprends tous les cas possibles si p2 se trouve en bas a droite par rapport au p1
-    elif (p2.x >= p1.x and p2.y <= p1.y):
-        if(p2.x == xmax_hor and p2.y == ymin_ver):
+    # reprends tous les cas possibles si coin se trouve en bas a droite par rapport au p
+    elif (coin.x >= p.x and coin.y <= p.y):
+        if(coin.x == xmax_hor and coin.y == ymin_ver):
             return abs(alpha-PI/4)
-        elif(p2.x == xmin_hor and p2.y == ymin_ver):
+        elif(coin.x == xmin_hor and coin.y == ymin_ver):
             return PI/4 + alpha
-        elif(p2.x == xmax_hor and p2.y == ymax_ver):
+        elif(coin.x == xmax_hor and coin.y == ymax_ver):
             return abs(alpha-PI/4)
-        elif(p2.x == xmin_hor and p2.y == ymax_ver):
+        elif(coin.x == xmin_hor and coin.y == ymax_ver):
             return alpha + PI/4
     
-    # reprends tous les cas possibles si p2 se trouve en bas a gauche par rapport au p1
-    elif (p2.x <= p1.x and p2.y <= p1.y):
-        if(p2.x == xmin_hor and p2.y == ymin_ver):
+    # reprends tous les cas possibles si coin se trouve en bas a gauche par rapport au p
+    elif (coin.x <= p.x and coin.y <= p.y):
+        if(coin.x == xmin_hor and coin.y == ymin_ver):
             return abs(alpha-PI/4)
-        elif(p2.x == xmax_hor and p2.y == ymin_ver):
+        elif(coin.x == xmax_hor and coin.y == ymin_ver):
             return PI/4 + alpha
-        elif(p2.x == xmin_hor and p2.y == ymax_ver):
+        elif(coin.x == xmin_hor and coin.y == ymax_ver):
             return abs(alpha-PI/4)
-        elif(p2.x == xmax_hor and p2.y == ymax_ver):
+        elif(coin.x == xmax_hor and coin.y == ymax_ver):
             return alpha + PI/4
      
-    # reprends tous les cas possibles si p2 se trouve en haut a droite par rapport au p1
-    elif (p2.x >= p1.x and p2.y >= p1.y):
-        if(p2.x == xmax_hor and p2.y == ymax_ver):
+    # reprends tous les cas possibles si coin se trouve en haut a droite par rapport au p
+    elif (coin.x >= p.x and coin.y >= p.y):
+        if(coin.x == xmax_hor and coin.y == ymax_ver):
             return abs(alpha-PI/4)
-        elif(p2.x == xmin_hor and p2.y == ymax_ver):
+        elif(coin.x == xmin_hor and coin.y == ymax_ver):
             return PI/4 + alpha
-        elif(p2.x == xmax_hor and p2.y == ymin_ver):
+        elif(coin.x == xmax_hor and coin.y == ymin_ver):
             return abs(alpha-PI/4)
-        elif(p2.x == xmin_hor and p2.y == ymin_ver):
+        elif(coin.x == xmin_hor and coin.y == ymin_ver):
             return alpha + PI/4
     
     
@@ -175,7 +147,6 @@ def get_diffraction_coefficient(rayon,point,beta):
     argument = 2*beta*L * pow(sin(delta/2),2)
     FT_abs = abs_fresnel(argument)
     D_abs = 0.5/sqrt(2*PI*beta*L)/sin(delta/2)*FT_abs
-    #print(L,delta)
     return D_abs
 
 
@@ -191,8 +162,7 @@ def diffraction_rays(p_start,p_finish,murs,coins):
             rayon.add_point_principal(p)
             rayon.add_point_principal(p_finish)
 
-            rayon.find_all_intersections(murs,coin.murs_associes)  # donne au rayon tous les points dintersection qu'il subit durant
-                                                                   # son parcours pour permettre de calculer les transmissions
+            rayon.find_all_intersections(murs,coin.murs_associes)  #Determination des points de transmissions du rayon
 
             Diffraction_rays.append(rayon)
 

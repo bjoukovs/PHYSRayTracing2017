@@ -3,7 +3,7 @@ from processing.analysis import get_alpha, get_beta
 
 class Mur(object):
     
-    def __init__(self, e, coin1, coin2, eps, sig):    #mur : type epaisseur coord x y  coord x y epsilon sigma
+    def __init__(self, e, coin1, coin2, eps, sig):    #mur : type epaisseur coin1 coin2 epsilon sigma
         self._coin1 = coin1
         self._coin2 = coin2
         self._epsilon = eps 

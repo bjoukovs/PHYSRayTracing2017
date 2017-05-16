@@ -22,6 +22,7 @@ def power_cartography(width,height,base,MURS,COINS,COINS_DIFFRACTION,receivers=N
     powers_dbm = []
     receiver = Receiver(0,0)
 
+    #Boucle principale sur tous les metres carres
     for i in range(0,int(width)):
 
         powers_dbm.append([])
@@ -31,69 +32,16 @@ def power_cartography(width,height,base,MURS,COINS,COINS_DIFFRACTION,receivers=N
             receiver.set_y(j+0.5)
             if(base.x != receiver.x or base.y != receiver.y):
 
-                data = find_all_rays(base.x,base.y,receiver.x,receiver.y,MURS,COINS,COINS_DIFFRACTION)
+                data = find_all_rays(base.x,base.y,receiver.x,receiver.y,MURS,COINS,COINS_DIFFRACTION) #determination des rayons
                 RAYS_DIRECT, RAYS_REFLEXION, RAYS_DIFFRACTION = data[0], data[1], data[2]
 
-                RAYS_AFFICHAGE =[]
-                RAYS_AFFICHAGE.extend(RAYS_REFLEXION)
-                RAYS_AFFICHAGE.extend(RAYS_DIRECT)
-                RAYS_AFFICHAGE.extend(RAYS_DIFFRACTION)
+                calculate_all_coefficients(RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION) #calcul des coefficients
 
-                calculate_all_coefficients(RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION)
-
-                power = calculate_total_power(base,receiver,RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION)
+                power = calculate_total_power(base,receiver,RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION) #calcul de la puissance recue
                 powers_dbm[i].append(10*log10(power*1000)) #definition de dBm
-                #draw_rays(MURS, RAYS_AFFICHAGE, width, height, base.x, base.y, receiver.x, receiver.y)
             else:
                 powers_dbm[i].append(0)
             print_progress(i*height+j, width*height)
-            #break
-        #break
-
-    print("")
-
-    draw_power_map(MURS,width,height,base,powers_dbm,receivers)
-
-    bitrate = compute_bitrate(powers_dbm)
-    draw_bitrate_map(MURS,width,height,base,bitrate,receivers)
-
-    show_maps()
-
-def power_verif(width,height,base,MURS,COINS,COINS_DIFFRACTION,receivers=None):
-    #Cette fonction permet de verifier les resultats pour un cas particulier
-
-    print("\nCartographie de la puissance et du debit pour la base en",base.x,base.y)
-
-    powers_dbm = []
-    receiver = Receiver(0,0)
-
-    for i in range(0,int(width)):
-
-        powers_dbm.append([])
-
-        for j in range(0,int(height)):
-            receiver.set_x(i+0.5)
-            receiver.set_y(j+0.5)
-            if(base.x != receiver.x or base.y != receiver.y):
-
-                data = find_all_rays(base.x,base.y,receiver.x,receiver.y,MURS,COINS,COINS_DIFFRACTION)
-                RAYS_DIRECT, RAYS_REFLEXION, RAYS_DIFFRACTION = data[0], data[1], data[2]
-
-                RAYS_AFFICHAGE =[]
-                RAYS_AFFICHAGE.extend(RAYS_REFLEXION)
-                RAYS_AFFICHAGE.extend(RAYS_DIRECT)
-                RAYS_AFFICHAGE.extend(RAYS_DIFFRACTION)
-
-                calculate_all_coefficients(RAYS_DIRECT,[],RAYS_DIFFRACTION)
-
-                power = calculate_total_power(base,receiver,RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION)
-                powers_dbm[i].append(10*log10(power*1000)) #definition de dBm
-                #draw_rays(MURS, RAYS_AFFICHAGE, width, height, base.x, base.y, receiver.x, receiver.y)
-            else:
-                powers_dbm[i].append(0)
-            #print_progress(i*height+j, width*height)
-            #break
-        #break
 
     print("")
 
@@ -168,6 +116,9 @@ def calculate_total_power(base,receiver,RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACT
                    
 
 def compute_bitrate(powers):
+
+    #converti la matrice de puissances en matrice de debit selon les intervalles definis ci-dessous
+
     pmin = -93
     pmax = -73 #atention le debit vaut dmax au dela de cette valeur
     dmin = 6
@@ -187,6 +138,7 @@ def compute_bitrate(powers):
                 bitrate[idx].append(dmin + (power-pmin)*increment)
     
     return bitrate
+
 
 def power_optimization(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
     #Cette fonction renvoie la position preferable de l'antenne pour avoir une bonne connexion
@@ -217,10 +169,6 @@ def power_optimization(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
                 if(n==1):
                     data = find_all_rays(base.x,base.y,elem.x,elem.y,MURS,COINS,COINS_DIFFRACTION)
                     RAYS_DIRECT, RAYS_REFLEXION, RAYS_DIFFRACTION = data[0], data[1], data[2]
-                    RAYS_AFFICHAGE =[]
-                    RAYS_AFFICHAGE.extend(RAYS_REFLEXION)
-                    RAYS_AFFICHAGE.extend(RAYS_DIRECT)
-                    RAYS_AFFICHAGE.extend(RAYS_DIFFRACTION)
                     calculate_all_coefficients(RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION)
                     power += 10*log10((calculate_total_power(base,elem,RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION))*1000)
             if i==0 and j==0:
@@ -242,6 +190,7 @@ def power_optimization(width,height,base,receiver,MURS,COINS,COINS_DIFFRACTION):
 
 
 def print_progress(current,max):
+    #Affiche un texte indiquant la progression de l'algorithme
     percent = round(100/max*current)
     print('Progression : {0}%\r'.format(percent),end="")
 

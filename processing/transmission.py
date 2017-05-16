@@ -11,7 +11,6 @@ from cmath import polar
 def get_theta_i (direction,p2):
     # return la valeur de l angle incident au point p2 pour une certaine direction
     mur = p2.mur 
-    #print(direction)
     if mur.is_horizontal():
         if direction == None:
             return PI/2
@@ -63,13 +62,11 @@ def set_transmission_coefficient(rayon):
 
         if(pt_trans.direction != None):
             direction = abs(pt_trans.direction)
-            #print(direction)
         else:
             direction = None
+
         theta_i = get_theta_i(direction,pt_trans)
-        #print("i", theta_i)
         theta_t = get_theta_t(theta_i,mur.epsilon)
-        #print("t", theta_t)
         s = get_s(theta_t,mur.epaisseur)
         Z1 = sqrt(UO/EPS_0)
         Z2 = sqrt(UO/mur.epsilon)
@@ -79,7 +76,6 @@ def set_transmission_coefficient(rayon):
         den = 1-(pow(r,2)*cexp((-2*gamma*s)+(gamma*2*s*sin(theta_t)*sin(theta_i))))
 
         coeff_abs = polar(num/den)[0]  #module
-        #print("transmission", coeff_abs*coeff_abs)
         pt_trans.set_coefficient_value(coeff_abs)
     
 

@@ -29,39 +29,48 @@ def image_points(start_point, origin_point, murs):
     return ls
 
 def rayons_reflexion(start_point,end_point, murs):
+
+     #Renvoie la liste des rayons ayant effectue 1 ou 2 reflexions entre start_point et end_point
+
      list_rayons = []
      image_elems = image_points(start_point, start_point, murs)
      z = 0
      
-     for elem in image_elems:                                                           #1 reflexion
+     #UNE SEULE REFLEXION
+     for elem in image_elems:
 
-         murge =  [elem[1]]                                                             #list du mur ou reflexion pour utiliser dans intersect()
-         intersect_point =intersect(elem[0],end_point,murge)                     #attention  intersect_point est une liste de 1 element et murge utilise car la fonction necessite une liste
+         mur_intersec =  [elem[1]] #Mur a tester avec la fonction intersect
+         intersect_point =intersect(elem[0],end_point,mur_intersec)  #intersect_point est une liste de 1 element
 
          if(len(intersect_point)):
             new_ray = Rayon(start_point)
             intersect_point[0].set_interaction_type("r")
-            intersect_point[0].set_direction(get_direction(intersect_point[0],start_point))     #donne la direction
+            intersect_point[0].set_direction(get_direction(intersect_point[0],start_point))     #donne la direction incidente
             new_ray.add_point_reflexion(intersect_point[0])
-            new_ray.add_point_principal(end_point)                                     #Les 3 points principaux definissant le rayon
+            new_ray.add_point_principal(end_point)
 
-            new_ray.find_all_intersections(murs)                                         #Intersection du rayon avec les murs pour la transmission
-            list_rayons.append(new_ray)                                                   #rayon en une reflexion   
+            new_ray.find_all_intersections(murs) #Intersection du rayon avec les murs pour la transmission
+            list_rayons.append(new_ray)  
      
+    #DEUX REFLEXIONS
+     for elem in image_elems:
 
-     for elem in image_elems:                             
-         mur_intermediaire_ls = []                                                       #liste des AUTRES murs
+         #creation d'une liste de murs ne contenant par le mur du point image elem                       
+         mur_intermediaire_ls = []
          for wall in murs:
              if (Mur.is_different(wall,elem[1])):
-                 mur_intermediaire_ls.append(wall)   
-         image_elems2 = image_points(elem[0],start_point, mur_intermediaire_ls)                      #on cherche les points images des points images par les AUTRES murs
+                 mur_intermediaire_ls.append(wall)
+        
+         #on cherche les points images des points images par les AUTRES murs
+         image_elems2 = image_points(elem[0],start_point, mur_intermediaire_ls)
          if(z==0):
              save = elem[1]
              im = image_elems2
              z+=1
+         
          for elem2 in image_elems2:
-             murge2 =  [elem2[1]]                                                                   #une list de 1 elem avec le mur pour la deuxieme reflexion
-             intersect_point2_2 = intersect(elem2[0],end_point,murge2)                          #comme avant. ici point de deuxieme point de reflexion
+             mur_intersec2 =  [elem2[1]] #une list de 1 elem avec le mur pour la deuxieme reflexion
+             intersect_point2_2 = intersect(elem2[0],end_point,mur_intersec2) #comme avant. ici point de deuxieme point de reflexion
              if(len(intersect_point2_2)):
 
                 new_ray = Rayon(start_point)         
@@ -73,20 +82,23 @@ def rayons_reflexion(start_point,end_point, murs):
                     intersect_point2_1[0].set_direction(get_direction( intersect_point2_1[0],start_point)) 
                     intersect_point2_2[0].set_interaction_type("r")
                     intersect_point2_2[0].set_direction(get_direction( intersect_point2_1[0],intersect_point2_2[0])) 
-                    new_ray.add_point_reflexion(intersect_point2_1[0])                                          #1 ere reflexion
-                    new_ray.add_point_reflexion(intersect_point2_2[0])                                          #2 eme reflexion
-                    new_ray.add_point_principal(end_point)                                                      #point final du nouveau rayon
+                    new_ray.add_point_reflexion(intersect_point2_1[0]) #1 ere reflexion
+                    new_ray.add_point_reflexion(intersect_point2_2[0]) #2 eme reflexion
+                    new_ray.add_point_principal(end_point)
 
-                    new_ray.find_all_intersections(murs)                                                        #Points de transmission
+                    new_ray.find_all_intersections(murs) #Points de transmission
 
                     list_rayons.append(new_ray)
 
      return list_rayons
 
+
 def set_reflexion_coefficient(rayon):
+
+    #effectue le calcul des coefficients de reflexion
+
     points_reflexion = rayon.get_points_reflexions()
     
-
     for pt_reflexion in points_reflexion:
         mur = pt_reflexion.mur
         alpha = mur.alpha

@@ -10,7 +10,12 @@ import numpy as np
 from numpy.matrixlib import matrix
 from processing.analysis import full_transpose
 
+
 def decode_plan(filename):
+
+    #Cette fonction permet de lire le plan et de renvoyer la liste de murs et de coins correspondants
+    #ainsi que l'emetteur par defaut et les recepteurs definis
+
     print("Decodage du plan en cours...",end='') 
 
     input = open(filename,'r')
@@ -39,7 +44,7 @@ def decode_plan(filename):
         #Les murs et les coins
         elif keyword == "W":
             x1,y1,x2,y2 = float(content[3]),float(content[4]),float(content[5]),float(content[6])
-            coin1 = tempcoins.get((x1,y1),None)
+            coin1 = tempcoins.get((x1,y1),None) #Ces etapes permettent de ne pas generer de coins doubles
             coin2 = tempcoins.get((x2,y2),None)
             if(coin1==None):
                 coin1 = Coin(x1,y1)
@@ -65,7 +70,7 @@ def decode_plan(filename):
             coin2.add_mur(m)
             murs.append(m)
         
-    #Coins eligibles pour la diffraction
+    #Coins eligibles pour la diffraction (coins uniquement associes a un mur ou a deux murs perpendiculaires)
     coins_diffraction = []
     for coin in coins:
         walls = coin.murs_associes
@@ -83,6 +88,8 @@ def decode_plan(filename):
 
 
 def draw_main_stage(walls,width,height,TXx,TXy,fig,ax,receivers=None):
+
+    #Genere l'affichage de l'etage
 
     lines = []
 
@@ -112,15 +119,14 @@ def draw_main_stage(walls,width,height,TXx,TXy,fig,ax,receivers=None):
 
 def draw_rays(walls, rays_reflexion, width, height, TXx, TXy, RXx, RXy):
 
+    #Genere l'affichage des rayons
+
     print("\nGeneration de l'affichage graphique des rayons...")
 
     fig, ax = plot.subplots()
-
-    draw_main_stage(walls,width,height,TXx,TXy,fig,ax)
-    
+    draw_main_stage(walls,width,height,TXx,TXy,fig,ax)  
     ray_lines = []
-
-    ax.plot(RXx,RXy,"bo",markersize=10)
+    ax.plot(RXx,RXy,"b1",markersize=12) #Emetteur
 
     #Dessin des rayons
     for ray in rays_reflexion:
@@ -148,15 +154,12 @@ def draw_rays(walls, rays_reflexion, width, height, TXx, TXy, RXx, RXy):
 
 def draw_power_map(MURS,width,height,base,powers_dbm,receivers=None):
 
+    #Genere l'affichage de la carte de puissances
+
     print("\nGeneration de l'affichage graphique de la puissance...")
 
     fig, ax = plot.subplots()
-    
     draw_main_stage(MURS,width,height,base.x,base.y,fig,ax,receivers)
-
-    #for i in range(len(powers_dbm)):
-    #    for j in range(len(powers_dbm[i])):
-    #        ax.text(i+0.5,j+0.5,str(round(powers_dbm[i][j])),horizontalalignment='center',verticalalignment='center',color='green')
     pwrs = full_transpose(powers_dbm)
     image = ax.imshow(pwrs, cmap='hot', interpolation='bicubic',extent=[0,width,height,0])
     fig.colorbar(image)
@@ -165,15 +168,12 @@ def draw_power_map(MURS,width,height,base,powers_dbm,receivers=None):
 
 def draw_bitrate_map(MURS,width,height,base,bitrate,receivers=None):
 
+    #Genere l'affichage du bitrate
+
     print("\nGeneration de l'affichage graphique du debit...")
 
     fig, ax = plot.subplots()
-
     draw_main_stage(MURS,width,height,base.x,base.y,fig,ax,receivers)
-
-    #for i in range(len(bitrate)):
-    #    for j in range(len(bitrate)):
-    #        ax.text(i+0.5,j+0.5,str(round(bitrate[i][j])),horizontalalignment='center',verticalalignment='center',color='green')
     bitrates = full_transpose(bitrate)
     image = ax.imshow(bitrates, cmap='bone', interpolation='bicubic',extent=[0,width,height,0])
     fig.colorbar(image)
@@ -181,4 +181,5 @@ def draw_bitrate_map(MURS,width,height,base,bitrate,receivers=None):
     ax.set_xlabel("Bitrate map [Mbps]")
 
 def show_maps():
+    #Affiche les fenetres
     plot.show()

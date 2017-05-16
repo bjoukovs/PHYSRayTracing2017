@@ -1,6 +1,6 @@
 from resources.const import *
 from input_output.IO import decode_plan, draw_rays, show_maps
-from processing.main_process import power_verif, calculate_all_coefficients
+from processing.main_process import power_cartography, calculate_all_coefficients
 from classes.receiver import Receiver
 from classes.coin import Coin
 from processing.direct import rayon_direct
@@ -91,7 +91,7 @@ for ray in RAYS_DIFFRACTION:
 print("le coefficient de diffraction attendu est :",coefth2)
 #print("le coefficient de diffraction au carré ici est :", coef*coef)
 #draw_rays(MURS,RAYS_DIFFRACTION,width,height,1,10,11,10)
-#power_verif(width,height,base,MURS,COINS,COINS_DIFFRACTION)
+power_cartography(width,height,base,MURS,COINS,COINS_DIFFRACTION)
 
 #2eme verif diffraction
 s = sqrt(5)

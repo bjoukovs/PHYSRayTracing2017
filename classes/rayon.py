@@ -4,10 +4,10 @@ from processing.analysis import intersect
 class Rayon(object):
 
     def __init__(self, start_point):
-        self.points_principaux = [] #debut, fin, diffraction
-        self.points_reflexions = []
+        self.points_principaux = [] #debut, fin, diffraction. ATTENTION, les points principaux contiennent aussi les points de reflexion
+        self.points_reflexions = [] #Les points de reflexion est seulement une "sous-liste" pour que ce soit plus facile de les identifier
         self.points_transmission = [] #transmission
-        self.points_principaux.append(start_point)
+        self.points_principaux.append(start_point) #Point de depart par defaut comme premier point principal
 
     @property
     def start_point(self):

@@ -5,7 +5,7 @@ class Receiver(object):
 
     #antenne receptrice, definie par sa position, sa hauteur equivalente, sa resistance
     #et son orientation dans le cas d'une antenne a rayonnement non-omnidirectionnel (par defaut 0 rad)
-    #modele utilise http://productfinder.pulseeng.com/files/datasheets/W3001.pdf
+    #modele par defaut http://productfinder.pulseeng.com/files/datasheets/W3001.pdf
 
     def __init__(self,x,y,ra=50,orientation=0):
         self._x = x

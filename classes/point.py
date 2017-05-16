@@ -1,5 +1,8 @@
 class Point(object):
 
+    #L'objet point defini un point par lequel passe un rayon. Il peut etre associe a un mur ou a un coin
+    #si il s'agit d'un point d'interaction du rayon avec l'environnement
+
     def __init__(self, x, y):
         self._x = x
         self._y = y
@@ -35,7 +38,6 @@ class Point(object):
 
     def set_direction(self,val):
         self._rayon_direction = val
-        #print("direction changee")
 
     def set_coefficient_value(self,val):
         self._coefficient_value = val
@@ -48,6 +50,7 @@ class Point(object):
         self.mur = mur
     
     def find_mur(self, murs):
+        #permet de verifier si le point se situe sur un mur de la liste murs
         c = None
         for mur in murs:
             if (self.mur.x1 == self.x and self.mur.x2 == self.x and ((self.y<=self.mur.get_ymax() and self.y>=self.mur.get_ymin()))) \
