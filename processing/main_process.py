@@ -36,7 +36,7 @@ def power_cartography(width,height,base,MURS,COINS,COINS_DIFFRACTION,receivers=N
                 RAYS_DIRECT, RAYS_REFLEXION, RAYS_DIFFRACTION = data[0], data[1], data[2]
 
                 calculate_all_coefficients(RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION) #calcul des coefficients
-
+                
                 power = calculate_total_power(base,receiver,RAYS_DIRECT,RAYS_REFLEXION,RAYS_DIFFRACTION) #calcul de la puissance recue
                 powers_dbm[i].append(10*log10(power*1000)) #definition de dBm
             else:
